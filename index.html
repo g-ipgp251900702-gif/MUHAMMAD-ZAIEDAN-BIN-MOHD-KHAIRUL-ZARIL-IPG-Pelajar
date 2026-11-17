@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Misi Editor Cilik - DLO Bahasa Melayu (SK 3.3)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f0f9ff;
+    }
+    h1, h2, h3, .font-display {
+      font-family: 'Fredoka', sans-serif;
+    }
+    .mission-card {
+      transition: all 0.25s ease;
+    }
+    .mission-card:hover {
+      transform: translateY(-3px);
+    }
+    .fade-in {
+      animation: fadeIn 0.35s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Header & Dashboard Status -->
+  <header class="bg-gradient-to-r from-sky-600 to-indigo-700 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-amber-400 text-indigo-950 font-display font-bold text-2xl w-11 h-11 rounded-2xl flex items-center justify-center shadow">
+          ✍️
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-wide">MISI EDITOR CILIK</h1>
+          <p class="text-xs text-sky-100">Bahasa Melayu • SK 3.3 (SP 3.3.1 & SP 3.3.2)</p>
+        </div>
+      </div>
+
+      <!-- Status Mata & Lencana -->
+      <div class="flex items-center gap-3 bg-white/15 backdrop-blur-sm px-4 py-2 rounded-2xl border border-white/20">
+        <div class="text-right">
+          <div class="text-xs text-sky-100">Markah Editor</div>
+          <div class="font-display font-bold text-lg text-amber-300"><span id="scoreDisplay">0</span> XP</div>
+        </div>
+        <div class="h-8 w-px bg-white/25"></div>
+        <div>
+          <div class="text-xs text-sky-100">Pangkat</div>
+          <div id="rankDisplay" class="font-bold text-sm text-white">Pelatih Baru</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigasi 5 Misi Utama -->
+  <nav class="bg-white border-b border-sky-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex overflow-x-auto gap-2 no-scrollbar" id="missionNav">
+      <button onclick="switchMission(0)" id="nav-0" class="nav-btn px-4 py-2 rounded-xl font-bold text-sm whitespace-nowrap bg-sky-600 text-white shadow">
+        🏠 Laman Utama
+      </button>
+      <button onclick="switchMission(1)" id="nav-1" class="nav-btn px-4 py-2 rounded-xl font-bold text-sm whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-sky-50">
+        1️⃣ Kenali Penulisan
+      </button>
+      <button onclick="switchMission(2)" id="nav-2" class="nav-btn px-4 py-2 rounded-xl font-bold text-sm whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-sky-50">
+        2️⃣ Penulis Hebat (SP 3.3.1)
+      </button>
+      <button onclick="switchMission(3)" id="nav-3" class="nav-btn px-4 py-2 rounded-xl font-bold text-sm whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-sky-50">
+        3️⃣ Detektif Bahasa (SP 3.3.2)
+      </button>
+      <button onclick="switchMission(4)" id="nav-4" class="nav-btn px-4 py-2 rounded-xl font-bold text-sm whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-sky-50">
+        4️⃣ Bengkel Editor AI
+      </button>
+      <button onclick="switchMission(5)" id="nav-5" class="nav-btn px-4 py-2 rounded-xl font-bold text-sm whitespace-nowrap bg-slate-100 text-slate-700 hover:bg-sky-50">
+        5️⃣ Cabaran & Refleksi
+      </button>
+    </div>
+  </nav>
+
+  <!-- Kandungan Utama -->
+  <main class="max-w-5xl mx-auto w-full px-4 py-6 flex-grow">
+
+    <!-- BAHAGIAN 0: PENGENALAN -->
+    <section id="mission-0" class="mission-section fade-in space-y-6">
+      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border border-sky-100">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="flex-1 space-y-4">
+            <span class="inline-block bg-amber-100 text-amber-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+              Objek Pembelajaran Digital (DLO)
+            </span>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800 leading-tight">
+              Selamat Datang ke Bilik Berita <span class="text-sky-600">Editor Cilik!</span>
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+              Hari ini anda dilantik sebagai <strong>Editor Cilik</strong>. Tugas anda adalah untuk menguasai teknik penulisan berformat dan tidak berformat, mendraf karangan, mengesan kesalahan bahasa, serta memurnikan penulisan menggunakan bantuan teknologi pintar.
+            </p>
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button onclick="switchMission(1)" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-6 py-3 rounded-2xl shadow-md transition">
+                Mulakan Misi 1 Sekarang 🚀
+              </button>
+            </div>
+          </div>
+          <div class="w-full md:w-72 bg-sky-50 rounded-2xl p-5 border border-sky-200 space-y-3">
+            <h3 class="font-bold text-sky-900 text-lg">🎯 Sasaran Misi Anda</h3>
+            <ul class="text-sm text-slate-700 space-y-2">
+              <li class="flex items-start gap-2"><span>✅</span> <span><strong>SP 3.3.1:</strong> Mendraf penulisan berformat & tidak berformat.</span></li>
+              <li class="flex items-start gap-2"><span>✅</span> <span><strong>SP 3.3.2:</strong> Mengedit & memurnikan ejaan, tanda baca, imbuhan & ayat.</span></li>
+              <li class="flex items-start gap-2"><span>🤖</span> <span><strong>Integrasi AI:</strong> Menilai cadangan pembaikan bahasa secara kritis.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kad Peta Misi -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div onclick="switchMission(1)" class="mission-card cursor-pointer bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="text-2xl mb-2">📚</div>
+          <h3 class="font-bold text-lg text-slate-800">1. Jom Kenali Penulisan</h3>
+          <p class="text-sm text-slate-500 mt-1">Nota interaktif dan kuiz pantas tentang format penulisan.</p>
+        </div>
+        <div onclick="switchMission(2)" class="mission-card cursor-pointer bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="text-2xl mb-2">📝</div>
+          <h3 class="font-bold text-lg text-slate-800">2. Misi Penulis Hebat</h3>
+          <p class="text-sm text-slate-500 mt-1">Pilih tajuk dan bina draf perenggan anda sendiri.</p>
+        </div>
+        <div onclick="switchMission(3)" class="mission-card cursor-pointer bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="text-2xl mb-2">🕵️</div>
+          <h3 class="font-bold text-lg text-slate-800">3. Misi Detektif Bahasa</h3>
+          <p class="text-sm text-slate-500 mt-1">Permainan klik dan baiki kesalahan bahasa dalam teks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAHAGIAN 1: JOM KENALI PENULISAN -->
+    <section id="mission-1" class="mission-section hidden fade-in space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-sky-100 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-sky-600 uppercase">Bahagian 1 • Pengenalan Konsep</span>
+          <h2 class="text-2xl font-bold text-slate-800 mt-1">Jom Kenali Penulisan Berformat & Tidak Berformat</h2>
+          <p class="text-slate-600 text-sm mt-1">Teliti perbezaan di bawah sebelum menjawab kuiz pengetahuan awal.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+            <h3 class="font-bold text-amber-900 text-lg mb-2">📋 Penulisan Berformat</h3>
+            <p class="text-sm text-slate-700 mb-3">Mempunyai struktur khas yang wajib dipatuhi seperti alamat, tarikh, tajuk, kata alu-aluan atau tandatangan.</p>
+            <div class="bg-white p-3 rounded-xl text-xs font-semibold text-amber-800 space-y-1">
+              <div>• Surat Kiriman Rasmi & Tidak Rasmi</div>
+              <div>• Catatan / Diari</div>
+              <div>• Laporan & Berita</div>
+              <div>• Syarahan / Ucapan / Dialog</div>
+            </div>
+          </div>
+
+          <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5">
+            <h3 class="font-bold text-emerald-900 text-lg mb-2">📖 Penulisan Tidak Berformat</h3>
+            <p class="text-sm text-slate-700 mb-3">Hanya memerlukan perenggan pendahuluan, isi-isi penting, dan penutup tanpa format khas.</p>
+            <div class="bg-white p-3 rounded-xl text-xs font-semibold text-emerald-800 space-y-1">
+              <div>• Karangan Keperihalan / Cerita</div>
+              <div>• Karangan Fakta / Penerangan</div>
+              <div>• Karangan Gambaran / Pengalaman</div>
+              <div>• Melengkapkan Cerita</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kuiz Ringkas Bahagian 1 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
+          <h3 class="font-bold text-slate-800 text-lg">⚡ Kuiz Kilat: Uji Pengetahuan Awal (+30 XP)</h3>
+          <div id="quiz1Container" class="space-y-4"></div>
+          <button onclick="checkQuiz1()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm shadow">
+            Semak Jawapan Kuiz
+          </button>
+          <div id="quiz1Feedback" class="hidden p-3 rounded-xl text-sm font-bold"></div>
+        </div>
+
+        <div class="flex justify-end">
+          <button onclick="switchMission(2)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">
+            Terus ke Misi 2: Penulis Hebat ➡️
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAHAGIAN 2: MISI PENULIS HEBAT (SP 3.3.1) -->
+    <section id="mission-2" class="mission-section hidden fade-in space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-sky-100 space-y-5">
+        <div>
+          <span class="text-xs font-bold text-indigo-600 uppercase">Bahagian 2 • SP 3.3.1 (Mendraf Penulisan)</span>
+          <h2 class="text-2xl font-bold text-slate-800 mt-1">Misi Penulis Hebat: Bina Draf Anda</h2>
+          <p class="text-slate-600 text-sm mt-1">Pilih satu tajuk misi, gunakan rangka idea yang disediakan, dan tulis draf sekurang-kurangnya 2 perenggan.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-1">1. Pilih Jenis & Tajuk Penulisan:</label>
+            <select id="topicSelect" onchange="updateTopicGuide()" class="w-full p-3 rounded-xl border border-slate-300 bg-slate-50 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="catatan">[Berformat - Catatan] Sambutan Hari Kebangsaan di Sekolah Saya</option>
+              <option value="surat">[Berformat - Surat Tidak Rasmi] Menceritakan Pengalaman Bercuti di Kampung</option>
+              <option value="fakta">[Tidak Berformat - Fakta] Faedah Membaca Buku kepada Murid</option>
+              <option value="cerita">[Tidak Berformat - Cerita] Pengalaman Membantu Jiran yang Dalam Kesusahan</option>
+            </select>
+          </div>
+          <div class="bg-sky-50 border border-sky-200 rounded-xl p-3 text-xs text-sky-900" id="topicGuideBox">
+            <strong>Panduan Format Catatan:</strong> Sertakan hari, tarikh, dan masa (contoh: <em>Sabtu, 31 Ogos 2026 • 8:00 pagi</em>) sebelum memulakan perenggan peristiwa.
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-sm font-bold text-slate-700">2. Ruang Draf Penulisan:</label>
+            <span id="wordCountDisplay" class="text-xs font-bold text-slate-500">0 patah perkataan</span>
+          </div>
+          <textarea id="draftEditor" oninput="updateWordCount()" rows="8" placeholder="Mula menulis draf perenggan anda di sini..." class="w-full p-4 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 leading-relaxed"></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <button onclick="insertStarterTemplate()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl text-xs">
+            ✨ Masukkan Templat Permulaan
+          </button>
+          <button onclick="saveDraftAndProceed()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow">
+            Simpan Draf (+40 XP) & Ke Misi 3 ➡️
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAHAGIAN 3: MISI DETEKTIF BAHASA (SP 3.3.2) -->
+    <section id="mission-3" class="mission-section hidden fade-in space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-sky-100 space-y-5">
+        <div class="flex flex-wrap justify-between items-start gap-2">
+          <div>
+            <span class="text-xs font-bold text-rose-600 uppercase">Bahagian 3 • SP 3.3.2 (Permainan Mengesan Kesalahan)</span>
+            <h2 class="text-2xl font-bold text-slate-800 mt-1">Misi Detektif Bahasa: Cari & Betulkan!</h2>
+            <p class="text-slate-600 text-sm mt-1">Klik pada perkataan yang berwarna merah/bergaris untuk membetulkan kesalahan ejaan, imbuhan, tanda baca atau kata.</p>
+          </div>
+          <div class="bg-rose-50 text-rose-700 border border-rose-200 px-3 py-1.5 rounded-xl text-xs font-extrabold">
+            Kesalahan Dibaiki: <span id="fixedCount">0</span> / 5
+          </div>
+        </div>
+
+        <!-- Perenggan Interaktif -->
+        <div class="bg-amber-50/70 border-2 border-amber-200 rounded-2xl p-6 text-lg leading-loose text-slate-800 font-medium" id="detectiveParagraph">
+          Pada hujung minggu yang lalu, Amin dan keluarganya telah 
+          <button onclick="openFixModal(0)" id="err-0" class="bg-rose-100 text-rose-700 border-b-2 border-rose-500 px-1.5 rounded font-bold hover:bg-rose-200">berkelah</button> 
+          di pantai Port Dickson. Mereka bertolak dari rumah pada pukul 7:30 pagi dengan menaiki kereta baharu ayah. Setibanya di sana, Amin membantu ibunya 
+          <button onclick="openFixModal(1)" id="err-1" class="bg-rose-100 text-rose-700 border-b-2 border-rose-500 px-1.5 rounded font-bold hover:bg-rose-200">mengangkat</button> 
+          bakul makanan ke bawah pokok yang rendang. Selepas itu, Amin dan adiknya mandi-manda di laut sambil diawasi oleh ayah mereka. Mereka berasa sangat 
+          <button onclick="openFixModal(2)" id="err-2" class="bg-rose-100 text-rose-700 border-b-2 border-rose-500 px-1.5 rounded font-bold hover:bg-rose-200">gembira sekali</button> 
+          kerana dapat meluangkan masa bersama-sama. Sebelum pulang, mereka tidak lupa untuk 
+          <button onclick="openFixModal(3)" id="err-3" class="bg-rose-100 text-rose-700 border-b-2 border-rose-500 px-1.5 rounded font-bold hover:bg-rose-200">membuangkan</button> 
+          sampah ke dalam tong sampah yang disediakan agar kebersihan pantai sentiasa 
+          <button onclick="openFixModal(4)" id="err-4" class="bg-rose-100 text-rose-700 border-b-2 border-rose-500 px-1.5 rounded font-bold hover:bg-rose-200">dijaga.</button>
+        </div>
+
+        <!-- Kotak Pilihan Pembetulan (Modal Inline) -->
+        <div id="fixBox" class="hidden bg-indigo-50 border border-indigo-200 rounded-2xl p-5 space-y-3 fade-in">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-extrabold uppercase text-indigo-700" id="fixCategory">Aspek Kesalahan</span>
+            <button onclick="closeFixModal()" class="text-slate-400 hover:text-slate-700 font-bold text-sm">✕ Tutup</button>
+          </div>
+          <p class="text-sm text-slate-700" id="fixHint">Petunjuk kesalahan akan dipaparkan di sini.</p>
+          <div class="flex flex-wrap gap-2" id="fixOptions"></div>
+          <p id="fixFeedback" class="text-sm font-bold"></p>
+        </div>
+
+        <div class="flex justify-end">
+          <button onclick="switchMission(4)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm">
+            Terus ke Misi 4: Bengkel Editor AI ➡️
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAHAGIAN 4: BENGKEL EDITOR DIGITAL + AI -->
+    <section id="mission-4" class="mission-section hidden fade-in space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-sky-100 space-y-5">
+        <div>
+          <span class="text-xs font-bold text-purple-600 uppercase">Bahagian 4 • Modification (SAMR) & Literasi AI</span>
+          <h2 class="text-2xl font-bold text-slate-800 mt-1">Bengkel Editor Digital & Pembantu Pintar AI</h2>
+          <p class="text-slate-600 text-sm mt-1">
+            Semak draf anda dari Misi 2. Klik <strong>"Minta Cadangan AI"</strong> untuk mengesan potensi kesalahan ejaan, kata ganda, atau struktur ayat. <em>Ingat: Anda ialah Editor! Nilai cadangan AI sebelum menerimanya.</em>
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Draf Murid -->
+          <div class="space-y-2">
+            <label class="text-sm font-bold text-slate-700">Draf Penulisan Anda (Boleh Disunting Terus):</label>
+            <textarea id="aiWorkshopEditor" rows="9" class="w-full p-4 rounded-2xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-800 leading-relaxed"></textarea>
+            <button onclick="runAiAssistant()" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-xl shadow flex items-center justify-center gap-2">
+              <span>🤖 Analisis Draf & Minta Cadangan AI</span>
+            </button>
+          </div>
+
+          <!-- Panel Maklum Balas AI -->
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+            <div>
+              <h3 class="font-bold text-purple-900 text-base flex items-center gap-2">
+                <span>💡 Laporan Penyuntingan AI</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">Klik "Terima Cadangan" hanya jika pembetulan tersebut tepat mengikut konteks ayat anda.</p>
+              <div id="aiSuggestionsList" class="mt-4 space-y-3 text-sm">
+                <div class="text-slate-400 italic text-center py-8">
+                  Klik butang "Analisis Draf & Minta Cadangan AI" di sebelah kiri untuk memulakan semakan pintar.
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-900">
+              <strong>Peringatan Editor:</strong> AI hanyalah alat bantuan. Pastikan anda menyemak semula tanda baca (huruf besar di awal ayat dan titik di akhir ayat) secara manual!
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          <button onclick="finalizeToMission5()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow">
+            Sahkan Suntingan (+50 XP) & Ke Misi Akhir ➡️
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAHAGIAN 5: CABARAN PENULIS CEMERLANG & REFLEKSI -->
+    <section id="mission-5" class="mission-section hidden fade-in space-y-6">
+      <div class="bg-white rounded-3xl p-6 shadow-md border border-sky-100 space-y-6">
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase">Bahagian 5 • Pentaksiran Sumatif & Refleksi</span>
+          <h2 class="text-2xl font-bold text-slate-800 mt-1">Cabaran Penulis Cemerlang & Sijil Digital</h2>
+          <p class="text-slate-600 text-sm mt-1">Lengkapkan maklumat diri dan refleksi pembelajaran untuk menjana hasil akhir penulisan anda.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-1">Nama Penuh Editor Cilik:</label>
+            <input type="text" id="studentName" placeholder="Contoh: Ahmad Daniel bin Razak" class="w-full p-3 rounded-xl border border-slate-300 text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-slate-700 mb-1">Kelas / Tahun:</label>
+            <input type="text" id="studentClass" placeholder="Contoh: 5 Bestari" class="w-full p-3 rounded-xl border border-slate-300 text-sm" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-1">Refleksi Kendiri: Apakah kesalahan bahasa yang berjaya anda baiki hari ini?</label>
+          <textarea id="reflectionInput" rows="3" placeholder="Tuliskan refleksi ringkas anda di sini..." class="w-full p-3 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+
+        <button onclick="generateFinalReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow text-sm">
+          🏆 Jana Hasil Penulisan & Sijil Editor Cilik
+        </button>
+
+        <!-- Paparan Sijil & Hasil Akhir -->
+        <div id="certificateBox" class="hidden border-4 border-double border-amber-400 bg-gradient-to-br from-amber-50 to-white rounded-3xl p-6 md:p-8 space-y-4 shadow-lg">
+          <div class="text-center space-y-1">
+            <div class="text-3xl">🏅</div>
+            <h3 class="font-display text-2xl font-bold text-indigo-900">SIJIL PENGIKTIRAFAN EDITOR CILIK</h3>
+            <p class="text-xs text-slate-500">Dianugerahkan kepada:</p>
+            <p id="certName" class="text-xl font-extrabold text-sky-700 underline decoration-amber-400"></p>
+            <p id="certClass" class="text-sm font-bold text-slate-600"></p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-2">
+            <div class="text-xs font-bold text-slate-400 uppercase">Karya Penulisan Dimurnikan:</div>
+            <p id="certEssay" class="text-sm text-slate-800 whitespace-pre-line leading-relaxed"></p>
+          </div>
+
+          <div class="bg-sky-50 rounded-xl p-3 text-xs text-sky-900">
+            <strong>Refleksi Murid:</strong> <span id="certReflection"></span>
+          </div>
+
+          <div class="flex flex-wrap justify-between items-center pt-2 gap-3">
+            <span class="text-xs font-bold text-emerald-700">Jumlah Markah Terkumpul: <span id="certScore"></span> XP</span>
+            <button onclick="downloadResultText()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-xs">
+              💾 Muat Turun Hasil Kerja (.txt)
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    DLO Misi Editor Cilik • Dibangunkan untuk Tugasan 3 EDUP6023 (SK 3.3 • SP 3.3.1 & SP 3.3.2)
+  </footer>
+
+  <script>
+    // --- STATE PERMAINAN ---
+    let score = 0;
+    let quiz1Completed = false;
+    let draftSaved = false;
+    let workshopCompleted = false;
+    let fixedErrors = [false, false, false, false, false];
+
+    function addScore(points) {
+      score += points;
+      document.getElementById('scoreDisplay').innerText = score;
+      const rankEl = document.getElementById('rankDisplay');
+      if (score >= 150) rankEl.innerText = "Ketua Editor 🌟";
+      else if (score >= 90) rankEl.innerText = "Editor Kanan 🎖️";
+      else if (score >= 40) rankEl.innerText = "Editor Muda ✍️";
+    }
+
+    // --- NAVIGASI ---
+    function switchMission(index) {
+      document.querySelectorAll('.mission-section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(`mission-${index}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+      const activeBtn = document.getElementById(`nav-${index}`);
+      activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+      activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow');
+
+      // Selaraskan teks draf ke Bengkel AI jika pengguna masuk ke Misi 4
+      if (index === 4) {
+        const currentDraft = document.getElementById('draftEditor').value;
+        const aiBox = document.getElementById('aiWorkshopEditor');
+        if (currentDraft.trim() !== "" && aiBox.value.trim() === "") {
+          aiBox.value = currentDraft;
+        } else if (aiBox.value.trim() === "") {
+          aiBox.value = "pada hari sabtu yang lalu, saya dan kawan kawan pergi ke perpustakaan awam. kami membaca pelbagai buku-buku cerita yang menarik di sana.";
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- BAHAGIAN 1: KUIZ ---
+    const quiz1Data = [
+      {
+        q: "1. Manakah antara berikut merupakan contoh penulisan BERFORMAT?",
+        options: ["Karangan Cerita", "Surat Kiriman Rasmi", "Karangan Gambaran"],
+        ans: 1
+      },
+      {
+        q: "2. Apakah fokus utama Standard Pembelajaran (SP) 3.3.2?",
+        options: ["Menghafal pantun", "Mengedit dan memurnikan ejaan, tanda baca & imbuhan", "Melukis poster"],
+        ans: 1
+      }
+    ];
+
+    function renderQuiz1() {
+      const container = document.getElementById('quiz1Container');
+      container.innerHTML = quiz1Data.map((item, qIdx) => `
+        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+          <p class="font-bold text-sm text-slate-800">${item.q}</p>
+          <div class="space-y-1.5">
+            ${item.options.map((opt, oIdx) => `
+              <label class="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
+                <input type="radio" name="q1_${qIdx}" value="${oIdx}" class="accent-sky-600">
+                <span>${opt}</span>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+    renderQuiz1();
+
+    function checkQuiz1() {
+      let correct = 0;
+      quiz1Data.forEach((item, idx) => {
+        const selected = document.querySelector(`input[name="q1_${idx}"]:checked`);
+        if (selected && parseInt(selected.value) === item.ans) correct++;
+      });
+      const fb = document.getElementById('quiz1Feedback');
+      fb.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'bg-amber-100', 'text-amber-800');
+      if (correct === quiz1Data.length) {
+        fb.classList.add('bg-emerald-100', 'text-emerald-800');
+        fb.innerText = "Syabas! Semua jawapan tepat. Anda bersedia menjadi Editor Cilik!";
+        if (!quiz1Completed) { addScore(30); quiz1Completed = true; }
+      } else {
+        fb.classList.add('bg-amber-100', 'text-amber-800');
+        fb.innerText = `Anda mendapat ${correct}/${quiz1Data.length}. Cuba semak semula nota di atas!`;
+      }
+    }
+
+    // --- BAHAGIAN 2: PENULIS HEBAT ---
+    const topicGuides = {
+      catatan: {
+        guide: "<strong>Panduan Format Catatan:</strong> Sertakan hari, tarikh, dan masa (contoh: <em>Sabtu, 31 Ogos 2026 • 8:00 pagi</em>) sebelum memulakan perenggan peristiwa.",
+        template: "Sabtu, 31 Ogos 2026\n\n8:00 pagi\nSemua murid dan guru berkumpul di dataran perhimpunan sekolah untuk menyambut Hari Kebangsaan. Suasana pada pagi itu sungguh meriah dengan kibaran Jalur Gemilang.\n\n9:30 pagi\nAcara dimulakan dengan nyanyian lagu Negaraku dan ucapan perasmian oleh Guru Besar."
+      },
+      surat: {
+        guide: "<strong>Panduan Surat Tidak Rasmi:</strong> Mulakan dengan alamat pengirim dan tarikh di sebelah kanan, diikuti kata menghadap surat (<em>Menemui sahabatku...</em>).",
+        template: "No. 12, Jalan Harmoni,\n43000 Kajang,\nSelangor.\n\n15 November 2026.\n\nMenemui sahabatku, Aisyah yang kini berada di Pulau Pinang. Apa khabar saudari? Saya berharap saudari dan keluarga sihat sejahtera."
+      },
+      fakta: {
+        guide: "<strong>Panduan Karangan Fakta:</strong> Mulakan dengan definisi atau kepentingan membaca secara umum dalam perenggan pendahuluan, diikuti isi pertama.",
+        template: "Membaca merupakan jambatan ilmu yang sangat penting dalam kehidupan seseorang murid. Amalan membaca dapat memberikan pelbagai faedah kepada kita.\n\nAntara faedah membaca buku ialah kita dapat menambahkan ilmu pengetahuan. Melalui pembacaan, kita dapat mengetahui isu semasa dan maklumat baharu."
+      },
+      cerita: {
+        guide: "<strong>Panduan Karangan Cerita:</strong> Gambarkan latar masa, tempat, dan watak dalam perenggan pertama sebelum menceritakan peristiwa utama.",
+        template: "Pada petang semalam, cuaca sungguh mendung. Saya sedang mengulang kaji pelajaran di ruang tamu rumah. Tiba-tiba, saya terdengar bunyi riuh-rendah dari arah rumah jiran saya, Mak Cik Limah.\n\nSaya segera menjenguk ke luar tingkap dan mendapati asap tebal keluar dari dapurnya."
+      }
+    };
+
+    function updateTopicGuide() {
+      const val = document.getElementById('topicSelect').value;
+      document.getElementById('topicGuideBox').innerHTML = topicGuides[val].guide;
+    }
+
+    function insertStarterTemplate() {
+      const val = document.getElementById('topicSelect').value;
+      document.getElementById('draftEditor').value = topicGuides[val].template;
+      updateWordCount();
+    }
+
+    function updateWordCount() {
+      const text = document.getElementById('draftEditor').value.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      document.getElementById('wordCountDisplay').innerText = `${words} patah perkataan`;
+    }
+
+    function saveDraftAndProceed() {
+      const text = document.getElementById('draftEditor').value.trim();
+      if (text.length < 20) {
+        alert("Sila tulis draf penulisan sekurang-kurangnya beberapa baris ayat terlebih dahulu (atau klik 'Masukkan Templat Permulaan').");
+        return;
+      }
+      document.getElementById('aiWorkshopEditor').value = text;
+      if (!draftSaved) { addScore(40); draftSaved = true; }
+      switchMission(3);
+    }
+
+    // --- BAHAGIAN 3: PERMAINAN DETEKTIF BAHASA ---
+    const detectiveErrors = [
+      {
+        category: "Aspek Ejaan / Imbuhan",
+        hint: "Perkataan 'berkelah' dieja dengan betul atau terdapat kesilapan? Eh, tunggu! Semak ejaan sebenar: 'berkelah' atau 'berkilah'?",
+        options: ["berkelah (Ejaan sudah betul!)", "berkilah", "berkelahan"],
+        correctIdx: 0,
+        fixedText: "berkelah",
+        explanation: "Tepat! 'Berkelah' ialah ejaan standard yang betul. Detektif yang teliti tidak mudah terkeliru!"
+      },
+      {
+        category: "Aspek Penggunaan Kata",
+        hint: "Bakul makanan tidak terlalu berat seperti almari. Kata kerja manakah lebih tepat untuk membawa bakul di tangan?",
+        options: ["memikul", "menjinjing", "menggalas"],
+        correctIdx: 1,
+        fixedText: "menjinjing",
+        explanation: "Betul! 'Menjinjing' bermaksud membawa sesuatu dengan tangan ke bawah (seperti bakul atau beg)."
+      },
+      {
+        category: "Aspek Tatabahasa (Kata Penguat)",
+        hint: "Kata penguat 'sangat' tidak boleh digabungkan bersama kata penguat 'sekali' pada masa yang sama.",
+        options: ["sangat gembira sekali", "gembira", "amat gembira sekali"],
+        correctIdx: 1,
+        fixedText: "gembira",
+        explanation: "Syabas! Frasa yang betul ialah 'sangat gembira' atau 'gembira sekali' (tidak boleh kedua-duanya)."
+      },
+      {
+        category: "Aspek Penggunaan Imbuhan",
+        hint: "Imbuhan apitan 'meN-...-kan' tidak perlu jika objek selepasnya ialah 'sampah' dalam binaan ayat ini.",
+        options: ["membuang", "terbuang", "dibuang"],
+        correctIdx: 0,
+        fixedText: "membuang",
+        explanation: "Tepat sekali! Kata kerja transitif yang betul ialah 'membuang sampah'."
+      },
+      {
+        category: "Aspek Imbuhan Pasif",
+        hint: "Kebersihan pantai perlu sentiasa dalam keadaan bagaimana? Pilih imbuhan ter- yang paling sesuai.",
+        options: ["menjaga", "terjaga", "penjaga"],
+        correctIdx: 1,
+        fixedText: "terjaga",
+        explanation: "Cemerlang! 'Terjaga' bermaksud dalam keadaan terpelihara atau bersih."
+      }
+    ];
+
+    let currentErrorIdx = null;
+
+    function openFixModal(idx) {
+      currentErrorIdx = idx;
+      const data = detectiveErrors[idx];
+      document.getElementById('fixBox').classList.remove('hidden');
+      document.getElementById('fixCategory').innerText = data.category;
+      document.getElementById('fixHint').innerText = data.hint;
+      document.getElementById('fixFeedback').innerText = "";
+
+      const optContainer = document.getElementById('fixOptions');
+      optContainer.innerHTML = data.options.map((opt, oIdx) => `
+        <button onclick="selectFixOption(${idx}, ${oIdx})" class="bg-white hover:bg-indigo-600 hover:text-white border border-indigo-300 text-indigo-900 font-bold px-4 py-2 rounded-xl text-sm transition">
+          ${opt}
+        </button>
+      `).join('');
+    }
+
+    function closeFixModal() {
+      document.getElementById('fixBox').classList.add('hidden');
+    }
+
+    function selectFixOption(errIdx, optIdx) {
+      const data = detectiveErrors[errIdx];
+      const fb = document.getElementById('fixFeedback');
+      if (optIdx === data.correctIdx) {
+        fb.className = "text-sm font-bold text-emerald-700";
+        fb.innerText = "✅ " + data.explanation;
+
+        const wordBtn = document.getElementById(`err-${errIdx}`);
+        wordBtn.innerText = data.fixedText;
+        wordBtn.className = "bg-emerald-100 text-emerald-800 border-b-2 border-emerald-500 px-1.5 rounded font-bold";
+
+        if (!fixedErrors[errIdx]) {
+          fixedErrors[errIdx] = true;
+          addScore(10);
+          document.getElementById('fixedCount').innerText = fixedErrors.filter(Boolean).length;
+        }
+      } else {
+        fb.className = "text-sm font-bold text-rose-600";
+        fb.innerText = "❌ Kurang tepat. Cuba baca petunjuk sekali lagi!";
+      }
+    }
+
+    // --- BAHAGIAN 4: SIMULASI PENYUNTINGAN AI ---
+    const aiRules = [
+      {
+        pattern: /\bpelbagai buku-buku\b/gi,
+        replacement: "pelbagai buku",
+        title: "Kesalahan Kata Bilangan + Kata Ganda",
+        reason: "Kata 'pelbagai' sudah menunjukkan maksud banyak, maka tidak perlu menggandakan perkataan 'buku'."
+      },
+      {
+        pattern: /\bkawan kawan\b/gi,
+        replacement: "kawan-kawan",
+        title: "Kesalahan Tanda Baca (Tanda Sempang)",
+        reason: "Kata ganda penuh mesti menggunakan tanda sempang (-)."
+      },
+      {
+        pattern: /\bdi sana\b/g,
+        replacement: "di sana",
+        title: "Pengesahan Kata Sendi Nama 'di'",
+        reason: "'di sana' dieja terpisah kerana menunjukkan tempat. Penggunaan anda sudah tepat!"
+      },
+      {
+        pattern: /\bdiantara\b/gi,
+        replacement: "di antara",
+        title: "Kesalahan Ejaan Kata Sendi",
+        reason: "'di antara' hendaklah dieja terpisah kerana merujuk kedudukan."
+      },
+      {
+        pattern: /\bibubapa\b/gi,
+        replacement: "ibu bapa",
+        title: "Kesalahan Ejaan Kata Majmuk",
+        reason: "'ibu bapa' ialah kata majmuk yang dieja terpisah."
+      }
+    ];
+
+    function runAiAssistant() {
+      const editor = document.getElementById('aiWorkshopEditor');
+      const text = editor.value;
+      const listContainer = document.getElementById('aiSuggestionsList');
+      let findings = [];
+
+      // Semak huruf kecil di permulaan ayat
+      if (/^[a-z]/.test(text.trim())) {
+        findings.push({
+          title: "Huruf Besar Permulaan Ayat",
+          reason: "Ayat pertama anda bermula dengan huruf kecil. Gunakan huruf besar pada permulaan ayat.",
+          canAutoFix: true,
+          applyFix: () => {
+            editor.value = editor.value.replace(/^\s*([a-z])/, (m, p1) => m.replace(p1, p1.toUpperCase()));
+            runAiAssistant();
+          }
+        });
+      }
+
+      // Semak peraturan tatabahasa khusus
+      aiRules.forEach((rule, idx) => {
+        if (rule.pattern.test(text)) {
+          const isAlreadyRight = rule.title.includes("Pengesahan");
+          findings.push({
+            title: rule.title,
+            reason: rule.reason,
+            canAutoFix: !isAlreadyRight,
+            replacement: rule.replacement,
+            applyFix: () => {
+              editor.value = editor.value.replace(rule.pattern, rule.replacement);
+              runAiAssistant();
+            }
+          });
+        }
+      });
+
+      // Semak titik di akhir perenggan
+      if (text.trim().length > 0 && !/[.!?]$/.test(text.trim())) {
+        findings.push({
+          title: "Tanda Noktah (.) di Akhir Perenggan",
+          reason: "Perenggan anda tidak diakhiri dengan tanda noktah.",
+          canAutoFix: true,
+          applyFix: () => {
+            editor.value = editor.value.trim() + ".";
+            runAiAssistant();
+          }
+        });
+      }
+
+      if (findings.length === 0) {
+        listContainer.innerHTML = `
+          <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl">
+            <strong>✨ Analisis AI Selesai:</strong> Tiada kesalahan ketara dikesan! Sila baca semula draf anda untuk memastikan kelancaran idea sebelum mengesahkan suntingan.
+          </div>`;
+        return;
+      }
+
+      listContainer.innerHTML = "";
+      findings.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = "bg-white border border-purple-200 p-3.5 rounded-xl shadow-sm space-y-2";
+        card.innerHTML = `
+          <div class="font-bold text-purple-900 text-xs uppercase">${item.title}</div>
+          <p class="text-xs text-slate-600">${item.reason}</p>
+        `;
+        if (item.canAutoFix) {
+          const btn = document.createElement('button');
+          btn.className = "bg-purple-100 hover:bg-purple-600 hover:text-white text-purple-800 font-bold px-3 py-1 rounded-lg text-xs transition";
+          btn.innerText = "✓ Terima Cadangan AI";
+          btn.onclick = item.applyFix;
+          card.appendChild(btn);
+        }
+        listContainer.appendChild(card);
+      });
+    }
+
+    function finalizeToMission5() {
+      if (!workshopCompleted) {
+        addScore(50);
+        workshopCompleted = true;
+      }
+      switchMission(5);
+    }
+
+    // --- BAHAGIAN 5: SIJIL & MUAT TURUN ---
+    function generateFinalReport() {
+      const name = document.getElementById('studentName').value.trim() || "Editor Cilik Hebat";
+      const sClass = document.getElementById('studentClass').value.trim() || "Kelas Bahasa Melayu";
+      const finalEssay = document.getElementById('aiWorkshopEditor').value.trim() || document.getElementById('draftEditor').value.trim();
+      const reflection = document.getElementById('reflectionInput').value.trim() || "Saya telah belajar cara menyemak ejaan, imbuhan dan tanda baca dengan teliti.";
+
+      if (!finalEssay) {
+        alert("Sila pastikan anda telah menulis draf karangan di Bahagian 2 atau Bahagian 4.");
+        return;
+      }
+
+      document.getElementById('certName').innerText = name;
+      document.getElementById('certClass').innerText = sClass;
+      document.getElementById('certEssay').innerText = finalEssay;
+      document.getElementById('certReflection').innerText = reflection;
+      document.getElementById('certScore').innerText = score;
+
+      document.getElementById('certificateBox').classList.remove('hidden');
+    }
+
+    function downloadResultText() {
+      const name = document.getElementById('certName').innerText;
+      const sClass = document.getElementById('certClass').innerText;
+      const essay = document.getElementById('certEssay').innerText;
+      const reflection = document.getElementById('certReflection').innerText;
+
+      const content = `=== PORTFOLIO MISI EDITOR CILIK (SK 3.3) ===\nNama: ${name}\nKelas: ${sClass}\nMarkah XP: ${score} XP\n\n--- HASIL PENULISAN DIMURNIKAN ---\n${essay}\n\n--- REFLEKSI MURID ---\n${reflection}\n`;
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `Hasil_Editor_Cilik_${name.replace(/\s+/g, '_')}.txt`;
+      link.click();
+    }
+  </script>
+</body>
+</html>
