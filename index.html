@@ -2,888 +2,922 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misi Editor Cilik - Permainan Bahasa Melayu (SK 3.3)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misi Editor Cilik - Permainan Interaktif Bahasa Melayu</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f0f9ff;
+            --card: #ffffff;
+            --text: #1e293b;
+        }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Fredoka', sans-serif;
-            user-select: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: #1e293b;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: linear-gradient(135deg, #bae6fd 0%, #e0e7ff 100%);
+            color: var(--text);
             min-height: 100vh;
-            overflow: hidden;
-            color: #fff;
-        }
-
-        #game-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            height: 100vh;
-            max-height: 820px;
-            background: #0f172a;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-            border-radius: 16px;
-        }
-
-        canvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* HUD Top Bar */
-        #hud {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .hud-box {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(6px);
-            padding: 8px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        #level-indicator {
-            position: absolute;
-            top: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.85);
-            padding: 5px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #38bdf8;
-            border: 1px solid #38bdf8;
-            z-index: 10;
-            white-space: nowrap;
-        }
-
-        /* Overlays (Start, Quiz, Level Complete, Game Over) */
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.92);
-            backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 25px;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 850px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        /* Header */
+        header {
             text-align: center;
-            z-index: 20;
-            transition: opacity 0.3s ease;
+            margin-bottom: 15px;
         }
 
-        .hidden {
-            display: none !important;
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 2.2rem;
+            text-shadow: 1px 1px 0px #fff;
         }
 
-        h1 {
-            font-size: 32px;
-            color: #facc15;
-            margin-bottom: 8px;
-            text-shadow: 0 4px 10px rgba(250, 204, 21, 0.3);
+        header p {
+            color: #475569;
+            font-weight: 500;
         }
 
-        h2 {
-            font-size: 24px;
-            color: #38bdf8;
-            margin-bottom: 12px;
+        /* Login Screen */
+        #login-screen {
+            text-align: center;
+            padding: 30px 10px;
         }
 
-        p {
-            font-size: 15px;
-            color: #cbd5e1;
-            line-height: 1.5;
-            margin-bottom: 20px;
+        .badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #b45309;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], select {
+            width: 80%;
+            max-width: 350px;
+            padding: 12px 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin: 10px 0;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--primary);
         }
 
         .btn {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
+            background: var(--primary);
             color: white;
             border: none;
             padding: 14px 28px;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
             cursor: pointer;
-            box-shadow: 0 6px 0 #92400e;
-            transition: transform 0.1s, box-shadow 0.1s;
-            margin: 6px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 2px 0 #92400e;
-        }
-
-        .btn-blue {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            box-shadow: 0 6px 0 #0c4a6e;
-        }
-
-        .btn-blue:active {
-            box-shadow: 0 2px 0 #0c4a6e;
-        }
-
-        /* Quiz Modal Styling */
-        .quiz-card {
-            background: #1e293b;
-            border: 2px solid #38bdf8;
-            border-radius: 18px;
-            padding: 22px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        }
-
-        .quiz-badge {
+            transition: transform 0.1s, background 0.2s;
+            margin-top: 10px;
             display: inline-block;
-            background: #0284c7;
-            color: #fff;
-            font-size: 12px;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-            font-weight: 600;
         }
 
-        .quiz-question {
-            font-size: 18px;
-            color: #f8fafc;
-            margin-bottom: 18px;
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: #d97706;
+        }
+
+        /* Game Area */
+        #game-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hud {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px 12px 0 0;
+            font-weight: bold;
+        }
+
+        .hud span {
+            color: #fbbf24;
+        }
+
+        canvas {
+            background: #334155;
+            width: 100%;
+            max-width: 650px;
+            height: 420px;
+            display: block;
+            border-radius: 0 0 12px 12px;
+            cursor: pointer;
+        }
+
+        .controls-hint {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #475569;
+            text-align: center;
+        }
+
+        .mobile-controls {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .ctrl-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .ctrl-btn:active {
+            background: #cbd5e1;
+        }
+
+        /* Quiz Modal */
+        #quiz-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.75);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 100%;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.25s ease-out;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .mission-tag {
+            background: #e0e7ff;
+            color: var(--primary-dark);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
             font-weight: 600;
-            line-height: 1.4;
+            margin-bottom: 18px;
+            line-height: 1.5;
         }
 
         .option-btn {
             display: block;
             width: 100%;
             text-align: left;
-            background: #334155;
-            color: #f8fafc;
-            border: 2px solid #475569;
             padding: 12px 16px;
             margin-bottom: 10px;
-            border-radius: 12px;
-            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            background: #f8fafc;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.15s;
         }
 
         .option-btn:hover {
-            background: #475569;
-            border-color: #38bdf8;
+            border-color: var(--primary);
+            background: #eef2ff;
         }
 
-        .option-btn.correct {
-            background: #16a34a !important;
-            border-color: #4ade80 !important;
-            color: white;
-        }
-
-        .option-btn.wrong {
-            background: #dc2626 !important;
-            border-color: #f87171 !important;
-            color: white;
-        }
-
-        #feedback-text {
+        #feedback-msg {
             margin-top: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            min-height: 20px;
+            font-weight: bold;
+            text-align: center;
+            min-height: 24px;
         }
 
-        /* Mobile On-Screen Controls */
-        #mobile-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            width: 100%;
+        /* Scoreboard Panel */
+        .scoreboard h2 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
-            justify-content: space-between;
-            padding: 0 25px;
-            z-index: 15;
-            pointer-events: none;
-        }
-
-        .control-btn {
-            pointer-events: auto;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            color: white;
-            font-size: 28px;
-            display: flex;
-            justify-content: center;
             align-items: center;
-            backdrop-filter: blur(4px);
-            cursor: pointer;
+            gap: 8px;
         }
 
-        .control-btn:active {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(0.95);
-        }
-
-        .level-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            width: 100%;
-            max-width: 340px;
+        .player-stats {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 10px;
             margin-bottom: 15px;
         }
 
-        .level-select-btn {
-            background: #334155;
-            border: 2px solid #475569;
-            color: white;
-            padding: 12px;
-            border-radius: 12px;
-            text-align: left;
+        .score-list {
+            list-style: none;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.95rem;
+        }
+
+        .score-item:nth-child(1) { background: #fef9c3; border-radius: 8px; font-weight: bold; }
+        .score-item:nth-child(2) { background: #f1f5f9; border-radius: 8px; }
+        .score-item:nth-child(3) { background: #ffedd5; border-radius: 8px; }
+
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.8rem;
             cursor: pointer;
-            transition: 0.2s;
+            margin-top: 15px;
+            text-decoration: underline;
         }
 
-        .level-select-btn:hover {
-            border-color: #facc15;
-            background: #3f4e64;
-        }
-
-        .level-select-btn strong {
-            display: block;
-            color: #facc15;
-            font-size: 16px;
-        }
-
-        .level-select-btn span {
-            font-size: 12px;
-            color: #cbd5e1;
+        /* Stage Banner */
+        #stage-banner {
+            background: #eef2ff;
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            width: 100%;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
 
-<div id="game-wrapper">
-    <!-- HUD -->
-    <div id="hud" class="hidden">
-        <div class="hud-box">⭐ Skor: <span id="score-val">0</span></div>
-        <div class="hud-box">❤️ Nyawa: <span id="lives-val">3</span></div>
-    </div>
-    <div id="level-indicator" class="hidden">Tahap 1: Kampung Pendidikan</div>
+    <header>
+        <h1>✍️ MISI EDITOR CILIK</h1>
+        <p>Jom Menulis, Menyemak dan Memurnikan Penulisan! (SK 3.3 | SP 3.3.1 & 3.3.2)</p>
+    </header>
 
-    <!-- Canvas -->
-    <canvas id="gameCanvas"></canvas>
+    <div class="container">
+        <!-- RUANGAN UTAMA: MUKA HADAPAN & PERMAINAN -->
+        <div class="card">
+            <!-- 1. MUKA HADAPAN (LOGIN) -->
+            <div id="login-screen">
+                <span class="badge">Digital Learning Object (DLO) Bahasa Melayu</span>
+                <h2>Selamat Datang, Editor Cilik!</h2>
+                <p style="margin: 10px 0 20px; color: #64748b;">
+                    Selesaikan 4 misi larian ilmu: <strong>Kampung Pendidikan</strong>, <strong>Bandar Penulis</strong>, <strong>Jambatan Bahasa</strong>, dan <strong>Istana Bahasa</strong>.
+                </p>
 
-    <!-- Mobile / On-Screen Controls -->
-    <div id="mobile-controls" class="hidden">
-        <button class="control-btn" id="btn-left">◀</button>
-        <button class="control-btn" id="btn-right">▶</button>
-    </div>
+                <div>
+                    <label for="player-name" style="display:block; font-weight:bold;">Masukkan Nama Penuh Pelajar:</label>
+                    <input type="text" id="player-name" placeholder="Contoh: Ahmad Daniel" autocomplete="off">
+                </div>
 
-    <!-- Start Screen -->
-    <div id="start-screen" class="overlay">
-        <div style="font-size: 54px; margin-bottom: 10px;">✍️🏆</div>
-        <h1>MISI EDITOR CILIK</h1>
-        <p><strong>Bahasa Melayu (SK 3.3 | SP 3.3.1 & 3.3.2)</strong><br>
-        Kawal watak Editor Cilik, elak halangan bahasa, dan kumpul Buku Ilmu untuk menjawab cabaran penulisan!</p>
-        
-        <div class="level-grid">
-            <button class="level-select-btn" onclick="startGame(0)">
-                <strong>1. Kampung Pendidikan</strong>
-                <span>Misi Kutipan Ilmu (Asas Penulisan)</span>
-            </button>
-            <button class="level-select-btn" onclick="startGame(1)">
-                <strong>2. Bandar Penulis</strong>
-                <span>Larian Penulis Pantas (SP 3.3.1)</span>
-            </button>
-            <button class="level-select-btn" onclick="startGame(2)">
-                <strong>3. Jambatan Bahasa</strong>
-                <span>Elak Kesalahan Ejaan & Imbuhan (SP 3.3.2)</span>
-            </button>
-            <button class="level-select-btn" onclick="startGame(3)">
-                <strong>4. Istana Bahasa</strong>
-                <span>Cabaran Juara (Gabungan SP 3.3.1 & 3.3.2)</span>
-            </button>
+                <div>
+                    <label for="player-class" style="display:block; font-weight:bold; margin-top:8px;">Kelas / Tahun (Pilihan):</label>
+                    <input type="text" id="player-class" placeholder="Contoh: 5 Bestari" autocomplete="off">
+                </div>
+
+                <button class="btn" onclick="startGame()">🚀 MULA MISI SEKARANG</button>
+            </div>
+
+            <!-- 2. SKRIN PERMAINAN -->
+            <div id="game-screen">
+                <div id="stage-banner">
+                    <strong>Misi Semasa:</strong> <span id="mission-title">1. Kampung Pendidikan – Misi Kutipan Ilmu</span>
+                </div>
+
+                <div class="hud">
+                    <div>Pelajar: <span id="hud-name">-</span></div>
+                    <div>Nyawa: <span id="hud-lives">❤️❤️❤️</span></div>
+                    <div>Markah: <span id="hud-score">0</span></div>
+                </div>
+
+                <canvas id="gameCanvas" width="650" height="420"></canvas>
+
+                <div class="controls-hint">
+                    Gunakan kekunci <strong>Anak Panah Kiri (⬅️) / Kanan (➡️)</strong> atau klik butang di bawah untuk bertukar lorong. Kutip <strong>Buku (📘)</strong> untuk jawab soalan dan elak <strong>Halangan (🚧)</strong>!
+                </div>
+
+                <div class="mobile-controls">
+                    <button class="ctrl-btn" onclick="moveLeft()">⬅️ Kiri</button>
+                    <button class="ctrl-btn" onclick="moveRight()">Kanan ➡️</button>
+                </div>
+
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;" onclick="resetToMenu()">Tukar Pelajar / Tamat</button>
+                </div>
+            </div>
         </div>
-        <p style="font-size: 12px; margin-bottom: 0;">Guna kekunci <strong>◀ / ▶</strong> atau butang pada skrin untuk bergerak.</p>
-    </div>
 
-    <!-- Quiz Modal -->
-    <div id="quiz-screen" class="overlay hidden">
-        <div class="quiz-card">
-            <div class="quiz-badge" id="quiz-topic">Misi Kutipan Ilmu</div>
-            <div class="quiz-question" id="quiz-question-text">Soalan di sini...</div>
-            <div id="quiz-options"></div>
-            <div id="feedback-text"></div>
-        </div>
-    </div>
-
-    <!-- Level Complete Screen -->
-    <div id="level-complete-screen" class="overlay hidden">
-        <div style="font-size: 60px; margin-bottom: 10px;">🎉</div>
-        <h2 id="complete-title">Tahap Selesai!</h2>
-        <p id="complete-desc">Tahniah Editor Cilik! Anda berjaya melepasi misi ini.</p>
-        <div class="hud-box" style="margin-bottom: 20px; font-size: 20px;">
-            Skor Terkumpul: <span id="complete-score">0</span>
-        </div>
-        <button class="btn" id="next-level-btn" onclick="nextLevel()">Teruskan ke Tahap Seterusnya ▶</button>
-        <button class="btn btn-blue" onclick="showMenu()">Menu Utama</button>
-    </div>
-
-    <!-- Game Over / Victory Screen -->
-    <div id="end-screen" class="overlay hidden">
-        <div id="end-icon" style="font-size: 64px; margin-bottom: 10px;">🏅</div>
-        <h1 id="end-title">TAMAT MISI!</h1>
-        <p id="end-message">Syabas! Anda telah diiktiraf sebagai Editor Cilik Cemerlang.</p>
-        <div class="hud-box" style="margin-bottom: 25px; font-size: 22px; color: #facc15;">
-            Markah Akhir: <span id="final-score">0</span>
-        </div>
-        <button class="btn" onclick="showMenu()">Main Semula</button>
-    </div>
-</div>
-
-<script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-
-    // Tetapan saiz canvas responsif
-    function resizeCanvas() {
-        const wrapper = document.getElementById('game-wrapper');
-        canvas.width = wrapper.clientWidth;
-        canvas.height = wrapper.clientHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    // Data 4 Tahap Permainan & Bank Soalan berdasarkan Cadangan DLO
-    const levels = [
-        {
-            name: "Tahap 1: Kampung Pendidikan",
-            subtitle: "Misi Kutipan Ilmu (Pengenalan Penulisan)",
-            bgTop: "#15803d",
-            bgBottom: "#166534",
-            roadColor: "#d97706",
-            laneLine: "#fef08a",
-            speed: 4.5,
-            obstacleEmoji: "🪨",
-            obstacleLabel: "Batu",
-            collectibleEmoji: "📘",
-            questions: [
-                {
-                    q: "Apakah tujuan utama sesuatu penulisan dihasilkan?",
-                    options: ["A. Menyampaikan maklumat", "B. Mengelirukan pembaca", "C. Mengulang perkataan"],
-                    ans: 0,
-                    info: "Tepat! Penulisan bertujuan menyampaikan maklumat, idea atau cerita dengan jelas."
-                },
-                {
-                    q: "Antara berikut, yang manakah contoh penulisan berformat?",
-                    options: ["A. Cerita pengalaman", "B. Surat rasmi", "C. Cerita rekaan"],
-                    ans: 1,
-                    info: "Betul! Surat rasmi mempunyai format khusus seperti alamat, tarikh dan tandatangan."
-                },
-                {
-                    q: "Apakah ciri penulisan yang baik?",
-                    options: ["A. Idea tersusun", "B. Banyak kesalahan ejaan", "C. Tiada tanda baca"],
-                    ans: 0,
-                    info: "Syabas! Idea yang tersusun memudahkan pembaca memahami isi karangan."
-                }
-            ]
-        },
-        {
-            name: "Tahap 2: Bandar Penulis",
-            subtitle: "Larian Penulis Pantas (SP 3.3.1)",
-            bgTop: "#0369a1",
-            bgBottom: "#1e3a8a",
-            roadColor: "#475569",
-            laneLine: "#ffffff",
-            speed: 5.5,
-            obstacleEmoji: "🚧",
-            obstacleLabel: "Sekatan",
-            collectibleEmoji: "📝",
-            questions: [
-                {
-                    q: "Yang manakah merupakan penulisan berformat?",
-                    options: ["A. Surat rasmi", "B. Cerita pengalaman", "C. Cereka sains"],
-                    ans: 0,
-                    info: "Tepat! Surat rasmi tergolong dalam jenis penulisan berformat."
-                },
-                {
-                    q: "Antara berikut, yang manakah contoh penulisan tidak berformat?",
-                    options: ["A. Surat kiriman rasmi", "B. Laporan rasmi", "C. Cerita pengalaman"],
-                    ans: 2,
-                    info: "Betul! Cerita pengalaman ditulis dalam perenggan biasa tanpa format khusus."
-                },
-                {
-                    q: "Apakah perkara yang perlu ada dalam penulisan berformat?",
-                    options: ["A. Susunan mengikut format", "B. Perkataan secara rawak", "C. Ayat tanpa susunan"],
-                    ans: 0,
-                    info: "Cemerlang! Penulisan berformat mesti mematuhi struktur yang ditetapkan."
-                }
-            ]
-        },
-        {
-            name: "Tahap 3: Jambatan Bahasa",
-            subtitle: "Elak Kesalahan Bahasa (SP 3.3.2)",
-            bgTop: "#b45309",
-            bgBottom: "#78350f",
-            roadColor: "#92400e",
-            laneLine: "#fde68a",
-            speed: 6.2,
-            obstacleEmoji: "❌",
-            obstacleLabel: "Salah Eja",
-            collectibleEmoji: "🔍",
-            questions: [
-                {
-                    q: "Pilih ejaan yang betul.",
-                    options: ["A. Sekola", "B. Sekolah", "C. Sekolahh"],
-                    ans: 1,
-                    info: "Tepat! Ejaan yang betul ialah 'Sekolah'."
-                },
-                {
-                    q: "Pilih tanda baca yang sesuai: \"Wah, cantiknya bangunan sekolah itu___\"",
-                    options: ["A. !", "B. ?", "C. ,"],
-                    ans: 0,
-                    info: "Betul! Kata seru 'Wah' memerlukan tanda seru (!) di akhir ayat."
-                },
-                {
-                    q: "Pilih perkataan berimbuhan yang betul.",
-                    options: ["A. Membaca", "B. Memembaca", "C. Membacaan"],
-                    ans: 0,
-                    info: "Syabas! Imbuhan awalan 'mem-' + 'baca' menjadi 'membaca'."
-                },
-                {
-                    q: "Pilih ayat yang betul strukturnya.",
-                    options: [
-                        "A. Murid-murid sedang membaca buku.",
-                        "B. Murid-murid sedang baca buku-buku itu dengan membaca.",
-                        "C. Murid sedang membaca-bacaan buku."
-                    ],
-                    ans: 0,
-                    info: "Cemerlang! Ayat A gramatis dan tepat dari segi tatabahasa."
-                }
-            ]
-        },
-        {
-            name: "Tahap 4: Istana Bahasa",
-            subtitle: "Cabaran Juara (SP 3.3.1 & 3.3.2)",
-            bgTop: "#6d28d9",
-            bgBottom: "#4c1d95",
-            roadColor: "#312e81",
-            laneLine: "#facc15",
-            speed: 7.0,
-            obstacleEmoji: "🔥",
-            obstacleLabel: "Halangan",
-            collectibleEmoji: "👑",
-            questions: [
-                {
-                    q: "Ali ingin menulis surat kepada guru besar untuk memohon kebenaran. Apakah jenis penulisan yang sesuai?",
-                    options: ["A. Surat rasmi", "B. Cerita pengalaman", "C. Pantun"],
-                    ans: 0,
-                    info: "Tepat! Urusan rasmi dengan pihak sekolah menggunakan format Surat Kiriman Rasmi."
-                },
-                {
-                    q: "Pilih ayat yang mempunyai tanda baca yang betul.",
-                    options: [
-                        "A. Ibu membeli buku, pensel dan pembaris.",
-                        "B. Ibu membeli buku pensel dan pembaris?",
-                        "C. Ibu membeli buku! pensel dan pembaris."
-                    ],
-                    ans: 0,
-                    info: "Betul! Tanda koma (,) digunakan untuk memisahkan unsur dalam siri dan noktah (.) di akhir ayat penyata."
-                },
-                {
-                    q: "Pilih ayat yang paling sesuai untuk penulisan tentang sejarah pendidikan.",
-                    options: [
-                        "A. Sekolah memainkan peranan penting dalam pendidikan masyarakat.",
-                        "B. Sekolah itu sangat dan pendidikan pergi.",
-                        "C. Pendidikan sekolah masyarakat bermain."
-                    ],
-                    ans: 0,
-                    info: "Syabas! Ayat A mempunyai subjek dan predikat yang lengkap serta bermakna."
-                },
-                {
-                    q: "Pilih ayat yang telah dimurnikan dengan tepat.",
-                    options: [
-                        "A. Murid-murid mengunjungi perpustakaan untuk membaca buku.",
-                        "B. Murid-murid mengunjungi perpustakaan untuk membacas buku.",
-                        "C. Murid-murid mengunjungi perpustakaan untuk membaca-bacaan buku."
-                    ],
-                    ans: 0,
-                    info: "Tahniah Juara! Pemurnian ejaan dan imbuhan yang sangat tepat."
-                }
-            ]
-        }
-    ];
-
-    // Pemboleh ubah keadaan permainan
-    let currentLevelIdx = 0;
-    let score = 0;
-    let lives = 3;
-    let gameState = 'MENU'; // MENU, PLAYING, QUIZ, LEVEL_END, GAME_OVER
-    let playerLane = 1; // 0 = Kiri, 1 = Tengah, 2 = Kanan
-    let playerX = 0;
-    let entities = [];
-    let roadOffset = 0;
-    let questionIdx = 0;
-    let spawnTimer = 0;
-    let animationFrameId;
-
-    // Kawalan Papan Kekunci
-    window.addEventListener('keydown', (e) => {
-        if (gameState !== 'PLAYING') return;
-        if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') moveLeft();
-        if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') moveRight();
-    });
-
-    // Kawalan Butang Skrin
-    document.getElementById('btn-left').addEventListener('click', moveLeft);
-    document.getElementById('btn-right').addEventListener('click', moveRight);
-
-    // Kawalan Swipe (Sentuhan)
-    let touchStartX = 0;
-    canvas.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, {passive: true});
-
-    canvas.addEventListener('touchend', (e) => {
-        if (gameState !== 'PLAYING') return;
-        let touchEndX = e.changedTouches[0].screenX;
-        if (touchEndX < touchStartX - 30) moveLeft();
-        if (touchEndX > touchStartX + 30) moveRight();
-    }, {passive: true});
-
-    function moveLeft() {
-        if (playerLane > 0) playerLane--;
-    }
-
-    function moveRight() {
-        if (playerLane < 2) playerLane++;
-    }
-
-    function showMenu() {
-        cancelAnimationFrame(animationFrameId);
-        gameState = 'MENU';
-        document.getElementById('start-screen').classList.remove('hidden');
-        document.getElementById('hud').classList.add('hidden');
-        document.getElementById('level-indicator').classList.add('hidden');
-        document.getElementById('mobile-controls').classList.add('hidden');
-        document.getElementById('quiz-screen').classList.add('hidden');
-        document.getElementById('level-complete-screen').classList.add('hidden');
-        document.getElementById('end-screen').classList.add('hidden');
-    }
-
-    function startGame(levelIndex) {
-        currentLevelIdx = levelIndex;
-        if (levelIndex === 0) {
-            score = 0;
-            lives = 3;
-        } else if (lives <= 0) {
-            score = 0;
-            lives = 3;
-        }
-        initLevel();
-    }
-
-    function initLevel() {
-        const lvl = levels[currentLevelIdx];
-        questionIdx = 0;
-        entities = [];
-        playerLane = 1;
-        spawnTimer = 0;
-        gameState = 'PLAYING';
-
-        // Kemaskini UI
-        document.getElementById('start-screen').classList.add('hidden');
-        document.getElementById('level-complete-screen').classList.add('hidden');
-        document.getElementById('end-screen').classList.add('hidden');
-        document.getElementById('quiz-screen').classList.add('hidden');
-        
-        document.getElementById('hud').classList.remove('hidden');
-        document.getElementById('level-indicator').classList.remove('hidden');
-        document.getElementById('mobile-controls').classList.remove('hidden');
-
-        document.getElementById('level-indicator').innerText = lvl.name;
-        updateHUD();
-
-        const laneWidth = canvas.width / 3;
-        playerX = playerLane * laneWidth + laneWidth / 2;
-
-        cancelAnimationFrame(animationFrameId);
-        gameLoop();
-    }
-
-    function updateHUD() {
-        document.getElementById('score-val').innerText = score;
-        document.getElementById('lives-val').innerText = lives;
-    }
-
-    function spawnEntity() {
-        const lvl = levels[currentLevelIdx];
-        const lane = Math.floor(Math.random() * 3);
-        // Pastikan setiap 2-3 objek akan muncul Buku Ilmu / Soalan
-        const isCollectible = (Math.random() < 0.45);
-        
-        entities.push({
-            lane: lane,
-            y: -60,
-            type: isCollectible ? 'BOOK' : 'OBSTACLE',
-            emoji: isCollectible ? lvl.collectibleEmoji : lvl.obstacleEmoji
-        });
-    }
-
-    function triggerQuiz() {
-        gameState = 'QUIZ';
-        const lvl = levels[currentLevelIdx];
-        const qData = lvl.questions[questionIdx];
-
-        document.getElementById('quiz-topic').innerText = lvl.subtitle;
-        document.getElementById('quiz-question-text').innerText = qData.q;
-        document.getElementById('feedback-text').innerText = '';
-
-        const optionsContainer = document.getElementById('quiz-options');
-        optionsContainer.innerHTML = '';
-
-        qData.options.forEach((optText, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = optText;
-            btn.onclick = () => handleAnswer(index, btn, qData);
-            optionsContainer.appendChild(btn);
-        });
-
-        document.getElementById('quiz-screen').classList.remove('hidden');
-    }
-
-    function handleAnswer(selectedIndex, btnElement, qData) {
-        const allBtns = document.querySelectorAll('.option-btn');
-        allBtns.forEach(b => b.disabled = true);
-
-        const feedback = document.getElementById('feedback-text');
-
-        if (selectedIndex === qData.ans) {
-            btnElement.classList.add('correct');
-            score += 100;
-            feedback.style.color = '#4ade80';
-            feedback.innerText = "✅ " + qData.info;
-        } else {
-            btnElement.classList.add('wrong');
-            allBtns[qData.ans].classList.add('correct');
-            lives--;
-            feedback.style.color = '#f87171';
-            feedback.innerText = "❌ Kurang tepat. " + qData.info;
-        }
-
-        updateHUD();
-
-        setTimeout(() => {
-            document.getElementById('quiz-screen').classList.add('hidden');
+        <!-- RUANGAN TERSENDIRI: PAPARAN MARKAH -->
+        <div class="card scoreboard">
+            <h2>🏆 Papan Markah Editor Cilik</h2>
             
-            if (lives <= 0) {
-                endGame(false);
+            <div class="player-stats">
+                <div style="font-size: 0.85rem; color: #64748b;">Status Semasa:</div>
+                <div id="current-status" style="font-weight: bold; margin-top: 4px;">Belum log masuk</div>
+                <div id="current-mission-progress" style="font-size: 0.85rem; color: var(--primary); margin-top: 4px;"></div>
+            </div>
+
+            <h3 style="font-size: 1rem; margin-bottom: 10px; color: #334155;">Rekod Markah Tertinggi:</h3>
+            <ul class="score-list" id="leaderboard-list">
+                <!-- Senarai markah akan dijana oleh JavaScript -->
+            </ul>
+
+            <button class="clear-btn" onclick="clearScores()">Padam Rekod Markah</button>
+        </div>
+    </div>
+
+    <!-- MODAL SOALAN INTERAKTIF -->
+    <div id="quiz-modal">
+        <div class="modal-content">
+            <span class="mission-tag" id="modal-mission">Misi 1</span>
+            <div class="question-text" id="modal-question">Soalan di sini?</div>
+            <div id="modal-options"></div>
+            <div id="feedback-msg"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- PANGKALAN DATA SOALAN (4 MISI DLO) ---
+        const missions = [
+            {
+                id: 1,
+                title: "1. Kampung Pendidikan – Misi Kutipan Ilmu",
+                themeColor: "#15803d", // Hijau Kampung
+                roadColor: "#475569",
+                questions: [
+                    {
+                        q: "Apakah tujuan utama sesuatu penulisan dihasilkan?",
+                        options: ["A. Menyampaikan maklumat", "B. Mengelirukan pembaca", "C. Mengulang perkataan"],
+                        answer: 0
+                    },
+                    {
+                        q: "Antara berikut, yang manakah contoh penulisan berformat?",
+                        options: ["A. Cerita pengalaman", "B. Surat rasmi", "C. Cerita rekaan"],
+                        answer: 1
+                    },
+                    {
+                        q: "Apakah ciri penulisan yang baik?",
+                        options: ["A. Idea tersusun", "B. Banyak kesalahan", "C. Tiada tanda baca"],
+                        answer: 0
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "2. Bandar Penulis – Larian Penulis Pantas (SP 3.3.1)",
+                themeColor: "#0369a1", // Biru Bandar
+                roadColor: "#334155",
+                questions: [
+                    {
+                        q: "Yang manakah merupakan penulisan berformat?",
+                        options: ["A. Surat rasmi", "B. Cerita pengalaman", "C. Catatan harian tidak rasmi"],
+                        answer: 0
+                    },
+                    {
+                        q: "Antara berikut, yang manakah contoh penulisan tidak berformat?",
+                        options: ["A. Surat kiriman rasmi", "B. Laporan rasmi", "C. Cerita pengalaman"],
+                        answer: 2
+                    },
+                    {
+                        q: "Apakah perkara yang perlu ada dalam penulisan yang mempunyai format tertentu?",
+                        options: ["A. Susunan mengikut format", "B. Perkataan secara rawak", "C. Ayat tanpa susunan"],
+                        answer: 0
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "3. Jambatan Bahasa – Elak Kesalahan (SP 3.3.2)",
+                themeColor: "#b45309", // Oren Jambatan
+                roadColor: "#78350f",
+                questions: [
+                    {
+                        q: "Pilih ejaan yang betul.",
+                        options: ["A. Sekola", "B. Sekolah", "C. Sekolahh"],
+                        answer: 1
+                    },
+                    {
+                        q: "Pilih tanda baca yang sesuai: \"Wah, cantiknya bangunan sekolah itu___\"",
+                        options: ["A. !", "B. ?", "C. ,"],
+                        answer: 0
+                    },
+                    {
+                        q: "Pilih perkataan berimbuhan yang betul.",
+                        options: ["A. Membaca", "B. Memembaca", "C. Membacaan"],
+                        answer: 0
+                    },
+                    {
+                        q: "Pilih ayat yang betul.",
+                        options: [
+                            "A. Murid-murid sedang membaca buku.",
+                            "B. Murid-murid sedang baca buku-buku itu dengan membaca.",
+                            "C. Murid sedang membaca-bacaan buku."
+                        ],
+                        answer: 0
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "4. Istana Bahasa – Cabaran Juara (SP 3.3.1 & 3.3.2)",
+                themeColor: "#6d28d9", // Ungu Istana
+                roadColor: "#1e1b4b",
+                questions: [
+                    {
+                        q: "Ali ingin menulis surat kepada guru besar untuk memohon kebenaran. Apakah jenis penulisan yang sesuai?",
+                        options: ["A. Surat rasmi", "B. Cerita pengalaman", "C. Pantun"],
+                        answer: 0
+                    },
+                    {
+                        q: "Pilih ayat yang mempunyai tanda baca yang betul.",
+                        options: [
+                            "A. Ibu membeli buku, pensel dan pembaris.",
+                            "B. Ibu membeli buku pensel dan pembaris?",
+                            "C. Ibu membeli buku! pensel dan pembaris."
+                        ],
+                        answer: 0
+                    },
+                    {
+                        q: "Pilih ayat yang paling sesuai untuk penulisan tentang sejarah pendidikan.",
+                        options: [
+                            "A. Sekolah memainkan peranan penting dalam pendidikan masyarakat.",
+                            "B. Sekolah itu sangat dan pendidikan pergi.",
+                            "C. Pendidikan sekolah masyarakat bermain."
+                        ],
+                        answer: 0
+                    },
+                    {
+                        q: "Pilih ayat yang telah dimurnikan.",
+                        options: [
+                            "A. Murid-murid mengunjungi perpustakaan untuk membaca buku.",
+                            "B. Murid-murid mengunjungi perpustakaan untuk membacas buku.",
+                            "C. Murid-murid mengunjungi perpustakaan untuk membaca-bacaan buku."
+                        ],
+                        answer: 0
+                    }
+                ]
+            }
+        ];
+
+        // --- PEMBOLEH UBAH PERMAINAN ---
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let playerName = "";
+        let playerClass = "";
+        let score = 0;
+        let lives = 3;
+        let currentMissionIdx = 0;
+        let currentQuestionIdx = 0;
+        let gameRunning = false;
+        let gamePaused = false;
+        let animationId;
+
+        // Lorong: 0 (Kiri), 1 (Tengah), 2 (Kanan)
+        let playerLane = 1;
+        let objects = []; // Buku (soalan) dan Halangan
+        let spawnTimer = 0;
+        let roadOffset = 0;
+
+        // --- FUNGSI PAPAN MARKAH (LOCAL STORAGE) ---
+        function loadLeaderboard() {
+            const list = document.getElementById("leaderboard-list");
+            const scores = JSON.parse(localStorage.getItem("editorCilikScores")) || [];
+            
+            if (scores.length === 0) {
+                list.innerHTML = `<li style="color:#94a3b8; font-size:0.9rem; text-align:center; padding:20px;">Belum ada rekod markah. Jadilah pemain pertama!</li>`;
                 return;
             }
 
-            questionIdx++;
-            if (questionIdx >= levels[currentLevelIdx].questions.length) {
-                // Tahap Selesai!
-                completeLevel();
+            // Susun markah tertinggi ke terendah
+            scores.sort((a, b) => b.score - a.score);
+
+            list.innerHTML = scores.map((item, idx) => `
+                <li class="score-item">
+                    <span>${idx + 1}. ${escapeHtml(item.name)} <small style="color:#64748b;">(${escapeHtml(item.kelas || '-')})</small></span>
+                    <span style="color:var(--primary-dark); font-weight:bold;">${item.score} mata</span>
+                </li>
+            `).join("");
+        }
+
+        function saveScore() {
+            if (!playerName) return;
+            let scores = JSON.parse(localStorage.getItem("editorCilikScores")) || [];
+            
+            // Kemas kini jika nama sudah wujud dan markah baharu lebih tinggi
+            const existingIndex = scores.findIndex(s => s.name.toLowerCase() === playerName.toLowerCase());
+            if (existingIndex !== -1) {
+                if (score > scores[existingIndex].score) {
+                    scores[existingIndex].score = score;
+                    scores[existingIndex].kelas = playerClass;
+                }
             } else {
-                // Sambung larian
-                entities = []; // Kosongkan halangan berdekatan supaya adil
-                gameState = 'PLAYING';
-                gameLoop();
+                scores.push({ name: playerName, kelas: playerClass, score: score });
             }
-        }, 2000);
-    }
 
-    function completeLevel() {
-        gameState = 'LEVEL_END';
-        if (currentLevelIdx >= levels.length - 1) {
-            endGame(true);
-        } else {
-            document.getElementById('complete-title').innerText = levels[currentLevelIdx].name + " Selesai!";
-            document.getElementById('complete-score').innerText = score;
-            document.getElementById('level-complete-screen').classList.remove('hidden');
-        }
-    }
-
-    function nextLevel() {
-        currentLevelIdx++;
-        initLevel();
-    }
-
-    function endGame(isVictory) {
-        gameState = 'GAME_OVER';
-        document.getElementById('hud').classList.add('hidden');
-        document.getElementById('level-indicator').classList.add('hidden');
-        document.getElementById('mobile-controls').classList.add('hidden');
-
-        const endIcon = document.getElementById('end-icon');
-        const endTitle = document.getElementById('end-title');
-        const endMsg = document.getElementById('end-message');
-
-        if (isVictory) {
-            endIcon.innerText = "🏆";
-            endTitle.innerText = "TAHNIAH, JUARA EDITOR CILIK!";
-            endTitle.style.color = "#facc15";
-            endMsg.innerText = "Anda berjaya menamatkan kesemua 4 misi penulisan dan penyuntingan Bahasa Melayu!";
-        } else {
-            endIcon.innerText = "💪";
-            endTitle.innerText = "CUBA LAGI!";
-            endTitle.style.color = "#f87171";
-            endMsg.innerText = "Jangan putus asa! Teruskan berlatih mengenal pasti kesalahan bahasa dan jenis penulisan.";
+            localStorage.setItem("editorCilikScores", JSON.stringify(scores));
+            loadLeaderboard();
         }
 
-        document.getElementById('final-score').innerText = score;
-        document.getElementById('end-screen').classList.remove('hidden');
-    }
+        function clearScores() {
+            if (confirm("Adakah anda pasti mahu memadam semua rekod markah?")) {
+                localStorage.removeItem("editorCilikScores");
+                loadLeaderboard();
+            }
+        }
 
-    function drawBackground(lvl) {
-        // Latar belakang bertema mengikut tahap
-        const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        grad.addColorStop(0, lvl.bgTop);
-        grad.addColorStop(1, lvl.bgBottom);
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
-        // Laluan 3 Lorong
-        const margin = canvas.width * 0.08;
-        const roadWidth = canvas.width - margin * 2;
-        ctx.fillStyle = lvl.roadColor;
-        ctx.fillRect(margin, 0, roadWidth, canvas.height);
+        // --- KAWALAN MULA & LOGIN ---
+        function startGame() {
+            const nameInput = document.getElementById("player-name").value.trim();
+            const classInput = document.getElementById("player-class").value.trim();
 
-        // Garisan tepi jalan
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(margin - 4, 0, 4, canvas.height);
-        ctx.fillRect(margin + roadWidth, 0, 4, canvas.height);
+            if (!nameInput) {
+                alert("Sila masukkan nama pelajar terlebih dahulu sebelum memulakan misi!");
+                return;
+            }
 
-        // Garisan pemisah 3 lorong bergerak
-        const laneW = roadWidth / 3;
-        ctx.strokeStyle = lvl.laneLine;
-        ctx.lineWidth = 4;
-        ctx.setLineDash([30, 25]);
-        ctx.lineDashOffset = -roadOffset;
+            playerName = nameInput;
+            playerClass = classInput || "Umum";
+            score = 0;
+            lives = 3;
+            currentMissionIdx = 0;
+            currentQuestionIdx = 0;
+            playerLane = 1;
+            objects = [];
+            gameRunning = true;
+            gamePaused = false;
 
-        for (let i = 1; i <= 2; i++) {
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("game-screen").style.display = "flex";
+            document.getElementById("hud-name").textContent = playerName;
+            
+            updateHUD();
+            updateStatusPanel();
+            saveScore();
+
+            cancelAnimationFrame(animationId);
+            gameLoop();
+        }
+
+        function resetToMenu() {
+            gameRunning = false;
+            cancelAnimationFrame(animationId);
+            saveScore();
+            document.getElementById("game-screen").style.display = "none";
+            document.getElementById("login-screen").style.display = "block";
+            document.getElementById("current-status").textContent = "Tamat sesi (" + playerName + ")";
+        }
+
+        function updateHUD() {
+            document.getElementById("hud-score").textContent = score;
+            document.getElementById("hud-lives").textContent = "❤️".repeat(Math.max(0, lives));
+            document.getElementById("mission-title").textContent = missions[currentMissionIdx].title;
+            updateStatusPanel();
+        }
+
+        function updateStatusPanel() {
+            document.getElementById("current-status").textContent = `${playerName} (${score} mata)`;
+            document.getElementById("current-mission-progress").textContent = 
+                `Misi ${currentMissionIdx + 1}/4 • Soalan ${currentQuestionIdx + 1}/${missions[currentMissionIdx].questions.length}`;
+        }
+
+        // --- KAWALAN PERGERAKAN ---
+        function moveLeft() {
+            if (!gameRunning || gamePaused) return;
+            if (playerLane > 0) playerLane--;
+        }
+
+        function moveRight() {
+            if (!gameRunning || gamePaused) return;
+            if (playerLane < 2) playerLane++;
+        }
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") moveLeft();
+            if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") moveRight();
+        });
+
+        // --- ENJIN LUKISAN 3D PERSPEKTIF (SUBWAY STYLE) ---
+        function getLaneX(lane, yProgress) {
+            // yProgress: 0 di ufuk (horizon), 1 di bawah skrin
+            const centerX = canvas.width / 2;
+            const horizonSpread = 45;
+            const bottomSpread = 170;
+            const spread = horizonSpread + (bottomSpread - horizonSpread) * yProgress;
+            return centerX + (lane - 1) * spread;
+        }
+
+        function spawnObject() {
+            const lane = Math.floor(Math.random() * 3);
+            // 55% peluang muncul Buku Soalan, 45% peluang Halangan
+            const type = Math.random() < 0.55 ? "book" : "obstacle";
+            objects.push({
+                lane: lane,
+                yProgress: 0.05,
+                type: type
+            });
+        }
+
+        function drawEnvironment() {
+            const mission = missions[currentMissionIdx];
+            
+            // Langit / Latar atas
+            ctx.fillStyle = mission.themeColor;
+            ctx.fillRect(0, 0, canvas.width, 120);
+
+            // Teks Latar Belakang Misi
+            ctx.fillStyle = "rgba(255,255,255,0.25)";
+            ctx.font = "bold 22px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(mission.title.toUpperCase(), canvas.width / 2, 65);
+
+            // Rumput / Kawasan tepi jalan
+            ctx.fillStyle = "#1e293b";
+            ctx.fillRect(0, 120, canvas.width, canvas.height - 120);
+
+            // Jalan 3 Lorong (Trapezoid Perspektif)
+            ctx.fillStyle = mission.roadColor;
             ctx.beginPath();
-            ctx.moveTo(margin + laneW * i, 0);
-            ctx.lineTo(margin + laneW * i, canvas.height);
-            ctx.stroke();
-        }
-        ctx.setLineDash([]);
-    }
+            ctx.moveTo(canvas.width / 2 - 75, 120);
+            ctx.lineTo(canvas.width / 2 + 75, 120);
+            ctx.lineTo(canvas.width / 2 + 260, canvas.height);
+            ctx.lineTo(canvas.width / 2 - 260, canvas.height);
+            ctx.closePath();
+            ctx.fill();
 
-    function gameLoop() {
-        if (gameState !== 'PLAYING') return;
+            // Garisan pembahagi lorong bergerak
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+            ctx.lineWidth = 3;
+            ctx.setLineDash([20, 20]);
+            ctx.lineDashOffset = -roadOffset;
 
-        const lvl = levels[currentLevelIdx];
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Gerakkan jalan
-        roadOffset += lvl.speed;
-        drawBackground(lvl);
-
-        // Kira posisi lorong
-        const margin = canvas.width * 0.08;
-        const roadWidth = canvas.width - margin * 2;
-        const laneW = roadWidth / 3;
-
-        // Pergerakan lancar watak pemain
-        const targetX = margin + playerLane * laneW + laneW / 2;
-        playerX += (targetX - playerX) * 0.25;
-        const playerY = canvas.height - 130;
-
-        // Lukis Watak Editor Cilik
-        ctx.font = "46px Arial";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("🧑‍🎓", playerX, playerY);
-
-        // Jana halangan / buku ilmu
-        spawnTimer++;
-        if (spawnTimer > 65) {
-            spawnEntity();
-            spawnTimer = 0;
-        }
-
-        // Kemaskini & Lukis Objek
-        for (let i = entities.length - 1; i >= 0; i--) {
-            let ent = entities[i];
-            ent.y += lvl.speed;
-            let entX = margin + ent.lane * laneW + laneW / 2;
-
-            // Lukis bulatan cahaya di belakang buku ilmu
-            if (ent.type === 'BOOK') {
+            [-0.5, 0.5].forEach(offset => {
                 ctx.beginPath();
-                ctx.arc(entX, ent.y, 26, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(250, 204, 21, 0.35)";
-                ctx.fill();
-            }
+                ctx.moveTo(canvas.width / 2 + offset * 50, 120);
+                ctx.lineTo(canvas.width / 2 + offset * 175, canvas.height);
+                ctx.stroke();
+            });
+            ctx.setLineDash([]);
+        }
 
-            ctx.font = "38px Arial";
-            ctx.fillText(ent.emoji, entX, ent.y);
+        function drawPlayer() {
+            const x = getLaneX(playerLane, 0.88);
+            const y = 365;
 
-            // Semak perlanggaran (Collision Detection)
-            if (Math.abs(ent.y - playerY) < 38 && ent.lane === playerLane) {
-                if (ent.type === 'BOOK') {
-                    entities.splice(i, 1);
-                    triggerQuiz();
-                    return;
-                } else if (ent.type === 'OBSTACLE') {
-                    entities.splice(i, 1);
-                    lives--;
-                    updateHUD();
-                    // Kesan gegaran skrin ringkas
-                    canvas.style.transform = "translateX(6px)";
-                    setTimeout(() => canvas.style.transform = "translateX(0)", 100);
+            // Bayang-bayang
+            ctx.fillStyle = "rgba(0,0,0,0.4)";
+            ctx.beginPath();
+            ctx.ellipse(x, y + 25, 24, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
 
-                    if (lives <= 0) {
-                        endGame(false);
-                        return;
+            // Watak Editor Cilik
+            ctx.font = "44px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("🧑‍🎓", x, y + 15);
+        }
+
+        function updateAndDrawObjects() {
+            const speed = 0.008 + (currentMissionIdx * 0.0015);
+            roadOffset = (roadOffset + 6) % 40;
+
+            for (let i = objects.length - 1; i >= 0; i--) {
+                const obj = objects[i];
+                obj.yProgress += speed;
+
+                const x = getLaneX(obj.lane, obj.yProgress);
+                const y = 120 + (canvas.height - 120) * obj.yProgress;
+                const scale = 0.4 + obj.yProgress * 0.8;
+
+                ctx.font = `${Math.floor(38 * scale)}px sans-serif`;
+                ctx.textAlign = "center";
+
+                if (obj.type === "book") {
+                    ctx.fillText("📘", x, y);
+                } else {
+                    ctx.fillText("🚧", x, y);
+                }
+
+                // Semak pelanggaran dengan pemain
+                if (obj.yProgress > 0.80 && obj.yProgress < 0.93 && obj.lane === playerLane) {
+                    objects.splice(i, 1);
+                    if (obj.type === "book") {
+                        triggerQuestion();
+                    } else {
+                        handleHitObstacle();
                     }
+                    continue;
+                }
+
+                // Buang objek yang melepasi skrin
+                if (obj.yProgress > 1.05) {
+                    objects.splice(i, 1);
+                }
+            }
+        }
+
+        function handleHitObstacle() {
+            lives--;
+            updateHUD();
+            if (lives <= 0) {
+                gameRunning = false;
+                saveScore();
+                alert(`Tamat Permainan, ${playerName}! Anda melanggar terlalu banyak halangan.\nMarkah Akhir: ${score} mata.`);
+                resetToMenu();
+            }
+        }
+
+        // --- SISTEM SOALAN & NAIK TAHAP MISI ---
+        function triggerQuestion() {
+            gamePaused = true;
+            const mission = missions[currentMissionIdx];
+            const qData = mission.questions[currentQuestionIdx];
+
+            document.getElementById("modal-mission").textContent = mission.title;
+            document.getElementById("modal-question").textContent = qData.q;
+            document.getElementById("feedback-msg").textContent = "";
+
+            const optionsDiv = document.getElementById("modal-options");
+            optionsDiv.innerHTML = "";
+
+            qData.options.forEach((opt, index) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(index, qData.answer);
+                optionsDiv.appendChild(btn);
+            });
+
+            document.getElementById("quiz-modal").style.display = "flex";
+        }
+
+        function checkAnswer(selected, correct) {
+            const feedback = document.getElementById("feedback-msg");
+            const buttons = document.querySelectorAll(".option-btn");
+            buttons.forEach(b => b.disabled = true);
+
+            if (selected === correct) {
+                score += 25;
+                feedback.style.color = "var(--success)";
+                feedback.textContent = "✅ Tepat sekali! +25 mata ilmu!";
+                
+                setTimeout(() => {
+                    document.getElementById("quiz-modal").style.display = "none";
+                    advanceProgress();
+                }, 1000);
+            } else {
+                lives--;
+                feedback.style.color = "var(--danger)";
+                feedback.textContent = "❌ Kurang tepat! Cuba elak kesilapan bahasa.";
+
+                setTimeout(() => {
+                    document.getElementById("quiz-modal").style.display = "none";
+                    if (lives <= 0) {
+                        gameRunning = false;
+                        saveScore();
+                        alert(`Tamat Misi, ${playerName}! Nyawa telah habis.\nMarkah Akhir: ${score} mata.`);
+                        resetToMenu();
+                    } else {
+                        updateHUD();
+                        gamePaused = false;
+                        gameLoop();
+                    }
+                }, 1200);
+            }
+        }
+
+        function advanceProgress() {
+            const mission = missions[currentMissionIdx];
+            currentQuestionIdx++;
+
+            // Jika semua soalan dalam misi semasa telah dijawab
+            if (currentQuestionIdx >= mission.questions.length) {
+                currentMissionIdx++;
+                currentQuestionIdx = 0;
+                objects = []; // Kosongkan halangan untuk misi baharu
+
+                // Jika tamat semua 4 misi
+                if (currentMissionIdx >= missions.length) {
+                    score += 50; // Bonus tamat semua misi
+                    saveScore();
+                    gameRunning = false;
+                    alert(`🎉 TAHNIAH ${playerName.toUpperCase()}!\nAnda berjaya menamatkan kesemua 4 Misi Editor Cilik dan bergelar Juara Istana Bahasa!\n\nMarkah Keseluruhan: ${score} mata`);
+                    resetToMenu();
+                    return;
+                } else {
+                    alert(`🌟 Syabas! Anda berjaya melepasi misi ini.\nSeterusnya: ${missions[currentMissionIdx].title}`);
                 }
             }
 
-            // Buang objek yang melepasi skrin
-            if (ent.y > canvas.height + 50) {
-                entities.splice(i, 1);
-            }
+            saveScore();
+            updateHUD();
+            gamePaused = false;
+            gameLoop();
         }
 
-        animationFrameId = requestAnimationFrame(gameLoop);
-    }
-</script>
+        // --- GELUNG UTAMA PERMAINAN ---
+        function gameLoop() {
+            if (!gameRunning || gamePaused) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawEnvironment();
+
+            spawnTimer++;
+            if (spawnTimer > 55) {
+                spawnObject();
+                spawnTimer = 0;
+            }
+
+            updateAndDrawObjects();
+            drawPlayer();
+
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        // Muatkan papan markah sebaik halaman dibuka
+        loadLeaderboard();
+    </script>
 </body>
 </html>
