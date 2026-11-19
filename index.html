@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MISI EDITOR CILIK 3D: The Ultimate Bahasa Melayu Run!</title>
+  <title>MISI EDITOR CILIK: The Ultimate Bahasa Melayu Run!</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Three.js 3D Engine CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- Google Fonts: Fredoka & Nunito -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -19,11 +17,12 @@
       --electric-blue: #00E5FF;
       --bright-yellow: #FFD600;
       --energetic-orange: #FF6D00;
+      --track-dark: #0F172A;
     }
 
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: #0F172A;
+      background-color: #130929;
       color: #FFFFFF;
       overflow-x: hidden;
       user-select: none;
@@ -33,23 +32,15 @@
       font-family: 'Fredoka', sans-serif;
     }
 
-    /* Subway Surfers Style 3D Graffiti Logo */
-    .subway-logo-top {
-      background: linear-gradient(180deg, #FFF700 0%, #FFB800 55%, #FF6B00 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 4px 0 #1E1B4B) drop-shadow(0 7px 0 #9A3412) drop-shadow(0 0 18px rgba(255, 214, 0, 0.7));
-      letter-spacing: 0.03em;
+    .urban-bg {
+      background-color: #1A0B3B;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(108, 43, 217, 0.45) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(0, 229, 255, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(255, 109, 0, 0.28) 0%, transparent 50%),
+        linear-gradient(180deg, #160936 0%, #0F172A 100%);
     }
 
-    .subway-logo-sub {
-      background: linear-gradient(180deg, #67E8F9 0%, #06B6D4 60%, #2563EB 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 3px 0 #0F172A) drop-shadow(0 0 14px rgba(0, 229, 255, 0.75));
-    }
-
-    /* Arcade 3D Tactile Buttons */
     .btn-arcade {
       transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.12s ease;
     }
@@ -63,74 +54,111 @@
     .btn-yellow {
       background: linear-gradient(180deg, #FFE600 0%, #FFB300 100%);
       color: #1E1B4B;
-      box-shadow: 0 5px 0 #B45309, 0 10px 20px rgba(255, 214, 0, 0.35);
+      box-shadow: 0 6px 0 #B45309, 0 12px 20px rgba(255, 214, 0, 0.35);
     }
     .btn-orange {
       background: linear-gradient(180deg, #FF8A00 0%, #FF5500 100%);
       color: #FFFFFF;
-      box-shadow: 0 5px 0 #9A3412, 0 10px 20px rgba(255, 109, 0, 0.35);
+      box-shadow: 0 6px 0 #9A3412, 0 12px 20px rgba(255, 109, 0, 0.35);
     }
     .btn-cyan {
       background: linear-gradient(180deg, #38BDF8 0%, #0284C7 100%);
       color: #FFFFFF;
-      box-shadow: 0 5px 0 #075985, 0 10px 20px rgba(0, 229, 255, 0.3);
+      box-shadow: 0 6px 0 #075985, 0 12px 20px rgba(0, 229, 255, 0.3);
     }
     .btn-purple {
       background: linear-gradient(180deg, #8B5CF6 0%, #6D28D9 100%);
       color: #FFFFFF;
-      box-shadow: 0 5px 0 #4C1D95, 0 10px 20px rgba(109, 40, 217, 0.35);
+      box-shadow: 0 6px 0 #4C1D95, 0 12px 20px rgba(109, 40, 217, 0.35);
     }
     .btn-green {
       background: linear-gradient(180deg, #22C55E 0%, #16A34A 100%);
       color: #FFFFFF;
-      box-shadow: 0 5px 0 #14532D, 0 10px 20px rgba(34, 197, 94, 0.35);
+      box-shadow: 0 6px 0 #14532D, 0 12px 20px rgba(34, 197, 94, 0.35);
     }
 
     @keyframes floatSlow {
-      0%, 100% { transform: translateY(0px) rotate(-1deg); }
-      50% { transform: translateY(-8px) rotate(1deg); }
-    }
-    @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.9) translateY(12px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
     }
     @keyframes spinCoin {
       0% { transform: scaleX(1); }
       50% { transform: scaleX(0.2); }
       100% { transform: scaleX(1); }
     }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.85) translateY(15px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
 
     .animate-float { animation: floatSlow 3.2s ease-in-out infinite; }
-    .animate-pop { animation: popIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .animate-coin { animation: spinCoin 1.2s linear infinite; }
+    .animate-pop { animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-    /* Interactive 3D Flashcard */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #1E1B4B; }
+    ::-webkit-scrollbar-thumb { background: #6C2BD9; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00E5FF; }
+
     .perspective-1000 { perspective: 1000px; }
     .transform-style-3d { transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .backface-hidden { backface-visibility: hidden; }
     .rotate-y-180 { transform: rotateY(180deg); }
 
-    canvas { display: block; touch-action: manipulation; }
+    canvas {
+      display: block;
+      touch-action: manipulation;
+    }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #1E1B4B; }
-    ::-webkit-scrollbar-thumb { background: #6C2BD9; border-radius: 9999px; }
+    /* 3D Front-Page Subway Scene */
+    .portal-scene{position:absolute;inset:0;overflow:hidden;perspective:900px;background:linear-gradient(#6bbcf0 0%,#b8dff5 42%,#d18a69 100%)}
+    .portal-sky{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 34%,#e0f5ff88,transparent 48%),linear-gradient(180deg,#60b8f4 0%,#b9d9ed 50%,#f5b58a 100%)}
+    .portal-city{position:absolute;bottom:25%;height:62%;width:42%;display:flex;align-items:stretch;gap:8px;transform-style:preserve-3d}
+    .city-left{left:-5%;transform:perspective(600px) rotateY(22deg);justify-content:flex-start}
+    .city-right{right:-5%;transform:perspective(600px) rotateY(-22deg);justify-content:flex-end}
+    .portal-city i{display:block;flex:1;background:linear-gradient(90deg,#754d50,#b87868 48%,#543d4c);border:5px solid #533e4b;box-shadow:inset 0 0 0 3px #e2a58a,12px 12px 20px #26334a55;position:relative}
+    .portal-city i:after{content:"";position:absolute;inset:12% 12%;background:repeating-linear-gradient(90deg,transparent 0 22px,#273c68 23px 40px,transparent 41px 58px),repeating-linear-gradient(0deg,transparent 0 30px,#273c68 31px 47px,transparent 48px 65px);opacity:.9}
+    .portal-street{position:absolute;left:10%;right:10%;bottom:-20%;height:62%;background:linear-gradient(90deg,#d5a18d,#f4d0ae 48%,#c98d79);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);border-top:5px solid #a86c60}
+    .portal-track{position:absolute;bottom:-12%;height:70%;width:5px;background:linear-gradient(#9da9b6,#344253);box-shadow:0 0 0 3px #6b5149;transform-origin:bottom}
+    .track-left{left:35%;transform:rotate(8deg)}.track-mid{left:50%;transform:rotate(0)}.track-right{right:35%;transform:rotate(-8deg)}
+    .portal-train{position:absolute;bottom:-8%;left:38%;width:25%;height:60%;border-radius:48% 48% 16% 16%;background:linear-gradient(90deg,#8797a6,#fff 28%,#dce7ed 65%,#788b9a);border:5px solid #6f7f8b;box-shadow:inset 0 0 20px #fff,0 20px 40px #25354d88;transform:perspective(700px) rotateX(7deg)}
+    .portal-train:before{content:"";position:absolute;top:4%;left:8%;right:8%;height:14%;background:#b9d9ef;border:5px solid #526b7e;border-radius:20px 20px 8px 8px}
+    .train-window{position:relative;display:inline-block;top:23%;left:10%;width:19%;height:12%;margin-right:3%;background:linear-gradient(135deg,#193c65,#8dc9f1);border:3px solid #d4e4eb;border-radius:5px}
+    .train-front{position:absolute;bottom:3%;left:40%;width:20%;height:7%;background:#ffd64d;border-radius:50%;box-shadow:0 0 25px #ffe58b}
+    .portal-coin{position:absolute;color:#fff2a6;background:linear-gradient(135deg,#fff36a,#f59e0b 55%,#b45309);border:3px solid #fff2a6;border-radius:50%;width:42px;height:42px;text-align:center;line-height:36px;font-size:23px;font-weight:900;box-shadow:0 0 22px #ffdb4b;animation:coinBob 2s ease-in-out infinite}
+    .coin-one{left:49%;top:33%}.coin-two{left:55%;top:45%;animation-delay:.4s}.coin-three{left:45%;top:55%;animation-delay:.8s}
+    .portal-runner{position:absolute;left:48%;bottom:12%;font-size:clamp(50px,7vw,90px);filter:drop-shadow(0 12px 8px #26334a88);animation:runnerBob .8s ease-in-out infinite alternate}
+    .portal-haze{position:absolute;inset:0;background:linear-gradient(90deg,#10142b55,transparent 48%,#10142b55);pointer-events:none}
+    .portal-shade{position:absolute;inset:0;background:linear-gradient(90deg,#11152caa 0%,#11152c55 52%,#11152c88 100%),linear-gradient(0deg,#101326aa,transparent 50%)}
+    @keyframes coinBob{50%{transform:translateY(-12px) rotateY(180deg)}}@keyframes runnerBob{to{transform:translateY(-9px)}}
+    .portal-login-card{background:linear-gradient(145deg,#171a35f2,#101326f5);border:2px solid #67d8ff;border-radius:28px;padding:clamp(18px,3vw,30px);box-shadow:0 25px 70px #02061799,inset 0 1px 0 #ffffff22;backdrop-filter:blur(16px);max-width:510px;width:100%;margin:auto}
+    .role-choice{border:1px solid #52617e;background:#222944;color:#cbd5e1;border-radius:14px;padding:12px 5px;font-weight:900;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:4px;transition:.2s}
+    .role-choice span{font-size:24px}.role-choice.active{background:linear-gradient(135deg,#7c3aed,#2563eb);border-color:#67e8f9;color:white;box-shadow:0 5px 0 #312e81}
+    .portal-label{display:block;color:#a5f3fc;font-size:12px;font-weight:900;margin:8px 0 5px}
+    .portal-input{width:100%;border:1px solid #475569;background:#0b1225;color:white;border-radius:12px;padding:12px 14px;font-weight:700;outline:none}
+    .portal-input:focus{border-color:#67e8f9;box-shadow:0 0 0 3px #22d3ee22}
+    .portal-submit{width:100%;border:0;border-radius:13px;padding:14px;background:linear-gradient(180deg,#ffe76a,#f59e0b);color:#30220a;font-weight:900;box-shadow:0 5px 0 #a16207,0 10px 22px #f59e0b33;margin-top:10px}
+    .portal-submit:active,.portal-small-btn:active{transform:translateY(3px);box-shadow:none}
+    .portal-logout{background:#7f1d1d;color:#fecaca;border:1px solid #f87171;border-radius:10px;padding:8px 12px;font-size:12px;font-weight:900}
+    .portal-subpanel{background:#0b1225;border:1px solid #475569;border-radius:16px;padding:14px}
+    .portal-small-btn{background:#0891b2;color:white;border-radius:10px;padding:0 15px;font-weight:900;white-space:nowrap}
+    .portal-list-wrap{border-top:1px solid #475569;margin-top:15px;padding-top:14px;max-height:170px;overflow:auto}
+    .portal-list-item{background:#263149;border:1px solid #475569;border-radius:10px;padding:9px 11px;color:#e2e8f0;font-size:12px;font-weight:800;display:flex;justify-content:space-between;gap:8px}
+    @media(max-width:640px){.portal-city{height:45%;bottom:22%}.portal-train{height:43%;width:32%;left:34%}.portal-runner{bottom:13%}.portal-shade{background:#11152c99}}
   </style>
 </head>
-<body class="min-h-screen flex flex-col bg-slate-950">
+<body class="urban-bg min-h-screen flex flex-col">
 
-  <!-- ==================== GLOBAL TOP HUD BAR (Untuk Mod Permainan Murid) ==================== -->
+  <!-- ==================== GLOBAL TOP HUD BAR ==================== -->
   <header id="top-hud" class="hidden sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b-4 border-purple-600 shadow-xl">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
-      <!-- Left: Brand + Avatar + Student Info -->
       <div class="flex items-center gap-3">
-        <button onclick="navigateTo('dashboard')" class="flex items-center gap-2.5 group text-left" title="Kembali ke Peta Misi">
+        <button onclick="navigateTo('dashboard')" class="flex items-center gap-2 group text-left" title="Kembali ke Dashboard">
           <div id="hud-avatar" class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-600 to-cyan-400 p-0.5 shadow-lg group-hover:scale-105 transition"></div>
           <div>
             <div class="flex items-center gap-1.5">
-              <span id="hud-name" class="font-display font-bold text-white text-sm sm:text-base leading-tight">Murid</span>
-              <span id="hud-class" class="text-xs font-extrabold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">Kelas</span>
+              <span id="hud-name" class="font-display font-bold text-white text-sm sm:text-base leading-tight">Murid Hebat</span>
+              <span id="hud-class" class="text-xs font-extrabold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">5 Bestari</span>
             </div>
             <div class="flex items-center gap-2 mt-0.5">
               <span id="hud-level" class="text-xs font-extrabold text-amber-300">Tahap 1: Perantis Editor</span>
@@ -139,16 +167,17 @@
         </button>
       </div>
 
-      <!-- Center: Coins, XP & Overall Progress -->
       <div class="flex items-center gap-2 sm:gap-4 flex-wrap">
         <div class="flex items-center gap-1.5 bg-slate-900 border-2 border-amber-400/70 px-3 py-1 rounded-full shadow-inner">
           <span class="inline-block w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 border border-yellow-100 text-amber-950 font-black text-xs flex items-center justify-center animate-coin">★</span>
           <span id="hud-coins" class="font-display font-bold text-yellow-300 text-sm sm:text-base">0</span>
         </div>
+
         <div class="flex items-center gap-1.5 bg-slate-900 border-2 border-cyan-400/70 px-3 py-1 rounded-full shadow-inner">
           <span class="text-xs font-black text-cyan-300">XP</span>
           <span id="hud-xp" class="font-display font-bold text-white text-sm sm:text-base">0</span>
         </div>
+
         <div class="hidden md:flex items-center gap-2 bg-slate-900 border-2 border-purple-500/70 px-3 py-1 rounded-full">
           <span class="text-xs font-bold text-purple-200">Kemajuan:</span>
           <div class="w-24 h-2.5 bg-slate-800 rounded-full overflow-hidden">
@@ -158,19 +187,18 @@
         </div>
       </div>
 
-      <!-- Right: Action Buttons -->
       <div class="flex items-center gap-1.5 sm:gap-2">
         <button onclick="navigateTo('dashboard')" class="btn-arcade bg-purple-700 hover:bg-purple-600 text-white text-xs sm:text-sm font-extrabold px-3 py-2 rounded-xl border border-purple-400/40 flex items-center gap-1">
-          <span>🗺️</span> <span class="hidden sm:inline">Peta Misi</span>
+          <span>🏠</span> <span class="hidden sm:inline">Dashboard</span>
         </button>
         <button onclick="openAchievementsModal()" class="btn-arcade bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs sm:text-sm font-extrabold px-3 py-2 rounded-xl flex items-center gap-1">
-          <span>🏆</span> <span class="hidden sm:inline">Lencana</span>
+          <span>🏆</span> <span class="hidden sm:inline">Pencapaian</span>
         </button>
-        <button id="btn-audio-toggle" onclick="toggleAudio()" class="btn-arcade bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 p-2 rounded-xl text-sm font-bold">
+        <button id="btn-audio-toggle" onclick="toggleAudio()" class="btn-arcade bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 p-2 rounded-xl text-sm font-bold" title="Kawal Muzik & Bunyi">
           🔊
         </button>
-        <button onclick="logoutToPortal()" class="btn-arcade bg-rose-700 hover:bg-rose-600 text-white text-xs sm:text-sm font-extrabold px-3 py-2 rounded-xl" title="Log Keluar">
-          🚪 <span class="hidden sm:inline">Keluar</span>
+        <button onclick="portalLogout()" class="btn-arcade bg-rose-800 hover:bg-rose-700 text-white border border-rose-500/40 px-2.5 py-2 rounded-xl text-xs font-extrabold" title="Log Keluar">
+          🚪 <span class="hidden md:inline">Keluar</span>
         </button>
       </div>
     </div>
@@ -179,376 +207,140 @@
   <!-- ==================== MAIN CONTENT AREA ==================== -->
   <main class="flex-1 flex flex-col">
 
-    <!-- ==================== VIEW 0: MUKA HADAPAN 3D SUBWAY SURF + PORTAL LOG MASUK 3 PERANAN ==================== -->
-    <section id="view-landing" class="relative min-h-screen flex flex-col justify-between overflow-hidden">
-      <!-- FULLSCREEN INTERACTIVE 3D SUBWAY WORLD CANVAS -->
-      <div id="hero-3d-container" class="fixed inset-0 z-0"></div>
-
-      <!-- Top Floating Bar: Audio & Character Switcher -->
-      <div class="relative z-20 max-w-7xl mx-auto w-full px-4 pt-4 flex flex-wrap items-center justify-between gap-2">
-        <div class="inline-flex items-center gap-2 bg-slate-950/80 backdrop-blur-md border-2 border-cyan-400/70 px-3.5 py-1.5 rounded-full shadow-lg">
-          <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-ping"></span>
-          <span class="text-xs font-extrabold tracking-wider text-cyan-300 uppercase">3D Subway Edition • Bahasa Melayu SK 3.3</span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <button onclick="switchHero3DCharacter()" class="btn-arcade bg-purple-900/85 backdrop-blur-md border-2 border-yellow-400 text-yellow-300 px-3.5 py-1.5 rounded-2xl text-xs sm:text-sm font-extrabold shadow-lg">
-            🛹 Tukar Pelari 3D (<span id="hero-runner-label">Zafri</span>)
-          </button>
-          <button id="landing-audio-btn" onclick="toggleAudio()" class="btn-arcade bg-slate-900/85 backdrop-blur-md border-2 border-cyan-400/60 text-cyan-300 px-3.5 py-1.5 rounded-2xl text-xs sm:text-sm font-extrabold shadow-lg">
-            🔊 Muzik
-          </button>
-        </div>
+    <!-- ==================== VIEW 0: PORTAL LOG MASUK 3D ==================== -->
+    <section id="view-landing" class="flex-1 relative overflow-hidden min-h-screen">
+      <div class="portal-scene">
+        <div class="portal-sky"></div>
+        <div class="portal-city city-left"><i></i><i></i><i></i></div>
+        <div class="portal-city city-right"><i></i><i></i><i></i></div>
+        <div class="portal-street"></div>
+        <div class="portal-track track-left"></div><div class="portal-track track-mid"></div><div class="portal-track track-right"></div>
+        <div class="portal-train"><div class="train-window"></div><div class="train-window"></div><div class="train-window"></div><div class="train-front"></div></div>
+        <div class="portal-coin coin-one">★</div><div class="portal-coin coin-two">★</div><div class="portal-coin coin-three">★</div>
+        <div class="portal-runner">🏃🏻</div>
+        <div class="portal-haze"></div>
       </div>
-
-      <!-- Center Content: Graffiti Title + 3-Role Login Dashboard Card -->
-      <div class="relative z-20 max-w-7xl mx-auto w-full px-4 py-6 my-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        
-        <!-- Left 7 Cols: Subway Surfers Style Title & Visual Highlights -->
-        <div class="lg:col-span-7 text-center lg:text-left space-y-4 pointer-events-none">
-          <div class="inline-block animate-float">
-            <div class="bg-gradient-to-r from-orange-600 via-purple-700 to-cyan-600 p-1 rounded-3xl shadow-2xl inline-block transform -rotate-2">
-              <div class="bg-slate-950/90 px-4 py-1 rounded-[20px] text-xs sm:text-sm font-black text-yellow-300 tracking-widest uppercase">
-                🚇 STESEN SENTRAL • WORLD TOUR BAHASA MELAYU
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h1 class="font-display font-bold text-5xl sm:text-7xl xl:text-8xl subway-logo-top leading-none transform -rotate-1">
-              MISI EDITOR CILIK
-            </h1>
-            <p class="font-display font-bold text-2xl sm:text-4xl subway-logo-sub mt-1 tracking-wide">
-              SUBWAY SURFERS 3D RUN!
-            </p>
-          </div>
-
-          <p class="text-white text-sm sm:text-lg font-extrabold max-w-xl mx-auto lg:mx-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] bg-slate-950/55 backdrop-blur-sm p-3.5 rounded-2xl border border-white/15">
-            Luncur di atas landasan kereta api 3D, elak tren laju, kumpul syiling emas dan kuasai kemahiran menulis &amp; menyunting Bahasa Melayu!
-          </p>
-
-          <!-- Visual Badges Strip -->
-          <div class="flex flex-wrap justify-center lg:justify-start gap-2.5 pt-1">
-            <span class="bg-slate-950/80 backdrop-blur border border-yellow-400/70 text-yellow-300 text-xs font-extrabold px-3 py-1.5 rounded-xl shadow">
-              🚆 Tren &amp; Landasan 3D
-            </span>
-            <span class="bg-slate-950/80 backdrop-blur border border-cyan-400/70 text-cyan-300 text-xs font-extrabold px-3 py-1.5 rounded-xl shadow">
-              🛹 Hoverboard Neon
-            </span>
-            <span class="bg-slate-950/80 backdrop-blur border border-orange-400/70 text-orange-300 text-xs font-extrabold px-3 py-1.5 rounded-xl shadow">
-              🏫 Portal Admin • Guru • Murid
-            </span>
-          </div>
-        </div>
-
-        <!-- Right 5 Cols: DASHBOARD LOG MASUK (ADMIN, GURU, MURID) -->
-        <div class="lg:col-span-5">
-          <div class="bg-slate-950/90 backdrop-blur-xl border-4 border-yellow-400 rounded-3xl p-5 sm:p-6 shadow-[0_0_50px_rgba(0,0,0,0.85)]">
-            <div class="text-center mb-4">
-              <span class="bg-orange-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full uppercase tracking-wider">Portal Stesen Utama</span>
-              <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">DASHBOARD LOG MASUK</h2>
-              <p class="text-xs text-cyan-200 font-bold">Pilih peranan anda untuk meneruskan sesi</p>
-            </div>
-
-            <!-- 3 Role Selector Tabs -->
-            <div class="grid grid-cols-3 gap-2 bg-slate-900 p-1.5 rounded-2xl border-2 border-purple-500/60 mb-5">
-              <button type="button" onclick="selectLoginRole('murid')" id="tab-role-murid"
-                class="py-2.5 px-2 rounded-xl font-display font-bold text-sm sm:text-base flex flex-col items-center gap-0.5 bg-yellow-400 text-slate-950 shadow-md transition">
-                <span class="text-xl">🎒</span>
-                <span>Murid</span>
-              </button>
-              <button type="button" onclick="selectLoginRole('guru')" id="tab-role-guru"
-                class="py-2.5 px-2 rounded-xl font-display font-bold text-sm sm:text-base flex flex-col items-center gap-0.5 text-slate-300 hover:text-white transition">
-                <span class="text-xl">👩‍🏫</span>
-                <span>Guru</span>
-              </button>
-              <button type="button" onclick="selectLoginRole('admin')" id="tab-role-admin"
-                class="py-2.5 px-2 rounded-xl font-display font-bold text-sm sm:text-base flex flex-col items-center gap-0.5 text-slate-300 hover:text-white transition">
-                <span class="text-xl">🛡️</span>
-                <span>Admin</span>
-              </button>
-            </div>
-
-            <!-- ==================== PANEL 1: LOG MASUK MURID ==================== -->
-            <form id="form-login-murid" onsubmit="handleStudentLogin(event)" class="space-y-4 animate-pop">
-              <div class="bg-cyan-950/60 border border-cyan-400/40 rounded-2xl p-3 text-xs text-cyan-200 font-bold">
-                🎮 <strong>Log Masuk Murid:</strong> Pilih kelas dan nama anda yang telah didaftarkan oleh guru untuk mula bermain!
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold text-yellow-300 uppercase mb-1">1. Pilih Kelas</label>
-                <select id="login-student-class" onchange="populateStudentDropdown()" required
-                  class="w-full px-3.5 py-3 rounded-2xl bg-slate-900 border-2 border-purple-500 focus:border-yellow-400 focus:outline-none text-white font-bold text-sm">
-                </select>
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold text-yellow-300 uppercase mb-1">2. Pilih Nama Murid</label>
-                <select id="login-student-id" required
-                  class="w-full px-3.5 py-3 rounded-2xl bg-slate-900 border-2 border-purple-500 focus:border-yellow-400 focus:outline-none text-white font-bold text-sm">
-                </select>
-              </div>
-
-              <button type="submit" class="w-full btn-arcade btn-orange font-display font-bold text-xl py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-xl">
-                <span>🚀</span>
-                <span>LOG MASUK &amp; MAIN GAME</span>
-              </button>
-            </form>
-
-            <!-- ==================== PANEL 2: LOG MASUK GURU ==================== -->
-            <form id="form-login-guru" onsubmit="handleTeacherLogin(event)" class="hidden space-y-4 animate-pop">
-              <div class="bg-purple-950/70 border border-purple-400/40 rounded-2xl p-3 text-xs text-purple-200 font-bold">
-                👩‍🏫 <strong>Portal Guru:</strong> Daftarkan kelas baharu, daftarkan murid ke dalam kelas dan pantau skor permainan.
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">ID Pengguna Guru</label>
-                <input id="login-teacher-username" type="text" required placeholder="Contoh: cikgu1"
-                  class="w-full px-3.5 py-3 rounded-2xl bg-slate-900 border-2 border-purple-500 focus:border-cyan-400 focus:outline-none text-white font-bold text-sm" />
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Kata Laluan</label>
-                <input id="login-teacher-password" type="password" required placeholder="••••••"
-                  class="w-full px-3.5 py-3 rounded-2xl bg-slate-900 border-2 border-purple-500 focus:border-cyan-400 focus:outline-none text-white font-bold text-sm" />
-              </div>
-
-              <div class="text-[11px] text-slate-400 font-bold bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">
-                💡 Akaun Demo Guru: ID <span class="text-yellow-300">cikgu1</span> | Kata Laluan: <span class="text-yellow-300">1234</span>
-              </div>
-
-              <button type="submit" class="w-full btn-arcade btn-cyan font-display font-bold text-lg py-3.5 rounded-2xl flex items-center justify-center gap-2">
-                <span>📋</span>
-                <span>MASUK DASHBOARD GURU</span>
-              </button>
-            </form>
-
-            <!-- ==================== PANEL 3: LOG MASUK ADMIN ==================== -->
-            <form id="form-login-admin" onsubmit="handleAdminLogin(event)" class="hidden space-y-4 animate-pop">
-              <div class="bg-amber-950/60 border border-amber-400/40 rounded-2xl p-3 text-xs text-amber-200 font-bold">
-                🛡️ <strong>Portal Pentadbir (Admin):</strong> Daftarkan akaun guru baharu dan urus sistem sekolah.
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold text-yellow-300 uppercase mb-1">ID Pentadbir</label>
-                <input id="login-admin-username" type="text" value="admin" required
-                  class="w-full px-3.5 py-3 rounded-2xl bg-slate-900 border-2 border-purple-500 focus:border-yellow-400 focus:outline-none text-white font-bold text-sm" />
-              </div>
-
-              <div>
-                <label class="block text-xs font-extrabold text-yellow-300 uppercase mb-1">Kata Laluan Admin</label>
-                <input id="login-admin-password" type="password" required placeholder="Masukkan kata laluan admin"
-                  class="w-full px-3.5 py-3 rounded-2xl bg-slate-900 border-2 border-purple-500 focus:border-yellow-400 focus:outline-none text-white font-bold text-sm" />
-              </div>
-
-              <div class="text-[11px] text-slate-400 font-bold bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">
-                🔑 Kata Laluan Admin Lalai: <span class="text-yellow-300">admin123</span>
-              </div>
-
-              <button type="submit" class="w-full btn-arcade btn-yellow font-display font-bold text-lg py-3.5 rounded-2xl flex items-center justify-center gap-2">
-                <span>🛡️</span>
-                <span>MASUK DASHBOARD ADMIN</span>
-              </button>
-            </form>
-
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom Track Hint -->
-      <div class="relative z-20 text-center pb-3 pointer-events-none">
-        <span class="bg-slate-950/75 text-slate-300 text-xs font-bold px-4 py-1 rounded-full border border-white/10">
-          💡 Tip: Klik mana-mana di skrin latar belakang untuk membuat karakter 3D melompat!
-        </span>
-      </div>
-    </section>
-
-    <!-- ==================== VIEW ADMIN: DASHBOARD ADMIN (DAFTAR GURU BAHARU) ==================== -->
-    <section id="view-admin-dashboard" class="hidden max-w-6xl mx-auto w-full px-4 py-6 space-y-6">
-      <div class="bg-gradient-to-r from-amber-600 via-orange-600 to-purple-900 border-4 border-yellow-300 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
-        <div>
-          <span class="bg-slate-950 text-yellow-300 font-black text-xs px-3 py-1 rounded-full uppercase">🛡️ PANEL PENTADBIR SISTEM</span>
-          <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">DASHBOARD ADMIN: Pengurusan Guru</h2>
-          <p class="text-yellow-100 text-sm font-semibold">Daftarkan guru baharu supaya mereka boleh log masuk untuk mendaftarkan kelas dan murid.</p>
-        </div>
-        <button onclick="logoutToPortal()" class="btn-arcade bg-slate-950 hover:bg-slate-800 text-white text-sm font-extrabold px-4 py-2.5 rounded-2xl border border-white/20">
-          🚪 Log Keluar Admin
-        </button>
-      </div>
-
-      <!-- Summary Stats -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-slate-900 border-2 border-yellow-400/60 rounded-2xl p-4">
-          <div class="text-xs font-extrabold text-yellow-300 uppercase">Jumlah Guru Berdaftar</div>
-          <div id="admin-stat-teachers" class="font-display font-bold text-3xl text-white mt-1">0</div>
-        </div>
-        <div class="bg-slate-900 border-2 border-cyan-400/60 rounded-2xl p-4">
-          <div class="text-xs font-extrabold text-cyan-300 uppercase">Jumlah Kelas Aktif</div>
-          <div id="admin-stat-classes" class="font-display font-bold text-3xl text-white mt-1">0</div>
-        </div>
-        <div class="bg-slate-900 border-2 border-orange-400/60 rounded-2xl p-4">
-          <div class="text-xs font-extrabold text-orange-300 uppercase">Jumlah Murid Berdaftar</div>
-          <div id="admin-stat-students" class="font-display font-bold text-3xl text-white mt-1">0</div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Form: Register New Teacher -->
-        <div class="lg:col-span-5 bg-slate-900 border-2 border-yellow-400 rounded-3xl p-6 space-y-4 h-fit">
-          <h3 class="font-display font-bold text-xl text-yellow-300">➕ Daftar Guru Baharu</h3>
-          <form onsubmit="adminRegisterTeacher(event)" class="space-y-3.5">
+      <div class="portal-shade"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 py-8 min-h-screen flex flex-col">
+        <div class="flex items-center justify-between gap-3 mb-8">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-300 to-orange-500 flex items-center justify-center text-3xl shadow-xl">🚇</div>
             <div>
-              <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Nama Penuh Guru</label>
-              <input id="admin-new-teacher-name" type="text" required placeholder="Contoh: Cikgu Nurul Huda"
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm" />
+              <div class="font-display text-white font-bold text-lg sm:text-xl">MISI EDITOR CILIK</div>
+              <div class="text-cyan-200 text-xs font-extrabold tracking-widest">THE ULTIMATE BAHASA MELAYU RUN</div>
             </div>
-            <div>
-              <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">ID Log Masuk Guru</label>
-              <input id="admin-new-teacher-user" type="text" required placeholder="Contoh: cikgu_huda"
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm" />
-            </div>
-            <div>
-              <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Kata Laluan</label>
-              <input id="admin-new-teacher-pass" type="text" required placeholder="Contoh: huda123"
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm" />
-            </div>
-            <div>
-              <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Jawatan / Mata Pelajaran</label>
-              <input id="admin-new-teacher-subject" type="text" value="Guru Bahasa Melayu" required
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm" />
-            </div>
-            <button type="submit" class="w-full btn-arcade btn-yellow font-display font-bold text-base py-3 rounded-2xl">
-              ✔ Simpan &amp; Daftar Guru
-            </button>
-          </form>
-        </div>
-
-        <!-- Registered Teachers Table -->
-        <div class="lg:col-span-7 bg-slate-900 border-2 border-purple-500 rounded-3xl p-6 space-y-4">
-          <h3 class="font-display font-bold text-xl text-white">📋 Senarai Guru Berdaftar</h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr class="border-b-2 border-purple-700 text-cyan-300 text-xs uppercase">
-                  <th class="py-2.5 px-3">Nama Guru</th>
-                  <th class="py-2.5 px-3">ID Login</th>
-                  <th class="py-2.5 px-3">Kata Laluan</th>
-                  <th class="py-2.5 px-3">Tindakan</th>
-                </tr>
-              </thead>
-              <tbody id="admin-teachers-tbody" class="divide-y divide-slate-800 font-bold">
-              </tbody>
-            </table>
           </div>
+          <div class="text-xs sm:text-sm font-extrabold text-white/80 border border-white/30 rounded-full px-4 py-2 backdrop-blur">DLO BAHASA MELAYU • SK 3.3</div>
         </div>
-      </div>
-    </section>
 
-    <!-- ==================== VIEW GURU: DASHBOARD GURU (DAFTAR KELAS & MURID) ==================== -->
-    <section id="view-teacher-dashboard" class="hidden max-w-6xl mx-auto w-full px-4 py-6 space-y-6">
-      <div class="bg-gradient-to-r from-cyan-700 via-blue-800 to-purple-900 border-4 border-cyan-400 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
-        <div>
-          <span class="bg-cyan-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">👩‍🏫 PANEL GURU BAHASA MELAYU</span>
-          <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">Selamat Datang, <span id="teacher-dash-name" class="text-yellow-300">Cikgu</span>!</h2>
-          <p class="text-cyan-100 text-sm font-semibold">Daftarkan kelas baharu, daftarkan murid anda dan pantau pencapaian mereka dalam permainan.</p>
-        </div>
-        <button onclick="logoutToPortal()" class="btn-arcade bg-slate-950 hover:bg-slate-800 text-white text-sm font-extrabold px-4 py-2.5 rounded-2xl border border-white/20">
-          🚪 Log Keluar Guru
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Left Column: Form Daftar Kelas & Form Daftar Murid -->
-        <div class="lg:col-span-5 space-y-6">
-          <!-- Card 1: Daftar Kelas Baharu -->
-          <div class="bg-slate-900 border-2 border-cyan-400 rounded-3xl p-5 space-y-3">
-            <h3 class="font-display font-bold text-xl text-cyan-300">🏫 1. Daftarkan Kelas Baharu</h3>
-            <form onsubmit="teacherRegisterClass(event)" class="flex gap-2">
-              <input id="teacher-new-class-name" type="text" required placeholder="Contoh: 5 Bestari / 6 Dinamik"
-                class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm" />
-              <button type="submit" class="btn-arcade btn-cyan font-display font-bold text-sm px-4 py-2.5 rounded-xl whitespace-nowrap">
-                + Tambah
-              </button>
-            </form>
-            <div id="teacher-class-chips" class="flex flex-wrap gap-2 pt-1"></div>
+        <div class="grid lg:grid-cols-2 gap-8 items-center flex-1">
+          <div class="text-center lg:text-left">
+            <div class="inline-flex rounded-full bg-cyan-400/15 border border-cyan-300/50 text-cyan-200 px-4 py-2 text-xs font-black tracking-wider mb-5">✦ PENGEMBARAAN 3D BERMULA DI SINI ✦</div>
+            <h1 class="font-display text-5xl sm:text-7xl xl:text-8xl font-bold leading-none text-yellow-300" style="text-shadow:0 5px 0 #9a3412,0 12px 28px #020617">MISI EDITOR<br/>CILIK</h1>
+            <p class="font-display text-xl sm:text-3xl text-cyan-200 mt-4" style="text-shadow:0 4px 12px #020617">LARI, KUTIP ILMU, JADI JUARA!</p>
+            <p class="text-white/90 text-base sm:text-lg font-bold max-w-xl mx-auto lg:mx-0 mt-5">Masuki dunia permainan 3D, selesaikan misi Bahasa Melayu dan kumpulkan syiling ilmu untuk menjadi Juara Editor Cilik.</p>
+            <div class="flex justify-center lg:justify-start gap-3 mt-6 text-sm font-black text-white">
+              <span class="bg-purple-600/80 border border-purple-300/60 px-4 py-2 rounded-xl">🪙 SYILING</span>
+              <span class="bg-cyan-600/80 border border-cyan-300/60 px-4 py-2 rounded-xl">⚡ XP</span>
+              <span class="bg-orange-600/80 border border-orange-300/60 px-4 py-2 rounded-xl">🏆 LENCANA</span>
+            </div>
           </div>
 
-          <!-- Card 2: Daftar Murid Baharu -->
-          <div class="bg-slate-900 border-2 border-yellow-400 rounded-3xl p-5 space-y-3.5">
-            <h3 class="font-display font-bold text-xl text-yellow-300">🎒 2. Daftarkan Murid Baharu</h3>
-            <form onsubmit="teacherRegisterStudent(event)" class="space-y-3">
-              <div>
-                <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Pilih Kelas</label>
-                <select id="teacher-student-class-select" required
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm">
-                </select>
+          <div class="portal-login-card">
+            <div id="portal-login">
+              <div class="text-center mb-5">
+                <div class="text-5xl mb-2">🎮</div>
+                <h2 class="font-display text-3xl font-bold text-white">LOG MASUK</h2>
+                <p class="text-slate-300 text-sm font-semibold">Pilih peranan anda untuk meneruskan</p>
               </div>
-              <div>
-                <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Nama Penuh Murid</label>
-                <input id="teacher-new-student-name" type="text" required placeholder="Contoh: Muhammad Adam Bin Azlan"
-                  class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-purple-500 text-white font-bold text-sm" />
+              <div class="grid grid-cols-3 gap-2 mb-5">
+                <button type="button" class="role-choice active" data-role="admin" onclick="selectPortalRole('admin')"><span>🛡️</span>Admin</button>
+                <button type="button" class="role-choice" data-role="teacher" onclick="selectPortalRole('teacher')"><span>👩‍🏫</span>Guru</button>
+                <button type="button" class="role-choice" data-role="student" onclick="selectPortalRole('student')"><span>🎒</span>Murid</button>
               </div>
-              <div>
-                <label class="block text-xs font-extrabold text-cyan-300 uppercase mb-1">Avatar Pelari 3D</label>
-                <div class="grid grid-cols-2 gap-2">
-                  <label class="cursor-pointer">
-                    <input type="radio" name="teacherStudentAvatar" value="zafri" checked class="peer sr-only" />
-                    <div class="p-2 rounded-xl bg-slate-950 border-2 border-slate-700 peer-checked:border-yellow-400 text-center text-xs font-extrabold">
-                      🧢 Zafri (Hoodie)
-                    </div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="teacherStudentAvatar" value="maya" class="peer sr-only" />
-                    <div class="p-2 rounded-xl bg-slate-950 border-2 border-slate-700 peer-checked:border-yellow-400 text-center text-xs font-extrabold">
-                      🛹 Maya (Hoverboard)
-                    </div>
-                  </label>
+              <form id="portal-login-form" class="space-y-3" onsubmit="portalLogin(event)">
+                <input type="hidden" id="portal-role" value="admin"/>
+                <label class="portal-label" id="portal-user-label">ID Admin</label>
+                <input id="portal-username" class="portal-input" autocomplete="username" required placeholder="Masukkan ID pengguna"/>
+                <label class="portal-label">Kata Laluan / PIN</label>
+                <input id="portal-password" class="portal-input" type="password" autocomplete="current-password" required placeholder="Masukkan kata laluan atau PIN"/>
+                <button class="portal-submit" type="submit">LOG MASUK SEKARANG <span>➜</span></button>
+              </form>
+              <p id="portal-login-message" class="text-rose-300 text-sm font-bold mt-3 text-center" aria-live="polite"></p>
+              <p class="text-slate-400 text-xs text-center mt-3">Demo awal: Admin ID <b>admin</b> · Kata laluan <b>admin123</b></p>
+            </div>
+
+            <div id="portal-admin-panel" class="hidden">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="text-cyan-300 text-xs font-black">PANEL PENTADBIR</div>
+                  <h2 class="font-display text-2xl text-white font-bold">🛡️ Dashboard Admin</h2>
                 </div>
+                <button type="button" onclick="portalLogout()" class="portal-logout">Keluar</button>
               </div>
-              <button type="submit" class="w-full btn-arcade btn-yellow font-display font-bold text-base py-3 rounded-2xl">
-                ✔ Daftarkan Murid
-              </button>
-            </form>
-          </div>
-        </div>
+              <p class="text-slate-300 text-sm mb-4">Daftarkan akaun guru baharu untuk mengurus kelas dan murid.</p>
+              <form onsubmit="createTeacher(event)" class="space-y-3">
+                <input id="new-teacher-name" class="portal-input" required placeholder="Nama penuh guru"/>
+                <input id="new-teacher-id" class="portal-input" required placeholder="ID log masuk guru"/>
+                <input id="new-teacher-pass" class="portal-input" type="password" minlength="4" required placeholder="Kata laluan (min. 4 aksara)"/>
+                <button class="portal-submit" type="submit">＋ DAFTARKAN GURU</button>
+              </form>
+              <div class="portal-list-wrap">
+                <h3 class="text-yellow-300 font-black text-sm mb-2">Senarai Guru Berdaftar</h3>
+                <div id="teacher-list" class="space-y-2"></div>
+              </div>
+            </div>
 
-        <!-- Right Column: Senarai Murid & Rekod Kemajuan -->
-        <div class="lg:col-span-7 bg-slate-900 border-2 border-purple-500 rounded-3xl p-5 space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-2">
-            <h3 class="font-display font-bold text-xl text-white">📊 Senarai Murid &amp; Prestasi Permainan</h3>
-            <select id="teacher-filter-class" onchange="renderTeacherDashboard()"
-              class="px-3 py-1.5 rounded-xl bg-slate-950 border border-cyan-500/50 text-xs font-extrabold text-cyan-300">
-              <option value="ALL">Semua Kelas</option>
-            </select>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-sm">
-              <thead>
-                <tr class="border-b-2 border-purple-700 text-yellow-300 text-xs uppercase">
-                  <th class="py-2.5 px-3">Nama Murid</th>
-                  <th class="py-2.5 px-3">Kelas</th>
-                  <th class="py-2.5 px-3">Syiling / XP</th>
-                  <th class="py-2.5 px-3">Misi</th>
-                  <th class="py-2.5 px-3">Padam</th>
-                </tr>
-              </thead>
-              <tbody id="teacher-students-tbody" class="divide-y divide-slate-800 font-bold">
-              </tbody>
-            </table>
+            <div id="portal-teacher-panel" class="hidden">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <div class="text-cyan-300 text-xs font-black">PANEL PENGURUSAN</div>
+                  <h2 class="font-display text-2xl text-white font-bold">👩‍🏫 Dashboard Guru</h2>
+                  <p id="teacher-welcome" class="text-slate-300 text-xs"></p>
+                </div>
+                <button type="button" onclick="portalLogout()" class="portal-logout">Keluar</button>
+              </div>
+              <div class="portal-subpanel mb-4">
+                <h3 class="text-yellow-300 font-black mb-3">🏫 Daftar Kelas</h3>
+                <form onsubmit="createClass(event)" class="flex gap-2">
+                  <input id="new-class-name" class="portal-input min-w-0" required placeholder="Contoh: 5 Bestari"/>
+                  <button class="portal-small-btn" type="submit">Tambah</button>
+                </form>
+                <div id="class-list" class="flex flex-wrap gap-2 mt-3"></div>
+              </div>
+              <div class="portal-subpanel">
+                <h3 class="text-cyan-300 font-black mb-3">🎒 Daftar Murid</h3>
+                <form onsubmit="createStudent(event)" class="space-y-2">
+                  <input id="new-student-name" class="portal-input" required placeholder="Nama murid"/>
+                  <input id="new-student-id" class="portal-input" required placeholder="ID murid (unik)"/>
+                  <input id="new-student-pin" class="portal-input" required minlength="4" placeholder="PIN murid (min. 4 aksara)"/>
+                  <select id="new-student-class" class="portal-input" required><option value="">Pilih kelas</option></select>
+                  <button class="portal-submit" type="submit">＋ DAFTARKAN MURID</button>
+                </form>
+              </div>
+              <div class="portal-list-wrap">
+                <h3 class="text-yellow-300 font-black text-sm mb-2">Murid di bawah jagaan</h3>
+                <div id="student-list" class="space-y-2"></div>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="text-center text-white/60 text-xs font-bold mt-8">© MISI EDITOR CILIK · BELAJAR SAMBIL BERMAIN</div>
       </div>
     </section>
 
-    <!-- ==================== VIEW 1: PLAYER DASHBOARD (PETA MISI MURID) ==================== -->
+    <!-- ==================== VIEW 1: PLAYER DASHBOARD ==================== -->
     <section id="view-dashboard" class="hidden max-w-7xl mx-auto w-full px-4 py-6 space-y-6">
       <div class="bg-gradient-to-r from-purple-900/95 via-indigo-900/95 to-slate-900/95 border-4 border-purple-500 rounded-3xl p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+        <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-cyan-400/10 blur-xl pointer-events-none"></div>
+        <div class="absolute right-20 -bottom-10 w-44 h-44 rounded-full bg-orange-500/15 blur-xl pointer-events-none"></div>
+
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div class="flex items-center gap-4 text-center md:text-left flex-col sm:flex-row">
             <div id="dash-avatar-large" class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-yellow-400 via-orange-500 to-purple-600 p-1 shadow-xl animate-float"></div>
             <div>
               <div class="inline-block bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-xs font-extrabold px-3 py-0.5 rounded-full mb-1">
-                PAPAN PEMUKA PELARI • <span id="dash-class-badge">KELAS</span>
+                PAPAN PEMUKA PELARI • <span id="dash-class-badge">5 BESTARI</span>
               </div>
               <h2 class="font-display font-bold text-2xl sm:text-4xl text-white">
                 Hai, <span id="dash-player-name" class="text-yellow-300">Pelari</span>! 👋
@@ -591,50 +383,56 @@
           <h3 class="font-display font-bold text-2xl text-white flex items-center gap-2">
             <span class="text-yellow-300">🗺️</span> PETA KAWASAN MISI SUBWAY
           </h3>
-          <button onclick="toggleUnlockAllMissions()" id="btn-unlock-all" class="text-xs font-extrabold bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl transition">
-            🔓 Buka Semua Misi (Latihan)
-          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="toggleUnlockAllMissions()" id="btn-unlock-all" class="text-xs font-extrabold bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl transition">
+              🔓 Mod Guru: Buka Semua Misi
+            </button>
+            <button onclick="confirmResetProgress()" class="text-xs font-extrabold bg-rose-950/80 hover:bg-rose-900 text-rose-300 border border-rose-500/40 px-3 py-1.5 rounded-xl transition">
+              ↺ Set Semula
+            </button>
+          </div>
         </div>
+
         <div id="mission-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
       </div>
     </section>
 
-    <!-- ==================== VIEW 2: MOD 1 - STESEN ILMU (3D SUBWAY QUIZ RUNNER) ==================== -->
+    <!-- ==================== VIEW 2: MOD 1 - STESEN ILMU (SP 3.3.1) ==================== -->
     <section id="view-mod1" class="hidden max-w-6xl mx-auto w-full px-4 py-6 space-y-6">
       <div class="bg-gradient-to-r from-cyan-900 to-purple-900 border-4 border-cyan-400 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-xl">
         <div>
-          <span class="bg-cyan-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">MOD 1 • SP 3.3.1 • 3D RUNNER</span>
+          <span class="bg-cyan-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">MOD 1 • SP 3.3.1</span>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">🚉 STESEN ILMU: Jom Kenali Penulisan</h2>
-          <p class="text-cyan-100 text-sm font-semibold">Ulang kaji kad nota interaktif, kemudian luncur di landasan 3D Subway Quiz Runner!</p>
+          <p class="text-cyan-100 text-sm font-semibold">Pelajari ciri penulisan berformat &amp; tidak berformat, kemudian uji kelajuan anda di landasan!</p>
         </div>
         <div class="flex gap-2">
-          <button onclick="switchMod1Phase('notes')" class="btn-arcade btn-yellow text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl">
+          <button onclick="switchMod1Phase('notes')" id="mod1-tab-notes" class="btn-arcade btn-yellow text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl">
             1. Kad Nota Interaktif
           </button>
-          <button onclick="switchMod1Phase('runner')" class="btn-arcade btn-orange text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl">
-            2. 3D Subway Runner
+          <button onclick="switchMod1Phase('runner')" id="mod1-tab-runner" class="btn-arcade btn-orange text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl">
+            2. Subway Quiz Runner
           </button>
         </div>
       </div>
 
-      <!-- PHASE 1: INTERACTIVE FLASHCARDS -->
       <div id="mod1-phase-notes" class="space-y-5">
         <div class="bg-slate-900/90 border-2 border-purple-500 rounded-3xl p-5">
           <div class="flex items-center justify-between mb-4">
             <h3 class="font-display font-bold text-xl text-yellow-300">📚 Klik pada kad untuk membalikkan nota &amp; contoh!</h3>
             <span class="text-xs font-extrabold text-cyan-300 bg-slate-800 px-3 py-1 rounded-full">4 Topik Utama</span>
           </div>
+
           <div id="mod1-flashcards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+
           <div class="mt-6 text-center">
             <button onclick="switchMod1Phase('runner')" class="btn-arcade btn-orange font-display font-bold text-lg sm:text-xl px-8 py-4 rounded-2xl inline-flex items-center gap-2 shadow-xl">
               <span>🏃‍♂️</span>
-              <span>MULA 3D SUBWAY QUIZ RUNNER (10 SOALAN)</span>
+              <span>MULA SUBWAY QUIZ RUNNER (10 SOALAN)</span>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- PHASE 2: 3D SUBWAY QUIZ RUNNER GAME -->
       <div id="mod1-phase-runner" class="hidden space-y-4">
         <div class="bg-slate-950 border-4 border-yellow-400 rounded-3xl p-4 sm:p-5 shadow-2xl">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -649,30 +447,20 @@
           </p>
         </div>
 
-        <!-- 3-Lane 3D WebGL Subway Runner Viewport -->
-        <div class="relative rounded-3xl border-4 border-cyan-400 overflow-hidden bg-slate-950 shadow-2xl h-80 sm:h-[420px]">
-          <div id="runner-3d-container" class="w-full h-full cursor-pointer"></div>
+        <div class="relative rounded-3xl border-4 border-cyan-400 overflow-hidden bg-slate-950 shadow-2xl">
+          <canvas id="runner-game-canvas" class="w-full h-80 sm:h-96 cursor-pointer"></canvas>
 
-          <!-- 3D Gate Floating HTML Labels Overlay (Aligned cleanly to Left, Center, Right lanes) -->
-          <div id="runner-gate-labels" class="pointer-events-none absolute inset-x-0 top-14 grid grid-cols-3 gap-2 px-3 sm:px-8 z-10">
-            <div id="gate-label-0" class="bg-purple-900/90 border-2 border-yellow-400 text-white text-center font-extrabold text-xs sm:text-sm py-2 px-2 rounded-2xl shadow-lg">Pilihan 1</div>
-            <div id="gate-label-1" class="bg-blue-900/90 border-2 border-yellow-400 text-white text-center font-extrabold text-xs sm:text-sm py-2 px-2 rounded-2xl shadow-lg">Pilihan 2</div>
-            <div id="gate-label-2" class="bg-orange-900/90 border-2 border-yellow-400 text-white text-center font-extrabold text-xs sm:text-sm py-2 px-2 rounded-2xl shadow-lg">Pilihan 3</div>
-          </div>
-
-          <!-- Immediate Feedback Overlay -->
           <div id="runner-feedback-overlay" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4 z-20">
             <div class="max-w-md w-full bg-slate-900 border-4 border-cyan-400 rounded-3xl p-5 text-center space-y-3 animate-pop">
               <div id="runner-fb-icon" class="text-5xl">🎉</div>
               <h4 id="runner-fb-title" class="font-display font-bold text-2xl text-yellow-300">Tahniah, Tepat!</h4>
               <p id="runner-fb-explain" class="text-sm sm:text-base text-slate-200 font-semibold leading-relaxed"></p>
               <button onclick="nextRunnerQuestion()" class="btn-arcade btn-yellow font-display font-bold text-base px-6 py-3 rounded-2xl w-full">
-                Teruskan Larian 3D ➔
+                Teruskan Larian ➔
               </button>
             </div>
           </div>
 
-          <!-- End of Run Summary Overlay -->
           <div id="runner-summary-overlay" class="hidden absolute inset-0 bg-slate-950/92 backdrop-blur-md flex items-center justify-center p-4 z-30">
             <div class="max-w-lg w-full bg-gradient-to-b from-purple-900 to-slate-900 border-4 border-yellow-400 rounded-3xl p-6 text-center space-y-4 animate-pop">
               <div class="text-5xl">🏆</div>
@@ -684,13 +472,12 @@
               <div class="flex flex-wrap justify-center gap-2.5 pt-2">
                 <button onclick="startRunnerGame()" class="btn-arcade btn-cyan text-sm font-extrabold px-4 py-3 rounded-2xl">🔄 Ulang Permainan</button>
                 <button onclick="navigateTo('mod2')" class="btn-arcade btn-orange text-sm font-extrabold px-5 py-3 rounded-2xl">🚀 Teruskan Misi 2</button>
-                <button onclick="navigateTo('dashboard')" class="btn-arcade bg-slate-800 text-white text-sm font-extrabold px-4 py-3 rounded-2xl border border-slate-600">🗺️ Peta Misi</button>
+                <button onclick="navigateTo('dashboard')" class="btn-arcade bg-slate-800 text-white text-sm font-extrabold px-4 py-3 rounded-2xl border border-slate-600">🏠 Dashboard</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Touch / Keyboard Lane Control Pad -->
         <div class="grid grid-cols-3 gap-3">
           <button onclick="setRunnerLane(0)" class="btn-arcade bg-purple-800 hover:bg-purple-700 active:bg-cyan-600 border-2 border-purple-400 py-3.5 rounded-2xl font-display font-bold text-base sm:text-lg text-white shadow-lg">
             ⬅️ Lorong Kiri (A)
@@ -734,7 +521,7 @@
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 class="font-display font-bold text-2xl text-cyan-300">Langkah 2: Kumpul 6 Perkataan / Elemen Sesuai</h3>
-            <p class="text-sm text-slate-300 font-semibold">Klik perkataan yang sesuai dengan tajuk <span id="m2-chosen-topic-label" class="text-yellow-300 font-extrabold"></span>.</p>
+            <p class="text-sm text-slate-300 font-semibold">Klik perkataan atau penanda wacana yang sesuai dengan tajuk <span id="m2-chosen-topic-label" class="text-yellow-300 font-extrabold"></span>. Elakkan perkataan pengganggu!</p>
           </div>
           <div class="bg-slate-950 border border-yellow-400 px-4 py-2 rounded-2xl font-display font-bold text-yellow-300">
             Terkumpul: <span id="m2-word-count">0</span> / 6
@@ -750,7 +537,9 @@
             <h3 class="font-display font-bold text-2xl text-orange-300">Langkah 3: Susun Kad Ayat Mengikut Urutan Betul</h3>
             <p class="text-sm text-slate-300 font-semibold">Gunakan butang ⬆️ / ⬇️ untuk menyusun perenggan dari Pendahuluan hingga Penutup.</p>
           </div>
-          <button onclick="checkSentenceOrder()" class="btn-arcade btn-yellow text-sm font-extrabold px-5 py-2.5 rounded-xl">✔ Semak Susunan</button>
+          <button onclick="checkSentenceOrder()" class="btn-arcade btn-yellow text-sm font-extrabold px-5 py-2.5 rounded-xl">
+            ✔ Semak Susunan
+          </button>
         </div>
         <div id="m2-sentence-list" class="space-y-3"></div>
         <div id="m2-order-feedback" class="text-sm font-extrabold"></div>
@@ -760,7 +549,7 @@
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h3 class="font-display font-bold text-2xl text-green-300">Langkah 4: Ruangan Penulisan Digital</h3>
-            <p class="text-sm text-slate-300 font-semibold">Lengkapkan draf karangan anda menggunakan perkataan yang dikumpul!</p>
+            <p class="text-sm text-slate-300 font-semibold">Lengkapkan draf karangan anda menggunakan perkataan yang telah dikumpul tadi!</p>
           </div>
           <div class="bg-slate-950 px-3 py-1.5 rounded-xl border border-cyan-500/40 text-xs font-extrabold text-cyan-300">
             Perkataan Terkumpul: <span id="m2-collected-chips" class="text-yellow-300"></span>
@@ -769,16 +558,19 @@
 
         <div class="grid grid-cols-1 gap-4">
           <div>
-            <label class="block text-sm font-extrabold text-yellow-300 mb-1">1. Pendahuluan</label>
-            <textarea id="m2-draft-intro" rows="3" placeholder="Tulis perenggan pendahuluan di sini..." class="w-full p-3.5 rounded-2xl bg-slate-800 border-2 border-purple-500/60 text-white font-semibold text-sm sm:text-base"></textarea>
+            <label class="block text-sm font-extrabold text-yellow-300 mb-1">1. Pendahuluan (atau Format Alamat / Tarikh)</label>
+            <textarea id="m2-draft-intro" rows="3" placeholder="Tulis perenggan pendahuluan di sini..."
+              class="w-full p-3.5 rounded-2xl bg-slate-800 border-2 border-purple-500/60 focus:border-yellow-400 focus:outline-none text-white font-semibold text-sm sm:text-base"></textarea>
           </div>
           <div>
             <label class="block text-sm font-extrabold text-cyan-300 mb-1">2. Isi-isi Penting</label>
-            <textarea id="m2-draft-body" rows="4" placeholder="Huraikan isi penting cerita di sini..." class="w-full p-3.5 rounded-2xl bg-slate-800 border-2 border-purple-500/60 text-white font-semibold text-sm sm:text-base"></textarea>
+            <textarea id="m2-draft-body" rows="5" placeholder="Huraikan isi penting cerita atau catatan anda di sini..."
+              class="w-full p-3.5 rounded-2xl bg-slate-800 border-2 border-purple-500/60 focus:border-cyan-400 focus:outline-none text-white font-semibold text-sm sm:text-base"></textarea>
           </div>
           <div>
-            <label class="block text-sm font-extrabold text-orange-300 mb-1">3. Penutup</label>
-            <textarea id="m2-draft-outro" rows="3" placeholder="Tulis perenggan penutup di sini..." class="w-full p-3.5 rounded-2xl bg-slate-800 border-2 border-purple-500/60 text-white font-semibold text-sm sm:text-base"></textarea>
+            <label class="block text-sm font-extrabold text-orange-300 mb-1">3. Penutup (dan Tandatangan jika berformat)</label>
+            <textarea id="m2-draft-outro" rows="3" placeholder="Tulis perenggan penutup di sini..."
+              class="w-full p-3.5 rounded-2xl bg-slate-800 border-2 border-purple-500/60 focus:border-orange-400 focus:outline-none text-white font-semibold text-sm sm:text-base"></textarea>
           </div>
         </div>
 
@@ -801,7 +593,7 @@
         <div>
           <span class="bg-cyan-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">MOD 3 • SP 3.3.2</span>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">🔦 TEROWONG DETEKTIF: Spot The Error</h2>
-          <p class="text-cyan-100 text-sm font-semibold">Klik perkataan yang salah dalam ayat di bawah dan pilih pembetulan yang tepat.</p>
+          <p class="text-cyan-100 text-sm font-semibold">Gunakan kanta pembesar detektif! Klik perkataan yang salah dalam ayat di bawah dan pilih pembetulan yang tepat.</p>
         </div>
         <div class="bg-slate-950/90 border-2 border-yellow-400 px-4 py-2 rounded-2xl text-right">
           <div class="text-xs font-extrabold text-slate-300">Skor Detektif</div>
@@ -811,9 +603,9 @@
 
       <div class="flex flex-wrap gap-2" id="m3-category-tabs"></div>
 
-      <div class="bg-slate-900/95 border-4 border-purple-500 rounded-3xl p-6 shadow-2xl space-y-5">
+      <div class="bg-slate-900/95 border-4 border-purple-500 rounded-3xl p-6 shadow-2xl space-y-5 relative overflow-hidden">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-purple-800 pb-3">
-          <span id="m3-cat-badge" class="bg-orange-500 text-white font-extrabold text-xs px-3 py-1 rounded-full">Kategori</span>
+          <span id="m3-cat-badge" class="bg-orange-500 text-white font-extrabold text-xs px-3 py-1 rounded-full">Kategori 1: Kesalahan Ejaan</span>
           <span id="m3-q-progress" class="text-xs sm:text-sm font-extrabold text-cyan-300">Kes 1 daripada 15</span>
         </div>
 
@@ -836,7 +628,9 @@
             ✅ Ayat Betul: <span id="m3-fb-correct-sentence" class="text-white"></span>
           </div>
           <div class="pt-2">
-            <button onclick="nextDetectiveQuestion()" class="btn-arcade btn-yellow text-sm font-extrabold px-6 py-2.5 rounded-xl">Kes Seterusnya ➔</button>
+            <button onclick="nextDetectiveQuestion()" class="btn-arcade btn-yellow text-sm font-extrabold px-6 py-2.5 rounded-xl">
+              Kes Seterusnya ➔
+            </button>
           </div>
         </div>
       </div>
@@ -848,12 +642,17 @@
         <div>
           <span class="bg-orange-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">MOD 4 • SP 3.3.2</span>
           <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">🧪 MAKMAL EDITOR: Bengkel Editor Digital</h2>
-          <p class="text-purple-100 text-sm font-semibold">Sunting teks karangan di bawah bersama Pembantu Editor Pintar!</p>
+          <p class="text-purple-100 text-sm font-semibold">Sunting teks karangan di bawah. Gunakan Pembantu Editor Pintar untuk menganalisis setiap kesalahan!</p>
         </div>
         <button onclick="runSimulatedAIAssistant()" class="btn-arcade btn-yellow font-display font-bold text-sm sm:text-base px-5 py-3 rounded-2xl flex items-center gap-2 shadow-lg">
           <span>🤖</span>
           <span>SEMAK PENULISAN</span>
         </button>
+      </div>
+
+      <div class="bg-cyan-950/80 border border-cyan-400/60 rounded-2xl px-4 py-2.5 text-xs sm:text-sm text-cyan-200 font-semibold flex items-center gap-2">
+        <span>ℹ️</span>
+        <span><strong>Nota Pedagogi:</strong> Pembantu Editor Pintar menggunakan modul simulasi maklum balas tatabahasa terbina dalam. Anda perlu menilai setiap cadangan dan membuat keputusan sendiri!</span>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -862,10 +661,14 @@
             <h3 class="font-display font-bold text-xl text-yellow-300">📄 Dokumen Draf Murid</h3>
             <span class="text-xs font-extrabold bg-purple-800 text-purple-200 px-2.5 py-1 rounded-lg">6 Kesalahan Utama</span>
           </div>
-          <textarea id="m4-editor-textarea" rows="12" class="w-full flex-1 p-4 rounded-2xl bg-slate-950 border-2 border-cyan-500/50 text-white font-semibold text-base leading-relaxed"></textarea>
+          <p class="text-xs text-slate-300 font-semibold">Tajuk: <strong>Lawatan Sambil Belajar ke Muzium Negara</strong>. Anda boleh menaip terus di bawah atau menilai cadangan Pembantu Editor di sebelah kanan.</p>
+          <textarea id="m4-editor-textarea" rows="12"
+            class="w-full flex-1 p-4 rounded-2xl bg-slate-950 border-2 border-cyan-500/50 focus:border-yellow-400 focus:outline-none text-white font-semibold text-base leading-relaxed"></textarea>
           <div class="flex flex-wrap justify-between items-center gap-2 pt-2">
             <button onclick="resetMod4Document()" class="text-xs font-extrabold text-slate-400 hover:text-white underline">Set Semula Teks Asal</button>
-            <button onclick="submitMod4Workshop()" class="btn-arcade btn-green text-sm font-extrabold px-5 py-3 rounded-2xl">✅ Selesai Menyunting &amp; Buka Misi 5</button>
+            <button onclick="submitMod4Workshop()" class="btn-arcade btn-green text-sm font-extrabold px-5 py-3 rounded-2xl">
+              ✅ Selesai Menyunting &amp; Buka Misi 5
+            </button>
           </div>
         </div>
 
@@ -874,10 +677,12 @@
             <h3 class="font-display font-bold text-xl text-cyan-300">🤖 Pembantu Editor Pintar</h3>
             <span id="m4-review-counter" class="text-xs font-extrabold bg-slate-800 text-yellow-300 px-3 py-1 rounded-full">0 / 6 Disemak</span>
           </div>
+
           <div id="m4-ai-placeholder" class="bg-slate-950/70 border border-dashed border-cyan-500/50 rounded-2xl p-8 text-center space-y-3">
             <div class="text-4xl">🔍</div>
-            <p class="text-sm font-bold text-slate-300">Klik butang <span class="text-yellow-300">"SEMAK PENULISAN"</span> untuk menganalisis teks.</p>
+            <p class="text-sm font-bold text-slate-300">Klik butang <span class="text-yellow-300">"SEMAK PENULISAN"</span> di atas untuk mengimbas ejaan, tanda baca, imbuhan, penggunaan kata dan struktur ayat.</p>
           </div>
+
           <div id="m4-suggestions-list" class="hidden space-y-3 max-h-[460px] overflow-y-auto pr-1"></div>
         </div>
       </div>
@@ -887,7 +692,7 @@
     <section id="view-mod5" class="hidden max-w-6xl mx-auto w-full px-4 py-6 space-y-6">
       <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-purple-900 border-4 border-yellow-300 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
         <div>
-          <span class="bg-slate-950 text-yellow-300 font-black text-xs px-3 py-1 rounded-full uppercase">MOD 5 • FINAL BOSS CHALLENGE</span>
+          <span class="bg-slate-950 text-yellow-300 font-black text-xs px-3 py-1 rounded-full uppercase">MOD 5 • FINAL BOSS CHALLENGE (SP 3.3.1 &amp; 3.3.2)</span>
           <h2 class="font-display font-bold text-2xl sm:text-4xl text-white mt-1">👑 DESTINASI JUARA: Cabaran Penulis Cemerlang</h2>
           <p class="text-yellow-100 text-sm font-semibold">Selesaikan 4 peringkat cabaran akhir untuk meraih Lencana Editor Cemerlang &amp; Sijil Digital rasmi!</p>
         </div>
@@ -906,24 +711,35 @@
           <label class="cursor-pointer">
             <input type="radio" name="bossTopic" value="Sambutan Hari Kebangsaan di Sekolah Saya" checked class="peer sr-only" />
             <div class="p-3.5 rounded-2xl bg-slate-800 border-2 border-slate-700 peer-checked:border-yellow-400 peer-checked:bg-purple-900/60 font-bold text-sm">
-              🇲🇾 Sambutan Hari Kebangsaan di Sekolah Saya
+              🇲🇾 Sambutan Hari Kebangsaan di Sekolah Saya (Karangan)
             </div>
           </label>
           <label class="cursor-pointer">
-            <input type="radio" name="bossTopic" value="Surat Mengajak Sahabat ke Pameran Buku" class="peer sr-only" />
+            <input type="radio" name="bossTopic" value="Surat Kiriman Tidak Rasmi: Mengajak Sahabat ke Pameran Buku" class="peer sr-only" />
             <div class="p-3.5 rounded-2xl bg-slate-800 border-2 border-slate-700 peer-checked:border-yellow-400 peer-checked:bg-purple-900/60 font-bold text-sm">
-              ✉️ Surat Mengajak Sahabat ke Pameran Buku
+              ✉️ Surat Mengajak Sahabat ke Pameran Buku (Berformat)
             </div>
           </label>
           <label class="cursor-pointer">
             <input type="radio" name="bossTopic" value="Catatan Perkhemahan Unit Beruniform" class="peer sr-only" />
             <div class="p-3.5 rounded-2xl bg-slate-800 border-2 border-slate-700 peer-checked:border-yellow-400 peer-checked:bg-purple-900/60 font-bold text-sm">
-              ⛺ Catatan Perkhemahan Unit Beruniform
+              ⛺ Catatan Perkhemahan Unit Beruniform (Berformat)
             </div>
           </label>
         </div>
 
-        <textarea id="m5-essay-editor" rows="7" placeholder="Tulis karangan lengkap anda di sini (sekurang-kurangnya 15 patah perkataan)..." class="w-full p-4 rounded-2xl bg-slate-950 border-2 border-purple-500 text-white font-semibold text-base leading-relaxed"></textarea>
+        <textarea id="m5-essay-editor" rows="8" placeholder="Tulis karangan lengkap anda di sini (sekurang-kurangnya 15 patah perkataan). Pastikan ejaan, tanda baca, imbuhan, penggunaan kata dan struktur ayat tepat!"
+          class="w-full p-4 rounded-2xl bg-slate-950 border-2 border-purple-500 focus:border-yellow-400 focus:outline-none text-white font-semibold text-base leading-relaxed"></textarea>
+
+        <div class="bg-slate-950/90 border border-cyan-500/40 rounded-2xl p-4">
+          <div class="text-xs font-extrabold text-cyan-300 uppercase mb-2">Senarai Semak Penyuntingan Kendiri (SP 3.3.2):</div>
+          <div class="flex flex-wrap gap-4 text-xs sm:text-sm font-bold text-slate-200">
+            <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" class="accent-yellow-400 w-4 h-4"> Ejaan tepat</label>
+            <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" class="accent-yellow-400 w-4 h-4"> Tanda baca &amp; huruf besar betul</label>
+            <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" class="accent-yellow-400 w-4 h-4"> Imbuhan sesuai</label>
+            <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" class="accent-yellow-400 w-4 h-4"> Struktur ayat gramatis</label>
+          </div>
+        </div>
 
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div class="flex gap-2">
@@ -953,14 +769,17 @@
 
       <div id="m5-stage-3" class="hidden bg-slate-900/95 border-2 border-cyan-400 rounded-3xl p-6 space-y-4">
         <h3 class="font-display font-bold text-2xl text-cyan-300">Peringkat 3: Refleksi Pembelajaran</h3>
+        <p class="text-sm text-slate-300 font-semibold">Lengkapkan refleksi ringkas anda sebelum menuntut Sijil Digital Juara!</p>
         <div class="space-y-3">
           <div>
             <label class="block text-sm font-extrabold text-yellow-300 mb-1">1. Apakah kemahiran penulisan atau penyuntingan baharu yang anda pelajari hari ini?</label>
-            <textarea id="m5-ref-1" rows="2" class="w-full p-3 rounded-2xl bg-slate-800 border border-purple-500 text-white text-sm font-semibold"></textarea>
+            <textarea id="m5-ref-1" rows="2" placeholder="Contoh: Saya belajar membezakan imbuhan memper- dan memper-...-kan serta format surat kiriman."
+              class="w-full p-3 rounded-2xl bg-slate-800 border border-purple-500 text-white text-sm font-semibold"></textarea>
           </div>
           <div>
             <label class="block text-sm font-extrabold text-cyan-300 mb-1">2. Bagaimanakah anda akan memastikan karangan anda bebas daripada kesalahan bahasa pada masa hadapan?</label>
-            <textarea id="m5-ref-2" rows="2" class="w-full p-3 rounded-2xl bg-slate-800 border border-purple-500 text-white text-sm font-semibold"></textarea>
+            <textarea id="m5-ref-2" rows="2" placeholder="Contoh: Saya akan menyemak ejaan, tanda baca dan struktur ayat selepas menulis draf."
+              class="w-full p-3 rounded-2xl bg-slate-800 border border-purple-500 text-white text-sm font-semibold"></textarea>
           </div>
         </div>
         <button onclick="completeFinalChampionMission()" class="btn-arcade btn-yellow font-display font-bold text-lg px-8 py-4 rounded-2xl w-full sm:w-auto">
@@ -983,8 +802,11 @@
           <button onclick="downloadCertificatePNG()" class="btn-arcade btn-yellow font-display font-bold text-base sm:text-lg px-6 py-3.5 rounded-2xl flex items-center gap-2">
             <span>⬇️</span> Muat Turun Sijil Digital (PNG)
           </button>
+          <button onclick="downloadBossEssayTxt()" class="btn-arcade btn-cyan font-display font-bold text-base px-5 py-3.5 rounded-2xl flex items-center gap-2">
+            <span>📄</span> Muat Turun Karangan (.TXT)
+          </button>
           <button onclick="navigateTo('dashboard')" class="btn-arcade btn-purple font-display font-bold text-base px-5 py-3.5 rounded-2xl">
-            🗺️ Kembali ke Peta Misi
+            🏠 Kembali ke Dashboard
           </button>
         </div>
       </div>
@@ -1020,21 +842,23 @@
 
   <!-- ==================== JAVASCRIPT APPLICATION LOGIC ==================== -->
   <script>
-    /* =========================================================================
-       1. WEB AUDIO API SYNTHESIZER
-       ========================================================================= */
+    /* 1. WEB AUDIO API SYNTHESIZER */
     const SoundEngine = {
       ctx: null,
       isMuted: false,
       bgmInterval: null,
       step: 0,
+
       init() {
         if (!this.ctx) {
           const AudioCtx = window.AudioContext || window.webkitAudioContext;
           if (AudioCtx) this.ctx = new AudioCtx();
         }
-        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
       },
+
       playTone(freq, type = 'triangle', duration = 0.14, vol = 0.08, delay = 0) {
         if (this.isMuted) return;
         this.init();
@@ -1051,741 +875,804 @@
         osc.start(now);
         osc.stop(now + duration);
       },
+
       coin() {
         this.playTone(987.77, 'sine', 0.09, 0.11, 0);
         this.playTone(1318.51, 'sine', 0.22, 0.11, 0.07);
       },
+
       laneSwitch() {
         this.playTone(320, 'triangle', 0.08, 0.08, 0);
         this.playTone(480, 'triangle', 0.08, 0.06, 0.04);
       },
+
       correct() {
         this.playTone(523.25, 'triangle', 0.12, 0.11, 0);
         this.playTone(659.25, 'triangle', 0.12, 0.11, 0.09);
         this.playTone(783.99, 'triangle', 0.24, 0.12, 0.18);
       },
+
       wrong() {
         this.playTone(220, 'sawtooth', 0.18, 0.09, 0);
         this.playTone(175, 'sawtooth', 0.25, 0.09, 0.14);
       },
+
       unlock() {
-        [523.25, 659.25, 783.99, 1046.5].forEach((n, i) => this.playTone(n, 'square', 0.16, 0.07, i * 0.09));
+        const notes = [523.25, 659.25, 783.99, 1046.5];
+        notes.forEach((n, i) => this.playTone(n, 'square', 0.16, 0.07, i * 0.09));
       },
+
       startBGM() {
         if (this.bgmInterval || this.isMuted) return;
-        const melody = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 293.66, 392.00, 349.23, 440.00, 523.25, 440.00, 392.00, 329.63, 293.66, 246.94];
+        const melody = [
+          261.63, 329.63, 392.00, 523.25,
+          392.00, 329.63, 293.66, 392.00,
+          349.23, 440.00, 523.25, 440.00,
+          392.00, 329.63, 293.66, 246.94
+        ];
         this.bgmInterval = setInterval(() => {
           if (this.isMuted) return;
-          this.playTone(melody[this.step % melody.length], 'triangle', 0.18, 0.022, 0);
-          if (this.step % 4 === 0) this.playTone(130.81, 'sine', 0.22, 0.03, 0);
+          const note = melody[this.step % melody.length];
+          this.playTone(note, 'triangle', 0.18, 0.025, 0);
+          if (this.step % 4 === 0) {
+            this.playTone(130.81, 'sine', 0.22, 0.035, 0);
+          }
           this.step++;
         }, 260);
       },
+
       stopBGM() {
-        if (this.bgmInterval) { clearInterval(this.bgmInterval); this.bgmInterval = null; }
+        if (this.bgmInterval) {
+          clearInterval(this.bgmInterval);
+          this.bgmInterval = null;
+        }
       }
     };
 
     function toggleAudio() {
       SoundEngine.isMuted = !SoundEngine.isMuted;
-      if (SoundEngine.isMuted) SoundEngine.stopBGM();
-      else { SoundEngine.init(); SoundEngine.startBGM(); SoundEngine.coin(); }
-      const icon = SoundEngine.isMuted ? '🔇' : '🔊';
+      if (SoundEngine.isMuted) {
+        SoundEngine.stopBGM();
+      } else {
+        SoundEngine.init();
+        SoundEngine.startBGM();
+        SoundEngine.coin();
+      }
       const hudBtn = document.getElementById('btn-audio-toggle');
-      const landBtn = document.getElementById('landing-audio-btn');
-      if (hudBtn) hudBtn.textContent = icon;
-      if (landBtn) landBtn.textContent = `${icon} Muzik`;
+      if (hudBtn) hudBtn.textContent = SoundEngine.isMuted ? '🔇' : '🔊';
     }
 
-    /* =========================================================================
-       2. THREE.JS 3D GRAPHICS ENGINE (Subway Surfers Style 3D World & Character)
-       ========================================================================= */
-    function createNeonSignTexture(title, subtitle, bgColor, borderColor) {
-      const c = document.createElement('canvas');
-      c.width = 256;
-      c.height = 384;
-      const ctx = c.getContext('2d');
-      ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, 256, 384);
-      ctx.strokeStyle = borderColor;
-      ctx.lineWidth = 14;
-      ctx.strokeRect(10, 10, 236, 364);
-
-      ctx.fillStyle = '#FFD600';
-      ctx.font = '900 34px Fredoka, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(title, 128, 120);
-
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = '800 26px Nunito, sans-serif';
-      ctx.fillText(subtitle, 128, 175);
-
-      ctx.fillStyle = borderColor;
-      ctx.fillRect(42, 230, 172, 54);
-      ctx.fillStyle = '#0F172A';
-      ctx.font = '900 24px Fredoka, sans-serif';
-      ctx.fillText('MAIN SEKARANG!', 128, 265);
-
-      return new THREE.CanvasTexture(c);
-    }
-
-    // Builds an expressive 3D stylized Subway Runner character (Zafri or Maya)
-    function build3DRunnerCharacter(type = 'zafri') {
-      const group = new THREE.Group();
-
-      const skinMat = new THREE.MeshStandardMaterial({ color: 0xfdba74, roughness: 0.45 });
-      const hoodieMat = new THREE.MeshStandardMaterial({
-        color: type === 'zafri' ? 0x2563eb : 0xec4899,
-        roughness: 0.4
-      });
-      const pantsMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 });
-      const shoeMat = new THREE.MeshStandardMaterial({ color: 0xffd600, roughness: 0.3 });
-      const capMat = new THREE.MeshStandardMaterial({
-        color: type === 'zafri' ? 0xef4444 : 0x00e5ff,
-        roughness: 0.35
-      });
-
-      // Torso
-      const torso = new THREE.Mesh(new THREE.BoxGeometry(0.95, 1.15, 0.55), hoodieMat);
-      torso.position.y = 1.55;
-      torso.castShadow = true;
-      group.add(torso);
-
-      // Backpack
-      const packMat = new THREE.MeshStandardMaterial({ color: type === 'zafri' ? 0xff6d00 : 0xffd600, roughness: 0.4 });
-      const backpack = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.85, 0.38), packMat);
-      backpack.position.set(0, 1.6, 0.42);
-      backpack.castShadow = true;
-      group.add(backpack);
-
-      // Head
-      const head = new THREE.Mesh(new THREE.SphereGeometry(0.52, 20, 20), skinMat);
-      head.position.y = 2.55;
-      head.castShadow = true;
-      group.add(head);
-
-      // Eyes
-      const eyeMat = new THREE.MeshBasicMaterial({ color: 0x0f172a });
-      const leftEye = new THREE.Mesh(new THREE.SphereGeometry(0.07, 10, 10), eyeMat);
-      leftEye.position.set(-0.18, 2.58, -0.46);
-      const rightEye = new THREE.Mesh(new THREE.SphereGeometry(0.07, 10, 10), eyeMat);
-      rightEye.position.set(0.18, 2.58, -0.46);
-      group.add(leftEye, rightEye);
-
-      // Baseball Cap
-      const capDome = new THREE.Mesh(new THREE.SphereGeometry(0.55, 18, 14, 0, Math.PI * 2, 0, Math.PI * 0.52), capMat);
-      capDome.position.set(0, 2.6, 0);
-      const capVisor = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.08, 0.45), new THREE.MeshStandardMaterial({ color: 0xffd600 }));
-      capVisor.position.set(0, 2.66, -0.52);
-      capVisor.rotation.x = 0.15;
-      group.add(capDome, capVisor);
-
-      // Arms
-      const leftArm = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.9, 0.28), hoodieMat);
-      leftArm.position.set(-0.68, 1.55, 0);
-      leftArm.castShadow = true;
-      const rightArm = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.9, 0.28), hoodieMat);
-      rightArm.position.set(0.68, 1.55, 0);
-      rightArm.castShadow = true;
-      group.add(leftArm, rightArm);
-
-      // Legs & Sneakers
-      const leftLeg = new THREE.Group();
-      const lLegMesh = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.85, 0.34), pantsMat);
-      lLegMesh.position.y = -0.35;
-      const lShoe = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.24, 0.55), shoeMat);
-      lShoe.position.set(0, -0.78, -0.08);
-      leftLeg.add(lLegMesh, lShoe);
-      leftLeg.position.set(-0.26, 0.95, 0);
-
-      const rightLeg = new THREE.Group();
-      const rLegMesh = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.85, 0.34), pantsMat);
-      rLegMesh.position.y = -0.35;
-      const rShoe = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.24, 0.55), shoeMat);
-      rShoe.position.set(0, -0.78, -0.08);
-      rightLeg.add(rLegMesh, rShoe);
-      rightLeg.position.set(0.26, 0.95, 0);
-
-      group.add(leftLeg, rightLeg);
-
-      // Glowing Neon Hoverboard beneath feet
-      const boardMat = new THREE.MeshStandardMaterial({
-        color: type === 'zafri' ? 0x00e5ff : 0xff6d00,
-        emissive: type === 'zafri' ? 0x0088aa : 0xaa3300,
-        roughness: 0.2
-      });
-      const board = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.14, 2.1), boardMat);
-      board.position.set(0, 0.08, 0);
-      group.add(board);
-
-      group.userData = { leftArm, rightArm, leftLeg, rightLeg, board };
-      return group;
-    }
-
-    // Builds a detailed 3D Subway Train Car (inspired by the red/yellow train in the reference image)
-    function build3DSubwayTrain(primaryColor = 0xdc2626, stripeColor = 0xfacc15) {
-      const train = new THREE.Group();
-
-      // Main Carriage Body
-      const bodyMat = new THREE.MeshStandardMaterial({ color: primaryColor, roughness: 0.35, metalness: 0.2 });
-      const body = new THREE.Mesh(new THREE.BoxGeometry(2.7, 3.1, 14), bodyMat);
-      body.position.y = 1.85;
-      body.castShadow = true;
-      body.receiveShadow = true;
-      train.add(body);
-
-      // Roof
-      const roof = new THREE.Mesh(
-        new THREE.BoxGeometry(2.5, 0.3, 13.8),
-        new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.4 })
-      );
-      roof.position.y = 3.5;
-      train.add(roof);
-
-      // Yellow Accent Stripe
-      const stripe = new THREE.Mesh(
-        new THREE.BoxGeometry(2.76, 0.45, 14.04),
-        new THREE.MeshStandardMaterial({ color: stripeColor, roughness: 0.3 })
-      );
-      stripe.position.y = 1.25;
-      train.add(stripe);
-
-      // Glowing Cyan Windows along sides & front
-      const winMat = new THREE.MeshStandardMaterial({
-        color: 0x38bdf8,
-        emissive: 0x0284c7,
-        emissiveIntensity: 0.65,
-        roughness: 0.1
-      });
-      for (let z = -5.2; z <= 5.2; z += 2.6) {
-        const sideWin = new THREE.Mesh(new THREE.BoxGeometry(2.78, 0.95, 1.4), winMat);
-        sideWin.position.set(0, 2.35, z);
-        train.add(sideWin);
+    /* 2. ORIGINAL SVG CHARACTER GENERATOR */
+    function getAvatarSVG(type = 'zafri') {
+      if (type === 'maya') {
+        return `
+        <svg viewBox="0 0 100 100" class="w-full h-full rounded-2xl">
+          <defs>
+            <linearGradient id="bgMaya" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FF6D00"/>
+              <stop offset="100%" stop-color="#6C2BD9"/>
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="20" fill="url(#bgMaya)"/>
+          <circle cx="24" cy="42" r="11" fill="#1E1B4B"/>
+          <circle cx="76" cy="42" r="11" fill="#1E1B4B"/>
+          <circle cx="50" cy="52" r="24" fill="#FDBA74"/>
+          <path d="M26 44 Q50 22 74 44 Z" fill="#00E5FF"/>
+          <rect x="46" y="37" width="34" height="7" rx="3.5" fill="#FFD600"/>
+          <circle cx="42" cy="53" r="3.5" fill="#0F172A"/>
+          <circle cx="58" cy="53" r="3.5" fill="#0F172A"/>
+          <circle cx="43" cy="52" r="1.2" fill="#FFFFFF"/>
+          <circle cx="59" cy="52" r="1.2" fill="#FFFFFF"/>
+          <path d="M43 62 Q50 69 57 62" stroke="#0F172A" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M26 95 Q50 74 74 95 Z" fill="#FFD600"/>
+          <path d="M42 80 L50 95 L58 80 Z" fill="#00E5FF"/>
+        </svg>`;
       }
-
-      // Front Windshield & Headlights
-      const frontWin = new THREE.Mesh(new THREE.BoxGeometry(2.1, 1.0, 0.1), winMat);
-      frontWin.position.set(0, 2.4, 7.02);
-      train.add(frontWin);
-
-      const lightMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
-      const hlLeft = new THREE.Mesh(new THREE.SphereGeometry(0.22, 12, 12), lightMat);
-      hlLeft.position.set(-0.85, 0.9, 7.02);
-      const hlRight = new THREE.Mesh(new THREE.SphereGeometry(0.22, 12, 12), lightMat);
-      hlRight.position.set(0.85, 0.9, 7.02);
-      train.add(hlLeft, hlRight);
-
-      return train;
+      return `
+      <svg viewBox="0 0 100 100" class="w-full h-full rounded-2xl">
+        <defs>
+          <linearGradient id="bgZafri" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00E5FF"/>
+            <stop offset="100%" stop-color="#6C2BD9"/>
+          </linearGradient>
+        </defs>
+        <rect width="100" height="100" rx="20" fill="url(#bgZafri)"/>
+        <path d="M26 44 L32 24 L44 33 L52 20 L61 32 L72 25 L74 45 Z" fill="#0F172A"/>
+        <circle cx="50" cy="53" r="23" fill="#FDBA74"/>
+        <rect x="20" y="42" width="8" height="20" rx="4" fill="#FFD600"/>
+        <rect x="72" y="42" width="8" height="20" rx="4" fill="#FFD600"/>
+        <path d="M24 44 Q50 18 76 44" stroke="#FF6D00" stroke-width="5" fill="none"/>
+        <circle cx="42" cy="53" r="3.5" fill="#0F172A"/>
+        <circle cx="58" cy="53" r="3.5" fill="#0F172A"/>
+        <circle cx="43" cy="52" r="1.2" fill="#FFFFFF"/>
+        <circle cx="59" cy="52" r="1.2" fill="#FFFFFF"/>
+        <path d="M42 62 Q50 70 58 62" stroke="#0F172A" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M24 95 Q50 73 76 95 Z" fill="#FF6D00"/>
+        <path d="M44 79 L50 95 L56 79 Z" fill="#FFFFFF"/>
+      </svg>`;
     }
 
-    // HERO 3D SCENE CONTROLLER (Landing Page Background)
-    let hero3D = {
-      scene: null,
-      camera: null,
-      renderer: null,
-      runner: null,
-      runnerType: 'zafri',
-      jumpVel: 0,
-      runnerY: 0,
-      trains: [],
-      coins: [],
-      sleepers: [],
-      buildings: [],
-      animId: null
+    /* 3. GAME STATE & LOCALSTORAGE */
+    const STORAGE_KEY = 'misi_editor_cilik_v1';
+
+    const DEFAULT_STATE = {
+      name: '',
+      studentClass: '',
+      avatar: 'zafri',
+      coins: 0,
+      xp: 0,
+      unlockedMissions: [1],
+      completedMissions: [],
+      unlockAllOverride: false,
+      mod2Drafts: {},
+      mod5Essay: '',
+      mod5Topic: 'Sambutan Hari Kebangsaan di Sekolah Saya',
+      badges: []
     };
 
-    function initHero3DScene() {
-      const container = document.getElementById('hero-3d-container');
-      if (!container || typeof THREE === 'undefined') return;
-      container.innerHTML = '';
+    let gameState = loadGameState();
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x38bdf8);
-      scene.fog = new THREE.FogExp2(0x60a5fa, 0.014);
-
-      const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 160);
-      camera.position.set(0, 5.2, 11.5);
-      camera.lookAt(0, 2.2, -12);
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.shadowMap.enabled = true;
-      container.appendChild(renderer.domElement);
-
-      // Daylight + Sunset Warm Lighting (Matches vibrant Subway Surfers 3D look)
-      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x334155, 1.05);
-      scene.add(hemiLight);
-
-      const dirLight = new THREE.DirectionalLight(0xfffbeb, 1.25);
-      dirLight.position.set(14, 26, 18);
-      dirLight.castShadow = true;
-      scene.add(dirLight);
-
-      // Gravel Track Bed Ground
-      const groundMat = new THREE.MeshStandardMaterial({ color: 0x78553a, roughness: 0.9 });
-      const ground = new THREE.Mesh(new THREE.PlaneGeometry(24, 180), groundMat);
-      ground.rotation.x = -Math.PI / 2;
-      ground.position.z = -60;
-      ground.receiveShadow = true;
-      scene.add(ground);
-
-      // 3 Steel Railway Tracks (Left: -3.6, Center: 0, Right: +3.6)
-      const railMat = new THREE.MeshStandardMaterial({ color: 0xcbd5e1, metalness: 0.75, roughness: 0.25 });
-      const lanesX = [-3.6, 0, 3.6];
-      lanesX.forEach(lx => {
-        [-0.75, 0.75].forEach(offset => {
-          const rail = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.18, 180), railMat);
-          rail.position.set(lx + offset, 0.09, -60);
-          scene.add(rail);
-        });
-      });
-
-      // Wooden Railway Sleepers (Animated scrolling)
-      const sleeperMat = new THREE.MeshStandardMaterial({ color: 0x452715, roughness: 0.85 });
-      const sleepers = [];
-      for (let z = 12; z > -130; z -= 2.2) {
-        const row = new THREE.Group();
-        lanesX.forEach(lx => {
-          const wood = new THREE.Mesh(new THREE.BoxGeometry(2.1, 0.1, 0.42), sleeperMat);
-          wood.position.set(lx, 0.04, 0);
-          row.add(wood);
-        });
-        row.position.z = z;
-        scene.add(row);
-        sleepers.push(row);
-      }
-
-      // Colorful City Buildings & Neon Billboards flanking both sides
-      const buildingPalette = [0xf97316, 0x8b5cf6, 0x06b6d4, 0xeab308, 0xec4899, 0x3b82f6];
-      const neonSigns = [
-        createNeonSignTexture('SUBWAY', 'EDITOR CILIK', '#4c1d95', '#00e5ff'),
-        createNeonSignTexture('BAHASA', 'MELAYU RUN', '#9a3412', '#ffd600'),
-        createNeonSignTexture('STESEN', 'SENTRAL 3D', '#0f172a', '#22c55e')
-      ];
-      const buildings = [];
-      for (let i = 0; i < 18; i++) {
-        const zPos = 8 - i * 8.5;
-        [-1, 1].forEach(side => {
-          const h = 9 + ((i * 5 + (side > 0 ? 3 : 0)) % 11);
-          const bMat = new THREE.MeshStandardMaterial({
-            color: buildingPalette[(i + (side > 0 ? 2 : 0)) % buildingPalette.length],
-            roughness: 0.55
-          });
-          const bMesh = new THREE.Mesh(new THREE.BoxGeometry(6.5, h, 7.2), bMat);
-          bMesh.position.set(side * 9.8, h / 2, zPos);
-          scene.add(bMesh);
-          buildings.push(bMesh);
-
-          // Add glowing billboard on every 3rd building
-          if (i % 3 === 1) {
-            const signMat = new THREE.MeshBasicMaterial({ map: neonSigns[i % neonSigns.length] });
-            const sign = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 5.0), signMat);
-            sign.position.set(side * 6.45, 5.2, zPos);
-            sign.rotation.y = side > 0 ? -Math.PI / 2 : Math.PI / 2;
-            scene.add(sign);
-            buildings.push(sign);
-          }
-        });
-      }
-
-      // Overhead Catenary Gantry Arches
-      const gantryMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.4 });
-      for (let z = -10; z > -120; z -= 28) {
-        const arch = new THREE.Group();
-        const leftPillar = new THREE.Mesh(new THREE.BoxGeometry(0.4, 7.5, 0.4), gantryMat);
-        leftPillar.position.set(-5.8, 3.75, 0);
-        const rightPillar = new THREE.Mesh(new THREE.BoxGeometry(0.4, 7.5, 0.4), gantryMat);
-        rightPillar.position.set(5.8, 3.75, 0);
-        const topBeam = new THREE.Mesh(new THREE.BoxGeometry(12.2, 0.4, 0.4), gantryMat);
-        topBeam.position.set(0, 7.4, 0);
-        arch.add(leftPillar, rightPillar, topBeam);
-        arch.position.z = z;
-        scene.add(arch);
-        buildings.push(arch);
-      }
-
-      // Moving 3D Subway Trains on Left & Right Lanes
-      const trainRight1 = build3DSubwayTrain(0xdc2626, 0xfacc15);
-      trainRight1.position.set(3.6, 0, -18);
-      const trainRight2 = build3DSubwayTrain(0xdc2626, 0xfacc15);
-      trainRight2.position.set(3.6, 0, -34);
-      const trainLeft = build3DSubwayTrain(0x16a34a, 0x38bdf8);
-      trainLeft.position.set(-3.6, 0, -48);
-      scene.add(trainRight1, trainRight2, trainLeft);
-
-      // Spinning 3D Gold Coins on Center Lane
-      const coinGeo = new THREE.CylinderGeometry(0.48, 0.48, 0.14, 20);
-      coinGeo.rotateX(Math.PI / 2);
-      const coinMat = new THREE.MeshStandardMaterial({
-        color: 0xffd600,
-        emissive: 0xb45309,
-        emissiveIntensity: 0.35,
-        metalness: 0.8,
-        roughness: 0.2
-      });
-      const coins = [];
-      for (let c = 0; c < 8; c++) {
-        const coin = new THREE.Mesh(coinGeo, coinMat);
-        coin.position.set(0, 1.15, -4 - c * 4.5);
-        scene.add(coin);
-        coins.push(coin);
-      }
-
-      // Main 3D Runner Character on Center Track
-      const runner = build3DRunnerCharacter(hero3D.runnerType);
-      runner.position.set(0, 0, 3.2);
-      scene.add(runner);
-
-      hero3D = { ...hero3D, scene, camera, renderer, runner, trains: [trainRight1, trainRight2, trainLeft], coins, sleepers, buildings };
-
-      // Click background to make 3D character jump!
-      renderer.domElement.addEventListener('click', () => {
-        if (hero3D.runnerY <= 0.05) {
-          hero3D.jumpVel = 0.28;
-          SoundEngine.laneSwitch();
-        }
-      });
-
-      window.addEventListener('resize', () => {
-        if (!hero3D.renderer) return;
-        hero3D.camera.aspect = window.innerWidth / window.innerHeight;
-        hero3D.camera.updateProjectionMatrix();
-        hero3D.renderer.setSize(window.innerWidth, window.innerHeight);
-      });
-
-      let clock = 0;
-      function animateHero() {
-        hero3D.animId = requestAnimationFrame(animateHero);
-        clock += 0.14;
-
-        // Scroll sleepers & buildings toward camera to create high-speed forward run
-        hero3D.sleepers.forEach(s => {
-          s.position.z += 0.42;
-          if (s.position.z > 14) s.position.z -= 142;
-        });
-
-        hero3D.buildings.forEach(b => {
-          b.position.z += 0.42;
-          if (b.position.z > 16) b.position.z -= 152;
-        });
-
-        // Move trains smoothly
-        hero3D.trains.forEach((t, idx) => {
-          t.position.z += idx === 2 ? 0.62 : 0.28;
-          if (t.position.z > 22) t.position.z = -95;
-        });
-
-        // Spin & scroll gold coins
-        hero3D.coins.forEach(c => {
-          c.rotation.y += 0.08;
-          c.position.z += 0.42;
-          if (c.position.z > 5) c.position.z = -32;
-        });
-
-        // Jump physics & Running limb animation
-        if (hero3D.runnerY > 0 || hero3D.jumpVel !== 0) {
-          hero3D.runnerY += hero3D.jumpVel;
-          hero3D.jumpVel -= 0.016;
-          if (hero3D.runnerY <= 0) {
-            hero3D.runnerY = 0;
-            hero3D.jumpVel = 0;
-          }
-        }
-
-        const r = hero3D.runner;
-        if (r) {
-          r.position.y = hero3D.runnerY + Math.abs(Math.sin(clock)) * 0.18;
-          r.userData.leftLeg.rotation.x = Math.sin(clock) * 0.75;
-          r.userData.rightLeg.rotation.x = -Math.sin(clock) * 0.75;
-          r.userData.leftArm.rotation.x = -Math.sin(clock) * 0.65;
-          r.userData.rightArm.rotation.x = Math.sin(clock) * 0.65;
-          r.rotation.z = Math.sin(clock * 0.5) * 0.05;
-        }
-
-        renderer.render(scene, camera);
-      }
-      animateHero();
-    }
-
-    function switchHero3DCharacter() {
-      hero3D.runnerType = hero3D.runnerType === 'zafri' ? 'maya' : 'zafri';
-      document.getElementById('hero-runner-label').textContent = hero3D.runnerType === 'zafri' ? 'Zafri' : 'Maya';
-      if (hero3D.scene && hero3D.runner) {
-        hero3D.scene.remove(hero3D.runner);
-        hero3D.runner = build3DRunnerCharacter(hero3D.runnerType);
-        hero3D.runner.position.set(0, 0, 3.2);
-        hero3D.scene.add(hero3D.runner);
-        hero3D.jumpVel = 0.24;
-        SoundEngine.laneSwitch();
-      }
-    }
-
-    /* =========================================================================
-       3. SISTEM PENGURUSAN ADMIN, GURU & MURID (LOCALSTORAGE DATABASE)
-       ========================================================================= */
-    const DB_KEY = 'misi_editor_cilik_school_db_v1';
-
-    const DEFAULT_DB = {
-      adminPassword: 'admin123',
-      teachers: [
-        { id: 't1', name: 'Cikgu Aminah Binti Yusof', username: 'cikgu1', password: '1234', subject: 'Guru Bahasa Melayu' }
-      ],
-      classes: ['5 Bestari', '6 Cemerlang'],
-      students: [
-        {
-          id: 's1',
-          name: 'Ahmad Danial',
-          studentClass: '5 Bestari',
-          avatar: 'zafri',
-          coins: 0,
-          xp: 0,
-          unlockedMissions: [1],
-          completedMissions: [],
-          unlockAllOverride: false,
-          mod2Drafts: {},
-          mod5Essay: '',
-          mod5Topic: 'Sambutan Hari Kebangsaan di Sekolah Saya',
-          badges: []
-        },
-        {
-          id: 's2',
-          name: 'Nurul Aina',
-          studentClass: '5 Bestari',
-          avatar: 'maya',
-          coins: 0,
-          xp: 0,
-          unlockedMissions: [1],
-          completedMissions: [],
-          unlockAllOverride: false,
-          mod2Drafts: {},
-          mod5Essay: '',
-          mod5Topic: 'Sambutan Hari Kebangsaan di Sekolah Saya',
-          badges: []
-        },
-        {
-          id: 's3',
-          name: 'Harith Iskandar',
-          studentClass: '6 Cemerlang',
-          avatar: 'zafri',
-          coins: 0,
-          xp: 0,
-          unlockedMissions: [1],
-          completedMissions: [],
-          unlockAllOverride: false,
-          mod2Drafts: {},
-          mod5Essay: '',
-          mod5Topic: 'Sambutan Hari Kebangsaan di Sekolah Saya',
-          badges: []
-        }
-      ]
-    };
-
-    let schoolDB = loadSchoolDB();
-    let activeStudentId = null;
-    let activeTeacherId = null;
-
-    function loadSchoolDB() {
+    function loadGameState() {
       try {
-        const raw = localStorage.getItem(DB_KEY);
-        if (raw) return { ...DEFAULT_DB, ...JSON.parse(raw) };
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return { ...DEFAULT_STATE, ...JSON.parse(raw) };
       } catch (e) {}
-      return JSON.parse(JSON.stringify(DEFAULT_DB));
+      return { ...DEFAULT_STATE };
     }
 
-    function saveSchoolDB() {
+    function saveGameState() {
       try {
-        localStorage.setItem(DB_KEY, JSON.stringify(schoolDB));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
       } catch (e) {}
+      updateHUD();
     }
 
-    function getCurrentStudent() {
-      return schoolDB.students.find(s => s.id === activeStudentId) || schoolDB.students[0];
+    function addRewards(coinsEarned, xpEarned, reason = '') {
+      gameState.coins += coinsEarned;
+      gameState.xp += xpEarned;
+      checkAutomaticBadges();
+      saveGameState();
+      if (coinsEarned > 0) SoundEngine.coin();
+      if (reason) showToast(`+${coinsEarned} Syiling & +${xpEarned} XP (${reason})`, '🪙');
     }
 
-    // Login Role Switcher on Landing Page
-    function selectLoginRole(role) {
-      ['murid', 'guru', 'admin'].forEach(r => {
-        const tab = document.getElementById(`tab-role-${r}`); const form = document.getElementById(`form-login-${r}`);
-        if (r === role) {
-          tab.className = 'py-2.5 px-2 rounded-xl font-display font-bold text-sm sm:text-base flex flex-col items-center gap-0.5 bg-yellow-400 text-slate-950 shadow-md transition';
-          form.classList.remove('hidden');
-        } else {
-          tab.className = 'py-2.5 px-2 rounded-xl font-display font-bold text-sm sm:text-base flex flex-col items-center gap-0.5 text-slate-300 hover:text-white transition';
-          form.classList.add('hidden');
-        }
+    function completeMission(missionId) {
+      if (!gameState.completedMissions.includes(missionId)) {
+        gameState.completedMissions.push(missionId);
+      }
+      const nextId = missionId + 1;
+      if (nextId <= 5 && !gameState.unlockedMissions.includes(nextId)) {
+        gameState.unlockedMissions.push(nextId);
+        SoundEngine.unlock();
+      }
+      checkAutomaticBadges();
+      saveGameState();
+    }
+
+    function getPlayerRank(xp) {
+      if (xp >= 600) return 'Tahap 5: Legenda Editor Cilik';
+      if (xp >= 400) return 'Tahap 4: Pakar Penyunting Kota';
+      if (xp >= 250) return 'Tahap 3: Detektif Bahasa Handal';
+      if (xp >= 100) return 'Tahap 2: Penulis Muda Subway';
+      return 'Tahap 1: Perantis Editor';
+    }
+
+    function showToast(msg, icon = '✨') {
+      const box = document.getElementById('toast-box');
+      document.getElementById('toast-icon').textContent = icon;
+      document.getElementById('toast-msg').textContent = msg;
+      box.classList.remove('hidden');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3200);
+    }
+
+    /* 4. NAVIGATION & HUD */
+    const VIEWS = ['landing', 'dashboard', 'mod1', 'mod2', 'mod3', 'mod4', 'mod5'];
+
+    function navigateTo(viewName) {
+      VIEWS.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) el.classList.add('hidden');
       });
+      const target = document.getElementById(`view-${viewName}`);
+      if (target) target.classList.remove('hidden');
+
+      const hud = document.getElementById('top-hud');
+      if (viewName === 'landing') {
+        hud.classList.add('hidden');
+      } else {
+        hud.classList.remove('hidden');
+        updateHUD();
+      }
+
+      if (viewName === 'dashboard') renderDashboardMissions();
+      else if (viewName === 'mod1') initMod1();
+      else if (viewName === 'mod2') initMod2();
+      else if (viewName === 'mod3') initMod3();
+      else if (viewName === 'mod4') initMod4();
+      else if (viewName === 'mod5') initMod5();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateHUD() {
+      const avatarHTML = getAvatarSVG(gameState.avatar);
+      const hudAvatar = document.getElementById('hud-avatar');
+      if (hudAvatar) hudAvatar.innerHTML = avatarHTML;
+
+      const rank = getPlayerRank(gameState.xp);
+      const progressPct = Math.round((gameState.completedMissions.length / 5) * 100);
+
+      document.getElementById('hud-name').textContent = gameState.name || 'Pelari';
+      document.getElementById('hud-class').textContent = gameState.studentClass || 'Kelas';
+      document.getElementById('hud-level').textContent = rank;
+      document.getElementById('hud-coins').textContent = gameState.coins;
+      document.getElementById('hud-xp').textContent = gameState.xp;
+      document.getElementById('hud-progress-bar').style.width = `${progressPct}%`;
+      document.getElementById('hud-progress-text').textContent = `${progressPct}%`;
+
+      const dashAvatar = document.getElementById('dash-avatar-large');
+      if (dashAvatar) dashAvatar.innerHTML = avatarHTML;
+      document.getElementById('dash-player-name').textContent = gameState.name || 'Pelari';
+      document.getElementById('dash-class-badge').textContent = (gameState.studentClass || 'Kelas').toUpperCase();
+      document.getElementById('dash-coins').textContent = gameState.coins;
+      document.getElementById('dash-xp').textContent = gameState.xp;
+      document.getElementById('dash-missions-done').textContent = `${gameState.completedMissions.length}/5`;
+      document.getElementById('dash-rank-title').textContent = rank;
+      document.getElementById('dash-progress-percent').textContent = `${progressPct}% Lengkap`;
+      document.getElementById('dash-progress-fill').style.width = `${progressPct}%`;
+    }
+
+    /* 5. DASHBOARD MISSIONS */
+    const MISSIONS_META = [
+      { id: 1, view: 'mod1', code: 'SP 3.3.1', title: 'STESEN ILMU', subtitle: 'Jom Kenali Penulisan', desc: 'Kad nota interaktif penulisan berformat & tidak berformat serta larian pantas Subway Quiz Runner!', color: 'from-cyan-500 to-blue-700', border: 'border-cyan-400', badge: '🚉' },
+      { id: 2, view: 'mod2', code: 'SP 3.3.1', title: 'BANDAR PENULIS', subtitle: 'Misi Penulis Hebat', desc: 'Kumpul kosa kata, susun kad ayat cerita, dan bina draf karangan, surat kiriman atau catatan!', color: 'from-orange-500 to-amber-700', border: 'border-orange-400', badge: '🏙️' },
+      { id: 3, view: 'mod3', code: 'SP 3.3.2', title: 'TEROWONG DETEKTIF', subtitle: 'Misi Detektif Bahasa', desc: 'Kesan 15 kesalahan ejaan, tanda baca, imbuhan, penggunaan kata dan struktur ayat dalam terowong!', color: 'from-purple-600 to-indigo-800', border: 'border-purple-400', badge: '🔦' },
+      { id: 4, view: 'mod4', code: 'SP 3.3.2', title: 'MAKMAL EDITOR', subtitle: 'Bengkel Editor Digital', desc: 'Sunting draf karangan penuh bersama Pembantu Editor Pintar dan fahami setiap pembetulan bahasa.', color: 'from-fuchsia-600 to-purple-900', border: 'border-fuchsia-400', badge: '🧪' },
+      { id: 5, view: 'mod5', code: 'SP 3.3.1 & 3.3.2', title: 'DESTINASI JUARA', subtitle: 'Cabaran Penulis Cemerlang', desc: 'Cabaran akhir penulisan lengkap, kuiz bos akhir 10 soalan, refleksi dan Sijil Digital Juara!', color: 'from-yellow-500 to-orange-600', border: 'border-yellow-300', badge: '👑' }
+    ];
+
+    function renderDashboardMissions() {
+      const grid = document.getElementById('mission-cards-grid');
+      grid.innerHTML = MISSIONS_META.map(m => {
+        const isUnlocked = gameState.unlockAllOverride || gameState.unlockedMissions.includes(m.id);
+        const isDone = gameState.completedMissions.includes(m.id);
+        return `
+        <div class="relative rounded-3xl border-4 ${isUnlocked ? m.border : 'border-slate-700'} bg-slate-900/95 overflow-hidden shadow-xl flex flex-col justify-between transition hover:-translate-y-1">
+          <div class="bg-gradient-to-r ${isUnlocked ? m.color : 'from-slate-800 to-slate-900'} p-4 relative overflow-hidden">
+            <div class="flex items-center justify-between relative z-10">
+              <span class="bg-slate-950/70 text-white font-black text-xs px-3 py-1 rounded-full">${m.code}</span>
+              ${isDone ? '<span class="bg-green-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full">✔ SELESAI</span>' : isUnlocked ? '<span class="bg-yellow-300 text-slate-950 font-black text-xs px-3 py-1 rounded-full animate-pulse">⚡ TERBUKA</span>' : '<span class="bg-slate-950 text-slate-400 font-black text-xs px-3 py-1 rounded-full">🔒 TERKUNCI</span>'}
+            </div>
+            <div class="mt-3 flex items-center gap-3 relative z-10">
+              <div class="w-14 h-14 rounded-2xl bg-slate-950/40 backdrop-blur flex items-center justify-center text-3xl shadow-inner">${m.badge}</div>
+              <div>
+                <h4 class="font-display font-bold text-xl text-white leading-tight">${m.id}. ${m.title}</h4>
+                <p class="text-xs font-extrabold text-yellow-200">${m.subtitle}</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-sm text-slate-300 font-semibold leading-relaxed">${m.desc}</p>
+            <div>
+              ${isUnlocked
+                ? `<button onclick="navigateTo('${m.view}')" class="w-full btn-arcade ${isDone ? 'btn-cyan' : 'btn-yellow'} font-display font-bold text-base py-3 rounded-2xl">${isDone ? '🔄 Main Semula Misi' : '▶ Mula Misi Sekarang'}</button>`
+                : `<button disabled class="w-full bg-slate-800 text-slate-500 font-display font-bold text-sm py-3 rounded-2xl cursor-not-allowed">🔒 Selesaikan Misi ${m.id - 1} Dahulu</button>`}
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+
+      const unlockBtn = document.getElementById('btn-unlock-all');
+      if (unlockBtn) unlockBtn.textContent = gameState.unlockAllOverride ? '🔒 Mod Guru: Kunci Ikut Tahap' : '🔓 Mod Guru: Buka Semua Misi';
+    }
+
+    function toggleUnlockAllMissions() {
+      gameState.unlockAllOverride = !gameState.unlockAllOverride;
+      saveGameState();
+      renderDashboardMissions();
+      showToast(gameState.unlockAllOverride ? 'Semua 5 misi dibuka untuk semakan!' : 'Mod urutan misi diaktifkan semula.', '🔓');
+    }
+
+    function confirmResetProgress() {
+      const box = document.getElementById('toast-box');
+      document.getElementById('toast-icon').textContent = '⚠️';
+      document.getElementById('toast-msg').innerHTML = `Set semula kemajuan pemain ini? <button onclick="executeResetProgress()" class="ml-2 bg-rose-600 text-white px-2.5 py-1 rounded-lg text-xs font-black">Ya, Reset</button>`;
+      box.classList.remove('hidden');
+    }
+
+    function executeResetProgress() {
+      const keepName = gameState.name;
+      const keepClass = gameState.studentClass;
+      gameState = { ...DEFAULT_STATE, name: keepName, studentClass: keepClass };
+      saveGameState();
+      document.getElementById('toast-box').classList.add('hidden');
+      renderDashboardMissions();
+      showToast('Kemajuan berjaya diset semula!', '↺');
+    }
+
+    const BADGES_CATALOG = [
+      { id: 'b_stesen', icon: '🚉', title: 'Perintis Stesen Ilmu', desc: 'Menamatkan Mod 1: Subway Quiz Runner.' },
+      { id: 'b_penulis', icon: '🏙️', title: 'Penulis Kota Hebat', desc: 'Menghasilkan draf penulisan di Mod 2.' },
+      { id: 'b_detektif', icon: '🔦', title: 'Detektif Terowong Bahasa', desc: 'Menyelesaikan cabaran mengesan kesalahan di Mod 3.' },
+      { id: 'b_editor', icon: '🧪', title: 'Editor Makmal Digital', desc: 'Menyunting dokumen penuh di Mod 4.' },
+      { id: 'b_juara', icon: '👑', title: 'Lencana Editor Cemerlang', desc: 'Menjuarai Cabaran Akhir di Destinasi Juara!' },
+      { id: 'b_syiling', icon: '🪙', title: 'Pengumpul Syiling Emas', desc: 'Mengumpul sekurang-kurangnya 150 syiling emas.' }
+    ];
+
+    function checkAutomaticBadges() {
+      const add = (id) => { if (!gameState.badges.includes(id)) gameState.badges.push(id); };
+      if (gameState.completedMissions.includes(1)) add('b_stesen');
+      if (gameState.completedMissions.includes(2)) add('b_penulis');
+      if (gameState.completedMissions.includes(3)) add('b_detektif');
+      if (gameState.completedMissions.includes(4)) add('b_editor');
+      if (gameState.completedMissions.includes(5)) add('b_juara');
+      if (gameState.coins >= 150) add('b_syiling');
+    }
+
+    function openAchievementsModal() {
+      checkAutomaticBadges();
+      const grid = document.getElementById('badges-grid');
+      grid.innerHTML = BADGES_CATALOG.map(b => {
+        const earned = gameState.badges.includes(b.id);
+        return `
+        <div class="p-4 rounded-2xl border-2 ${earned ? 'bg-purple-950/80 border-yellow-400' : 'bg-slate-950/60 border-slate-800 opacity-60'} flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl ${earned ? 'bg-yellow-400/20' : 'bg-slate-800'} flex items-center justify-center text-3xl flex-shrink-0">${earned ? b.icon : '🔒'}</div>
+          <div>
+            <div class="font-display font-bold text-base ${earned ? 'text-yellow-300' : 'text-slate-400'}">${b.title}</div>
+            <div class="text-xs text-slate-300 font-semibold">${b.desc}</div>
+          </div>
+        </div>`;
+      }).join('');
+      document.getElementById('modal-achievements').classList.remove('hidden');
+    }
+
+    function closeAchievementsModal() {
+      document.getElementById('modal-achievements').classList.add('hidden');
+    }
+
+    /* 6. MOD 1: STESEN ILMU */
+    const MOD1_NOTES = [
+      { title: '1. Karangan (Tidak Berformat)', tag: 'Tidak Berformat', color: 'border-cyan-400', front: 'Karangan berbentuk cerita, fakta, perbincangan atau pengalaman yang ditulis dalam perenggan biasa tanpa format khusus.', back: 'Struktur Utama:\n• Tajuk (pilihan)\n• Pendahuluan (1 perenggan)\n• Isi-isi Penting (3–4 perenggan)\n• Penutup (1 perenggan)\nContoh: Pengalaman Bercuti di Kampung.' },
+      { title: '2. Surat Kiriman (Berformat)', tag: 'Berformat', color: 'border-yellow-400', front: 'Terbahagi kepada Surat Kiriman Tidak Rasmi (kepada sahabat/keluarga) dan Surat Kiriman Rasmi (urusan rasmi/sekolah).', back: 'Ciri Format Surat Tidak Rasmi:\n• Alamat pengirim & Tarikh (kanan atas)\n• Kata hadap & Kata panggilan hormat (Saudara/Saudari)\n• Pengakuan & Tandatangan (kanan bawah).' },
+      { title: '3. Catatan / Diari (Berformat)', tag: 'Berformat', color: 'border-orange-400', front: 'Penulisan yang merekodkan peristiwa penting mengikut urutan hari, tarikh dan masa secara kronologi.', back: 'Ciri Format Catatan:\n• Tajuk catatan (huruf besar)\n• Hari & Tarikh (contoh: Sabtu, 14 Jun 2026)\n• Masa mengikut urutan (8:00 pagi, 10:30 pagi...)\nContoh: Catatan Hari Sukan Sekolah.' },
+      { title: '4. Perbandingan Berformat vs Tidak Berformat', tag: 'Tip Peperiksaan', color: 'border-purple-400', front: 'Apakah perbezaan paling ketara antara karangan berformat dengan tidak berformat?', back: '• Berformat: Mempunyai susun atur khas seperti alamat, tarikh, masa, tandatangan atau dialog.\n• Tidak Berformat: Terus dimulakan dengan perenggan pendahuluan, isi dan penutup.' }
+    ];
+
+    const MOD1_QUESTIONS = [
+      { q: 'Manakah antara berikut merupakan jenis penulisan BERFORMAT?', options: ['Karangan Cereka', 'Surat Kiriman Rasmi', 'Karangan Autobiografi'], correct: 1, explain: 'Surat Kiriman Rasmi mempunyai format khusus seperti alamat pengirim, alamat penerima, tarikh, tajuk surat dan tandatangan.' },
+      { q: 'Di manakah kedudukan alamat pengirim dan tarikh dalam Surat Kiriman Tidak Rasmi?', options: ['Sebelah kiri bawah', 'Di tengah-tengah muka surat', 'Sebelah kanan atas'], correct: 2, explain: 'Dalam Surat Kiriman Tidak Rasmi, alamat pengirim dan tarikh ditulis di bahagian penjuru kanan atas.' },
+      { q: 'Apakah ciri utama yang wajib ada dalam penulisan CATATAN harian atau aktiviti?', options: ['Senarai harga barang', 'Hari, tarikh dan masa', 'Alamat penerima surat'], correct: 1, explain: 'Catatan merekodkan peristiwa mengikut urutan waktu, maka hari, tarikh dan masa (contoh: 8:30 pagi) wajib ditulis.' },
+      { q: 'Karangan bertajuk "Pengalaman Bercuti di Pulau Langkawi" tergolong dalam jenis penulisan...', options: ['Tidak Berformat', 'Surat Kiriman Rasmi', 'Laporan Mesyuarat'], correct: 0, explain: 'Karangan pengalaman ditulis dalam perenggan pendahuluan, isi dan penutup biasa tanpa format khas.' },
+      { q: 'Apakah kata panggilan hormat yang sesuai untuk menulis surat kepada rakan lelaki?', options: ['Yang Berhormat,', 'Menemui sahabatku,', 'Tuan Pengarah,'], correct: 1, explain: '"Menemui sahabatku," atau "Saudara," merupakan kata panggilan mesra yang tepat untuk surat tidak rasmi kepada rakan.' },
+      { q: 'Susunan binaan karangan tidak berformat yang paling tepat ialah...', options: ['Penutup ➔ Isi ➔ Pendahuluan', 'Pendahuluan ➔ Isi ➔ Penutup', 'Isi ➔ Tandatangan ➔ Tajuk'], correct: 1, explain: 'Setiap karangan tidak berformat perlu dimulakan dengan Pendahuluan, diikuti Isi-isi Penting dan diakhiri Penutup.' },
+      { q: 'Mengapakah masa dalam penulisan Catatan perlu disusun mengikut urutan?', options: ['Supaya kronologi peristiwa jelas', 'Supaya karangan lebih panjang', 'Untuk menggantikan perenggan penutup'], correct: 0, explain: 'Susunan masa secara kronologi (dari awal hingga akhir program) memudahkan pembaca memahami aliran peristiwa.' },
+      { q: 'Di bahagian manakah "Yang benar," dan tandatangan diletakkan dalam surat tidak rasmi?', options: ['Penjuru kanan bawah', 'Penjuru kiri atas', 'Selepas perenggan pertama'], correct: 0, explain: 'Pengakuan pengirim ("Yang benar,") dan tandatangan ditulis di bahagian penjuru kanan bawah surat.' },
+      { q: 'Manakah tajuk yang paling sesuai ditulis dalam bentuk CATATAN?', options: ['Aku Sebuah Basikal', 'Catatan Hari Sukan Sekolah', 'Faedah Membaca Buku'], correct: 1, explain: 'Aktiviti sepanjang hari seperti Hari Sukan Sekolah atau perkhemahan sangat sesuai direkodkan mengikut masa dalam bentuk Catatan.' },
+      { q: 'Apakah tujuan perenggan PENUTUP dalam sesebuah karangan?', options: ['Memperkenalkan tajuk baharu', 'Merumus keseluruhan cerita dan harapan', 'Menulis alamat rumah penulis'], correct: 1, explain: 'Perenggan penutup berfungsi merumuskan keseluruhan isi karangan serta menyatakan perasaan atau harapan penulis.' }
+    ];
+
+    let runnerState = { active: false, qIndex: 0, lane: 1, gateY: 0, score: 0, lives: 3, paused: false, animId: null };
+
+    function initMod1() {
+      const grid = document.getElementById('mod1-flashcards-grid');
+      grid.innerHTML = MOD1_NOTES.map(n => `
+        <div onclick="this.querySelector('.card-inner').classList.toggle('rotate-y-180')" class="perspective-1000 h-56 cursor-pointer group">
+          <div class="card-inner relative w-full h-full transform-style-3d">
+            <div class="backface-hidden absolute inset-0 bg-slate-950 ${n.color} border-2 rounded-2xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="flex items-center justify-between">
+                <span class="bg-purple-800 text-cyan-200 text-xs font-extrabold px-2.5 py-1 rounded-full">${n.tag}</span>
+                <span class="text-xs font-bold text-yellow-300">Klik untuk lihat contoh ↻</span>
+              </div>
+              <h4 class="font-display font-bold text-xl text-white">${n.title}</h4>
+              <p class="text-sm text-slate-300 font-semibold leading-relaxed">${n.front}</p>
+            </div>
+            <div class="backface-hidden rotate-y-180 absolute inset-0 bg-gradient-to-br from-purple-900 to-slate-900 border-2 border-yellow-400 rounded-2xl p-5 flex flex-col justify-between shadow-lg">
+              <div class="text-xs font-black text-yellow-300 uppercase">📌 Contoh &amp; Ciri Utama</div>
+              <p class="text-xs sm:text-sm text-white font-semibold whitespace-pre-line leading-relaxed">${n.back}</p>
+              <div class="text-right text-xs text-cyan-300 font-bold">Klik lagi untuk kembali ↺</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchMod1Phase(phase) {
+      if (phase === 'notes') {
+        document.getElementById('mod1-phase-notes').classList.remove('hidden');
+        document.getElementById('mod1-phase-runner').classList.add('hidden');
+        runnerState.active = false;
+      } else {
+        document.getElementById('mod1-phase-notes').classList.add('hidden');
+        document.getElementById('mod1-phase-runner').classList.remove('hidden');
+        startRunnerGame();
+      }
+    }
+
+    function setRunnerLane(laneIdx) {
+      if (!runnerState.active || runnerState.paused) return;
+      runnerState.lane = Math.max(0, Math.min(2, laneIdx));
       SoundEngine.laneSwitch();
     }
 
-    function populateStudentLoginForm() {
-      const classSelect = document.getElementById('login-student-class');
-      if (!classSelect) return;
-      classSelect.innerHTML = schoolDB.classes.map(c => `<option value="${c}">${c}</option>`).join('');
-      populateStudentDropdown();
+    window.addEventListener('keydown', (e) => {
+      if (!runnerState.active || runnerState.paused) return;
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') setRunnerLane(runnerState.lane - 1);
+      else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') setRunnerLane(runnerState.lane + 1);
+    });
+
+    function startRunnerGame() {
+      runnerState = { active: true, qIndex: 0, lane: 1, gateY: 0.12, score: 0, lives: 3, paused: false, animId: null };
+      document.getElementById('runner-feedback-overlay').classList.add('hidden');
+      document.getElementById('runner-summary-overlay').classList.add('hidden');
+      loadRunnerQuestionUI();
+
+      const canvas = document.getElementById('runner-game-canvas');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width || 800;
+      canvas.height = rect.height || 360;
+
+      canvas.onclick = (e) => {
+        const b = canvas.getBoundingClientRect();
+        const relX = (e.clientX - b.left) / b.width;
+        if (relX < 0.33) setRunnerLane(0);
+        else if (relX < 0.66) setRunnerLane(1);
+        else setRunnerLane(2);
+      };
+
+      if (runnerState.animId) cancelAnimationFrame(runnerState.animId);
+      runSubwayQuizLoop();
     }
 
-    function populateStudentDropdown() {
-      const chosenClass = document.getElementById('login-student-class').value;
-      const studentSelect = document.getElementById('login-student-id');
-      const filtered = schoolDB.students.filter(s => s.studentClass === chosenClass);
-      if (filtered.length === 0) {
-        studentSelect.innerHTML = `<option value="">(Tiada murid didaftarkan dalam kelas ini)</option>`;
+    function loadRunnerQuestionUI() {
+      const q = MOD1_QUESTIONS[runnerState.qIndex];
+      document.getElementById('runner-q-counter').textContent = `Soalan ${runnerState.qIndex + 1} / ${MOD1_QUESTIONS.length}`;
+      document.getElementById('runner-question-text').textContent = q.q;
+      document.getElementById('runner-score').textContent = runnerState.score;
+      document.getElementById('runner-lives').textContent = '❤️'.repeat(Math.max(0, runnerState.lives)) || '💔';
+      runnerState.gateY = 0.08;
+    }
+
+    function runSubwayQuizLoop() {
+      const canvas = document.getElementById('runner-game-canvas');
+      if (!canvas || !runnerState.active) return;
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const horizonY = h * 0.22;
+
+      const bg = ctx.createLinearGradient(0, 0, 0, h);
+      bg.addColorStop(0, '#1E1B4B');
+      bg.addColorStop(0.25, '#311042');
+      bg.addColorStop(1, '#0F172A');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.fillStyle = '#1E293B';
+      ctx.beginPath();
+      ctx.moveTo(w * 0.25, horizonY);
+      ctx.lineTo(w * 0.75, horizonY);
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 3;
+      const offset = (Date.now() * 0.18) % 26;
+      for (let y = horizonY + offset; y < h; y += 26) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
+
+      const laneCentersTop = [0.34, 0.5, 0.66];
+      const laneCentersBot = [0.18, 0.5, 0.82];
+
+      for (let i = 0; i < 3; i++) {
+        ctx.strokeStyle = i === runnerState.lane ? '#00E5FF' : '#64748B';
+        ctx.lineWidth = i === runnerState.lane ? 4 : 2;
+        ctx.beginPath();
+        ctx.moveTo(w * laneCentersTop[i] - 12, horizonY);
+        ctx.lineTo(w * laneCentersBot[i] - 32, h);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(w * laneCentersTop[i] + 12, horizonY);
+        ctx.lineTo(w * laneCentersBot[i] + 32, h);
+        ctx.stroke();
+      }
+
+      if (!runnerState.paused) runnerState.gateY += 0.0026;
+
+      const q = MOD1_QUESTIONS[runnerState.qIndex];
+      const p = Math.min(1, runnerState.gateY);
+      const gateScreenY = horizonY + p * (h * 0.68);
+      const gateHeight = 36 + p * 38;
+      const gateWidth = (w * 0.16) + p * (w * 0.13);
+
+      const gateColors = ['#6C2BD9', '#0284C7', '#EA580C'];
+      for (let i = 0; i < 3; i++) {
+        const cx = w * (laneCentersTop[i] + (laneCentersBot[i] - laneCentersTop[i]) * p);
+        const gx = cx - gateWidth / 2;
+        const gy = gateScreenY - gateHeight;
+
+        ctx.fillStyle = gateColors[i];
+        ctx.beginPath();
+        ctx.roundRect(gx, gy, gateWidth, gateHeight, 12);
+        ctx.fill();
+        ctx.strokeStyle = '#FFD600';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.fillStyle = '#FFFFFF';
+        const fontSize = Math.max(11, Math.round(11 + p * 6));
+        ctx.font = `bold ${fontSize}px Nunito, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        wrapCanvasText(ctx, q.options[i], cx, gy + gateHeight / 2, gateWidth - 12, fontSize + 2);
+      }
+
+      const playerX = w * laneCentersBot[runnerState.lane];
+      const playerY = h * 0.86 + Math.sin(Date.now() * 0.015) * 4;
+
+      ctx.fillStyle = '#00E5FF';
+      ctx.beginPath();
+      ctx.ellipse(playerX, playerY + 24, 30, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#FF6D00';
+      ctx.beginPath();
+      ctx.roundRect(playerX - 14, playerY - 14, 28, 30, 8);
+      ctx.fill();
+
+      ctx.fillStyle = '#FDBA74';
+      ctx.beginPath();
+      ctx.arc(playerX, playerY - 26, 13, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFD600';
+      ctx.beginPath();
+      ctx.arc(playerX, playerY - 30, 13, Math.PI, 0);
+      ctx.fill();
+
+      if (!runnerState.paused && p >= 0.96) {
+        runnerState.paused = true;
+        handleRunnerCollision(runnerState.lane === q.correct, q);
+      }
+
+      runnerState.animId = requestAnimationFrame(runSubwayQuizLoop);
+    }
+
+    function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let lines = [];
+      let currentLine = words[0];
+      for (let i = 1; i < words.length; i++) {
+        const testLine = currentLine + ' ' + words[i];
+        if (ctx.measureText(testLine).width < maxWidth) currentLine = testLine;
+        else { lines.push(currentLine); currentLine = words[i]; }
+      }
+      lines.push(currentLine);
+      const startY = y - ((lines.length - 1) * lineHeight) / 2;
+      lines.forEach((line, idx) => ctx.fillText(line, x, startY + idx * lineHeight));
+    }
+
+    function handleRunnerCollision(isCorrect, q) {
+      const overlay = document.getElementById('runner-feedback-overlay');
+      const icon = document.getElementById('runner-fb-icon');
+      const title = document.getElementById('runner-fb-title');
+      const explain = document.getElementById('runner-fb-explain');
+
+      if (isCorrect) {
+        runnerState.score += 10;
+        addRewards(10, 20);
+        icon.textContent = '🪙';
+        title.textContent = 'TEPAT SEKALI! (+10 Syiling)';
+        title.className = 'font-display font-bold text-2xl text-yellow-300';
       } else {
-        studentSelect.innerHTML = filtered.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-      }
-    }
-
-    // 1. STUDENT LOGIN
-    function handleStudentLogin(e) {
-      e.preventDefault();
-      const studentId = document.getElementById('login-student-id').value;
-      if (!studentId) {
+        runnerState.lives = Math.max(1, runnerState.lives - 1);
         SoundEngine.wrong();
-        showToast('Sila minta guru mendaftarkan nama anda dalam kelas ini dahulu!', '⚠️');
-        return;
+        icon.textContent = '🚧';
+        title.textContent = `KURANG TEPAT! Jawapan: ${q.options[q.correct]}`;
+        title.className = 'font-display font-bold text-xl text-orange-400';
       }
-      activeStudentId = studentId;
-      SoundEngine.init();
-      SoundEngine.startBGM();
-      SoundEngine.unlock();
-      navigateTo('dashboard');
+      explain.textContent = q.explain;
+      overlay.classList.remove('hidden');
     }
 
-    // 2. TEACHER LOGIN & REGISTRATION FUNCTIONS
-    function handleTeacherLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('login-teacher-username').value.trim();
-      const pass = document.getElementById('login-teacher-password').value.trim();
-      const teacher = schoolDB.teachers.find(t => t.username.toLowerCase() === user.toLowerCase() && t.password === pass);
-      if (!teacher) {
-        SoundEngine.wrong();
-        showToast('ID Guru atau Kata Laluan tidak sah!', '❌');
-        return;
+    function nextRunnerQuestion() {
+      document.getElementById('runner-feedback-overlay').classList.add('hidden');
+      runnerState.qIndex++;
+      if (runnerState.qIndex >= MOD1_QUESTIONS.length) {
+        runnerState.active = false;
+        completeMission(1);
+        document.getElementById('runner-summary-stats').innerHTML = `Anda mengumpul <span class="text-yellow-300">${runnerState.score} Syiling Emas</span> dalam larian ini!`;
+        document.getElementById('runner-summary-overlay').classList.remove('hidden');
+      } else {
+        runnerState.paused = false;
+        loadRunnerQuestionUI();
       }
-      activeTeacherId = teacher.id;
-      SoundEngine.unlock();
-      navigateTo('teacher-dashboard');
     }
 
-    function renderTeacherDashboard() {
-      const teacher = schoolDB.teachers.find(t => t.id === activeTeacherId);
-      document.getElementById('teacher-dash-name').textContent = teacher ? teacher.name : 'Cikgu';
+    /* 7. MOD 2: BANDAR PENULIS */
+    const MOD2_TOPICS = [
+      { id: 'cuti', title: 'Pengalaman Bercuti', type: 'Karangan Tidak Berformat', icon: '🏖️', goodWords: ['Pada cuti sekolah', 'bertolak awal pagi', 'pemandangan indah', 'mandi-manda', 'mengambil gambar', 'kenangan manis'], badWords: ['Yang benar,', '8:00 pagi', 'Tuan Pengarah'], sentences: ['Pada cuti sekolah yang lalu, saya dan keluarga telah bercuti ke Pulau Pangkor.', 'Kami bertolak dari rumah pada awal pagi dengan menaiki kereta ayah.', 'Setibanya di sana, kami bermandi-manda di pantai yang bersih dan mengambil gambar kenangan.', 'Percutian ini amat menyeronokkan dan menjadi kenangan manis buat kami sekeluarga.'], sample: `Tajuk: Pengalaman Bercuti di Pulau Pangkor\n\nPada cuti sekolah yang lalu, saya dan keluarga telah bercuti ke Pulau Pangkor. Kami bertolak awal pagi dengan menaiki kereta ayah yang baharu.\n\nSetibanya di jeti, kami menaiki feri menuju ke pulau tersebut. Pemandangan laut yang biru sungguh indah. Di pantai, saya dan adik bermandi-manda dengan gembira sambil membina istana pasir.\n\nPada waktu petang, kami menikmati makanan laut yang segar sebelum pulang. Percutian ini menjadi kenangan manis yang tidak akan saya lupakan.` },
+      { id: 'surat', title: 'Surat kepada Sahabat', type: 'Surat Kiriman Tidak Rasmi (Berformat)', icon: '✉️', goodWords: ['Alamat & Tarikh', 'Menemui sahabatku', 'Semoga sihat', 'Berkongsi cerita', 'Sekian sahaja', 'Yang benar,'], badWords: ['10:15 pagi', 'Perkara: Aduan', 'Oleh itu, kesimpulannya'], sentences: ['No. 12, Jalan Melati, 43000 Kajang, Selangor. (18 November 2026)', 'Menemui sahabatku, Aiman yang kini berada di Johor Bahru semoga berada dalam keadaan sihat.', 'Tujuan saya menulis surat ini adalah untuk menceritakan pengalaman saya menyertai pertandingan bercerita.', 'Sekian sahaja warkah saya kali ini. Yang benar, (Tandatangan).'], sample: `No. 12, Jalan Melati,\n43000 Kajang,\nSelangor.\n\n18 November 2026.\n\nMenemui sahabatku, Aiman yang kini berada di Johor Bahru semoga berada dalam keadaan sihat sejahtera.\n\nSaudara,\nApa khabar saudara di sana? Saya di sini sihat-sihat sahaja. Tujuan saya menulis surat ini adalah untuk berkongsi cerita tentang kejayaan sekolah saya menjuarai Pertandingan Bicara Berirama peringkat daerah.\n\nSekian sahaja coretan saya pada kali ini. Sambutlah salam mesra daripada saya.\n\nYang benar,\nDanial` },
+      { id: 'catatan', title: 'Catatan Hari Sukan Sekolah', type: 'Catatan (Berformat)', icon: '🏅', goodWords: ['Sabtu, 12 Julai', '7:30 pagi', 'Perbarisan lintas hormat', 'Acara balapan', 'Sorakan gemuruh', '12:30 tengah hari'], badWords: ['Menemui sahabatku,', 'Yang ikhlas,', 'Alamat pengirim'], sentences: ['Sabtu, 12 Julai 2026 — 7:30 pagi: Semua murid dan guru berkumpul di padang sekolah.', '8:15 pagi: Upacara perbarisan lintas hormat rumah sukan dirasmikan oleh Guru Besar.', '10:00 pagi: Acara balapan 100 meter berlangsung meriah dengan sorakan gemuruh penonton.', '12:30 tengah hari: Majlis penyampaian hadiah disempurnakan dan murid pulang dengan gembira.'], sample: `CATATAN HARI SUKAN SEKOLAH\n\nSabtu, 12 Julai 2026\n\n7:30 pagi\nSemua murid, guru dan ibu bapa berkumpul di padang sekolah yang dihias cantik dengan panji-panji rumah sukan.\n\n8:15 pagi\nUpacara perbarisan lintas hormat bermula. Pasukan Rumah Merah tampil segak dengan pakaian seragam.\n\n10:00 pagi\nAcara balapan 100 meter dan lari berganti-ganti dijalankan. Sorakan gemuruh memeriahkan suasana padang.\n\n12:30 tengah hari\nRumah Biru diumumkan sebagai johan keseluruhan. Semua murid pulang dengan perasaan gembira.` }
+    ];
 
-      // Render Class Chips
-      document.getElementById('teacher-class-chips').innerHTML = schoolDB.classes.map(c => `
-        <span class="bg-cyan-500/20 border border-cyan-400/50 text-cyan-200 text-xs font-extrabold px-3 py-1 rounded-full">🏫 ${c}</span>
+    let mod2State = { selectedTopic: MOD2_TOPICS[0], collectedWords: [], scrambledSentences: [] };
+
+    function initMod2() {
+      const container = document.getElementById('m2-topics-container');
+      container.innerHTML = MOD2_TOPICS.map(t => `
+        <button onclick="selectMod2Topic('${t.id}')" class="btn-arcade text-left p-5 rounded-2xl bg-slate-800 hover:bg-purple-900/70 border-2 border-purple-500 hover:border-yellow-400 transition space-y-2">
+          <div class="text-4xl">${t.icon}</div>
+          <div class="font-display font-bold text-xl text-white">${t.title}</div>
+          <span class="inline-block text-xs font-extrabold px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300">${t.type}</span>
+        </button>
       `).join('');
+      document.getElementById('sample-guide-content').textContent = mod2State.selectedTopic.sample;
+    }
 
-      // Populate Class Selects
-      const classOptions = schoolDB.classes.map(c => `<option value="${c}">${c}</option>`).join('');
-      document.getElementById('teacher-student-class-select').innerHTML = classOptions;
+    function toggleSampleGuideModal() {
+      const modal = document.getElementById('modal-sample-guide');
+      document.getElementById('sample-guide-content').textContent = mod2State.selectedTopic.sample;
+      modal.classList.toggle('hidden');
+    }
 
-      const filterSelect = document.getElementById('teacher-filter-class');
-      const currentFilter = filterSelect.value || 'ALL';
-      filterSelect.innerHTML = `<option value="ALL">Semua Kelas (${schoolDB.classes.length})</option>` + classOptions;
-      filterSelect.value = currentFilter;
+    function selectMod2Topic(topicId) {
+      const topic = MOD2_TOPICS.find(t => t.id === topicId);
+      if (!topic) return;
+      mod2State.selectedTopic = topic;
+      mod2State.collectedWords = [];
+      SoundEngine.laneSwitch();
 
-      // Render Students Table
-      const list = currentFilter === 'ALL'
-        ? schoolDB.students
-        : schoolDB.students.filter(s => s.studentClass === currentFilter);
+      document.getElementById('m2-chosen-topic-label').textContent = `"${topic.title}"`;
+      document.getElementById('m2-word-count').textContent = '0';
+      document.getElementById('m2-word-feedback').textContent = '';
 
-      const tbody = document.getElementById('teacher-students-tbody');
-      if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-400">Belum ada murid didaftarkan.</td></tr>`;
-        return;
+      const pool = [...topic.goodWords, ...topic.badWords].sort(() => Math.random() - 0.5);
+      document.getElementById('m2-word-pool').innerHTML = pool.map(w => `
+        <button onclick="collectMod2Word(this, '${w.replace(/'/g, "\\'")}')" class="btn-arcade bg-slate-800 hover:bg-slate-700 border-2 border-cyan-400/60 text-white font-bold px-4 py-2.5 rounded-2xl text-sm">+ ${w}</button>
+      `).join('');
+      activateMod2Step(2);
+    }
+
+    function activateMod2Step(stepNum) {
+      for (let i = 1; i <= 4; i++) {
+        const pill = document.getElementById(`m2-step-pill-${i}`);
+        pill.className = i <= stepNum ? 'py-2 px-2 rounded-xl bg-yellow-400 text-slate-950 font-black' : 'py-2 px-2 rounded-xl bg-slate-800 text-slate-400';
       }
+      document.getElementById(`m2-step-${stepNum}`).classList.remove('hidden');
+    }
 
-      tbody.innerHTML = list.map(s => `
-        <tr class="hover:bg-slate-800/60">
-          <td class="py-3 px-3 text-white">${s.avatar === 'maya' ? '🛹' : '🧢'} ${s.name}</td>
-          <td class="py-3 px-3"><span class="bg-purple-800 text-cyan-200 text-xs px-2.5 py-0.5 rounded-full">${s.studentClass}</span></td>
-          <td class="py-3 px-3 text-yellow-300">🪙 ${s.coins} •${s.xp} XP</td>
-          <td class="py-3 px-3 text-green-300">${s.completedMissions.length} / 5</td>
-          <td class="py-3 px-3">
-            <button onclick="teacherDeleteStudent('${s.id}')" class="text-xs bg-rose-900 hover:bg-rose-700 text-rose-200 px-2.5 py-1 rounded-lg">Padam</button>
-          </td>
-        </tr>
+    function collectMod2Word(btn, word) {
+      const topic = mod2State.selectedTopic;
+      const fb = document.getElementById('m2-word-feedback');
+      if (topic.goodWords.includes(word)) {
+        if (!mod2State.collectedWords.includes(word)) {
+          mod2State.collectedWords.push(word);
+          btn.disabled = true;
+          btn.className = 'bg-green-600 border-2 border-green-300 text-white font-extrabold px-4 py-2.5 rounded-2xl text-sm';
+          btn.textContent = `✔ ${word}`;
+          SoundEngine.coin();
+          fb.textContent = `Bagus! "${word}" sangat sesuai untuk tajuk ini.`;
+          fb.className = 'text-sm font-extrabold text-green-300';
+          document.getElementById('m2-word-count').textContent = mod2State.collectedWords.length;
+          if (mod2State.collectedWords.length >= 6) {
+            prepareMod2SentenceSorter();
+            activateMod2Step(3);
+          }
+        }
+      } else {
+        SoundEngine.wrong();
+        btn.classList.add('border-rose-500', 'bg-rose-950');
+        fb.textContent = `Ops! "${word}" kurang sesuai untuk format "${topic.title}". Cuba pilih kata lain!`;
+        fb.className = 'text-sm font-extrabold text-rose-400';
+      }
+    }
+
+    function prepareMod2SentenceSorter() {
+      const correct = mod2State.selectedTopic.sentences;
+      let shuffled = [...correct].sort(() => Math.random() - 0.5);
+      if (shuffled.join('|') === correct.join('|')) shuffled = [correct[2], correct[0], correct[3], correct[1]];
+      mod2State.scrambledSentences = shuffled;
+      renderMod2SentenceList();
+    }
+
+    function renderMod2SentenceList() {
+      const list = document.getElementById('m2-sentence-list');
+      list.innerHTML = mod2State.scrambledSentences.map((s, idx) => `
+        <div class="bg-slate-950 border-2 border-purple-500 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-orange-500 text-white font-display font-bold flex items-center justify-center flex-shrink-0">${idx + 1}</span>
+            <p class="text-sm sm:text-base font-bold text-white">${s}</p>
+          </div>
+          <div class="flex gap-1.5 flex-shrink-0">
+            <button onclick="moveMod2Sentence(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="bg-slate-800 hover:bg-cyan-600 disabled:opacity-30 px-2.5 py-1.5 rounded-lg text-xs font-black">⬆️</button>
+            <button onclick="moveMod2Sentence(${idx}, 1)" ${idx === mod2State.scrambledSentences.length - 1 ? 'disabled' : ''} class="bg-slate-800 hover:bg-cyan-600 disabled:opacity-30 px-2.5 py-1.5 rounded-lg text-xs font-black">⬇️</button>
+          </div>
+        </div>
       `).join('');
     }
 
-    function teacherRegisterClass(e) {
-      e.preventDefault();
-      const input = document.getElementById('teacher-new-class-name');
-      const className = input.value.trim();
-      if (!className) return;
-      if (schoolDB.classes.some(c => c.toLowerCase() === className.toLowerCase())) {
-        showToast('Kelas ini sudah wujud!', '⚠️');
-        return;
-      }
-      schoolDB.classes.push(className);
-      saveSchoolDB();
-      input.value = '';
-      SoundEngine.coin();
-      showToast(`Kelas "${className}" berjaya didaftarkan!`, '🏫');
-      renderTeacherDashboard();
+    function moveMod2Sentence(index, dir) {
+      const newIdx = index + dir;
+      if (newIdx < 0 || newIdx >= mod2State.scrambledSentences.length) return;
+      const arr = mod2State.scrambledSentences;
+      [arr[index], arr[newIdx]] = [arr[newIdx], arr[index]];
+      SoundEngine.laneSwitch();
+      renderMod2SentenceList();
     }
 
-    function teacherRegisterStudent(e) {
-      e.preventDefault();
-      const studentClass = document.getElementById('teacher-student-class-select').value;
-      const name = document.getElementById('teacher-new-student-name').value.trim();
-      const avatar = document.querySelector('input[name="teacherStudentAvatar"]:checked').value;
-      if (!studentClass || !name) return;
-
-      schoolDB.students.push({
-        id: 'stu_' + Date.now(),
-        name,
-        studentClass,
-        avatar,
-        coins: 0,
-        xp: 0,
-        unlockedMissions: [1],
-        completedMissions: [],
-        unlockAllOverride: false,
-        mod2Drafts: {},
-        mod5Essay: '',
-        mod5Topic: 'Sambutan Hari Kebangsaan di Sekolah Saya',
-        badges: []
-      });
-      saveSchoolDB();
-      document.getElementById('teacher-new-student-name').value = '';
-      SoundEngine.coin();
-      showToast(`Murid "${name}" berjaya didaftarkan ke kelas ${studentClass}!`, '🎒');
-      renderTeacherDashboard();
-    }
-
-    function teacherDeleteStudent(id) {
-      schoolDB.students = schoolDB.students.filter(s => s.id !== id);
-      saveSchoolDB();
-      renderTeacherDashboard();
-      showToast('Rekod murid dipadam.', '🗑️');
-    }
-
-    // 3. ADMIN LOGIN & REGISTER NEW TEACHER FUNCTIONS
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('login-admin-username').value.trim();
-      const pass = document.getElementById('login-admin-password').value.trim();
-      if (user.toLowerCase() !== 'admin' || pass !== schoolDB.adminPassword) {
+    function checkSentenceOrder() {
+      const correct = mod2State.selectedTopic.sentences;
+      const isMatch = mod2State.scrambledSentences.every((s, i) => s === correct[i]);
+      const fb = document.getElementById('m2-order-feedback');
+      if (isMatch) {
+        SoundEngine.correct();
+        fb.textContent = '🎉 Syabas! Susunan perenggan Pendahuluan, Isi dan Penutup sangat tepat!';
+        fb.className = 'text-sm font-extrabold text-green-300';
+        document.getElementById('m2-collected-chips').textContent = mod2State.collectedWords.join(', ');
+        const saved = gameState.mod2Drafts[mod2State.selectedTopic.id];
+        if (saved) {
+          document.getElementById('m2-draft-intro').value = saved.intro || '';
+          document.getElementById('m2-draft-body').value = saved.body || '';
+          document.getElementById('m2-draft-outro').value = saved.outro || '';
+        }
+        updateMod2WordCount();
+        activateMod2Step(4);
+      } else {
         SoundEngine.wrong();
-        showToast('ID atau Kata Laluan Admin tidak tepat! (Cuba: admin / admin123)', '❌');
-        return;
+        fb.textContent = '⚠️ Susunan belum tepat. Pastikan Pendahuluan berada di nombor 1 dan Penutup di nombor 4.';
+        fb.className = 'text-sm font-extrabold text-orange-400';
       }
-      SoundEngine.unlock();
-      navigateTo('admin-dashboard');
     }
 
-    function renderAdminDashboard() {
-      document.getElementById('admin-stat-teachers').textContent = schoolDB.teachers.length;
-      document.getElementById('admin-stat-classes').textContent = schoolDB.classes.length;
-      document.getElementById('admin-stat-students').textContent = schoolDB.students.length;
+    function updateMod2WordCount() {
+      const combined = [document.getElementById('m2-draft-intro').value, document.getElementById('m2-draft-body').value, document.getElementById('m2-draft-outro').value].join(' ').trim();
+      const count = combined ? combined.split(/\s+/).length : 0;
+      document.getElementById('m2-draft-wordcount').textContent = count;
+      return count;
+    }
 
-      document.getElementById('admin-teachers-tbody').innerHTML = schoolDB.teachers.map(t => `
-        <tr class="hover:bg-slate-800/60">
-          <td class="py-3 px-3 text-white">
-            <div>${t.name}</div>
-            <div class="text-xs text-slate-400">${t.subject}</div>
-          </td>
-          <td class="py-3 px-3 text-cyan
+    ['m2-draft-intro', 'm2-draft-body', 'm2-draft-outro'].forEach(id => {
+      document.addEventListener('input', (e) => { if (e.target && e.target.id === id) updateMod2WordCount(); });
+    });
+
+    function saveMod2Draft(isSubmit) {
+      const intro = document.getElementById('m2-draft-intro').value.trim();
+      const body = document.getElementById('m2-draft-body').value.trim();
+      const outro = document.getElementById('m2-draft-outro').value.trim();
+      const wc = updateMod2WordCount();
+
+      gameState.mod2Drafts[mod2State.selectedTopic.id] = { intro, body, outro };
+      saveGameState();
+
+      const status = document.getElementById('m2-draft-status');
+      if (!isSubmit) {
+        SoundEngine.coin();
+        status.textContent = '💾 Draf penulisan berjaya disimpan dalam pelayar!';
+        return;
+      }
+
+      if (wc < 12) {
+        SoundEngine.wrong();
+        status.textContent = '⚠️ Sila tulis sekurang-kurangnya 12 patah perkataan sebelum menghantar draf.';
+        status.className = 'text-sm font-extrabold text-orange-400';
+        return;
+      }
+
+      addRewards(50, 80, 'Menghantar Draf Penulisan');
+      completeMission(2);
+      status.innerHTML = `🎉 Tahniah! Draf dihantar (+50 Syiling). Misi 3 (Terowong Detektif) kini dibuka! <button onclick="navigateTo('mod3')" class="ml-3 btn-arcade btn-orange text-xs px-4 py-2 rounded-xl text-white">🚀 Teruskan ke Misi 3</button>`;
+      status.className = 'text-sm font-extrabold text-green-300';
+    }
+
+    /* 8. MOD 3: TEROWONG DETEKTIF */
+    const MOD3_QUESTIONS = [
+      { cat: 'Kesalahan Ejaan', tokens: ['Ibu', 'membeli', 'sayur-sayuran', 'segar', 'di', 'pasaraya', 'berhampiran', 'rumah.'], wrongIdx: 5, options: ['pasar raya', 'pasar-raya', 'pasarraya'], correctOpt: 'pasar raya', explain: 'Kata majmuk "pasar raya" hendaklah dieja terpisah sebagai dua perkataan.', fixedSentence: 'Ibu membeli sayur-sayuran segar di pasar raya berhampiran rumah.' },
+      { cat: 'Kesalahan Ejaan', tokens: ['Murid-murid', 'digalakkan', 'mengambil', 'bahagian', 'dalam', 'aktiviti', 'ko-kurikulum', 'sekolah.'], wrongIdx: 6, options: ['kokurikulum', 'ko kurikulum', 'kokurikulam'], correctOpt: 'kokurikulum', explain: 'Imbuhan pinjaman "ko-" ditulis rapat dengan kata dasar menjadi "kokurikulum".', fixedSentence: 'Murid-murid digalakkan mengambil bahagian dalam aktiviti kokurikulum sekolah.' },
+      { cat: 'Kesalahan Ejaan', tokens: ['Ayah', 'memesan', 'sepinggan', 'kueh', 'teow', 'goreng', 'di', 'restoran', 'itu.
